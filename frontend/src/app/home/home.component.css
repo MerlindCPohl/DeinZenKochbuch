@@ -5,8 +5,11 @@
   padding: 2rem;
 }
 
-h1 {
+h4 {
+  margin: 5rem auto 0 auto;
   margin-bottom: 2rem;
+  text-align: center;
+  color: #5c0c1d;
 }
 
 .new-recipe-container {
@@ -16,4 +19,15 @@ h1 {
 p {
   text-align: center;
   max-width: 600px;
+}
+
+button{
+  align-content: center;
+  color: #722a35;
+  border-radius: 7px;
+  background-color: #f7eddc;
+  border: none;
+  display: block;
+  margin: 0 auto;
+  padding: 0.6rem 1rem;
 }

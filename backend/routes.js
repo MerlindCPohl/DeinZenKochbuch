@@ -1,28 +1,38 @@
 const express = require('express');
 const router = express.Router();
 const client = require('./db');
-const authMiddleware = require('./middleware/auth'); // Middleware für User-Authentifizierung
-const bcrypt = require('bcryptjs');
 
 
-// Login-Endpunkt, um ein JWT zu erhalten
+// Login-Endpunkt
 router.post('/login', async (req, res) => {
-    const { name, passwort } = req.body
+    const { name, passwort } = req.body;
     try {
-        const result = await db.query('SELECT * FROM users WHERE name = ?', [name]);
-        if (result.length === 0) return res.status(404).json({ message: 'User nicht gefunden' });
+        const userQuery = 'SELECT * FROM users WHERE name = $1';
+        const userResult = await client.query(userQuery, [name]);
 
-        const user = result[0];
-        const isMatch = await bcrypt.compare(passwort, user.passwort);
-        if (!isMatch) return res.status(401).json({ message: 'Falsches Passwort' });
+        if (userResult.rows.length === 0) {
+            // user not found
+            return res.status(404).json({ message: 'User nicht gefunden' });
+        }
 
-        const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '1h' });
-        res.json({ token, userId: user.id });
-    } catch (error) {
+        const user = userResult.rows[0];
+
+        if (user.passwort !== passwort) {
+            // Passwort stimmt nicht überein
+            return res.status(401).json({ message: 'Falsches Passwort' });
+        }
+
+        // Login erfolgreich
+        res.json({
+            message: 'Login erfolgreich',
+            userId: user.id,
+            name: user.name,
+        });
+    } catch (err) {
+        console.error(err);
         res.status(500).json({ message: 'Fehler beim Login' });
     }
 });
-
 
 
 // POST User einloggen
@@ -87,23 +97,6 @@ router.get('/rezepte/:id', async (req, res) => {
     }
 });
 
-// GET Benutzer*in anhand der ID aus dem Token
-router.get('/users/me', authMiddleware, async (req, res) => {
-    try {
-        const query = `SELECT id, username, email FROM users WHERE id = $1`;
-        const result = await client.query(query, [req.userId]); // userId kommt aus authMiddleware
-
-        if (result.rows.length > 0) {
-            res.json(result.rows[0]);
-        } else {
-            res.status(404).json({ error: 'Benutzer*in nicht gefunden' });
-        }
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Fehler beim Abrufen der Benutzer*in' });
-    }
-});
-
 //GET eine spezifische zutat, damit autovervollästndigung im dropdowm funktioniert
 router.get('/zutaten', async (req, res) => {
     const searchTerm = req.query.name;
@@ -123,14 +116,17 @@ router.get('/zutaten', async (req, res) => {
     }
 });
 
-// Post ein rezept, jetzt auch mit Authentifizierung
-router.post('/rezept', authMiddleware, async (req, res) => {
-    const { name, anleitung, anzahlPortionen, zubereitungsZeitMin, rohkost, vegan, vegetarisch, glutenfrei, zutaten } = req.body;
-    const userId = req.userId; // Aus dem Token nehmen
+// Post ein rezept
+router.post('/rezept', async (req, res) => {
+    const { name, anleitung, anzahlPortionen, zubereitungsZeitMin, rohkost, vegan, vegetarisch, glutenfrei, zutaten, userId } = req.body;
+
+    if (!userId) {
+        return res.status(400).json({ error: 'User-ID fehlt' });
+    }
 
     try {
         // Rezept einfügen
-        const result = await db.query(
+        const result = await client.query(
             'INSERT INTO rezepte (name, anleitung, anzahlPortionen, zubereitungsZeitMin, erstelltVon, rohkost, vegan, vegetarisch, glutenfrei) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [name, anleitung, anzahlPortionen, zubereitungsZeitMin, userId, rohkost, vegan, vegetarisch, glutenfrei]
         );
