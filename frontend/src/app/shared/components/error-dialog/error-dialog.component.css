@@ -1,0 +1,9 @@
+mat-dialog-content {
+  background-color: #722a35;
+  color: #f7eddc;
+  font-size: 16px;
+}
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+}

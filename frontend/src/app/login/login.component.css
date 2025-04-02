@@ -1,0 +1,112 @@
+.full-width {
+  width: 100%;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* so body immer genau zwischen header/footer, egal ob wir sie nochmal ändern */
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+
+/*karte mit ganzem login*/
+.shipping-card {
+  color: #722a35;
+  background-color: #f7eddc ;;
+  width: clamp(180px, 70vw, min(70vw, 1000px));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/*für die inhalte in der shipping card*/
+.mat-card-actions {
+  display: flex;
+  flex-direction: row; /* Damit die Textzeile und die Buttons vertikal ausgerichtet sind */
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 70px;
+  padding: 20px;
+}
+
+/*für den space zwischen den buttons, anders ging es nicht, hat jahre gedauert*/
+.spacer {
+  flex-grow: 1; /* Nimmt den gesamten verbleibenden Raum ein */
+}
+
+/*text noch kein konto?*/
+.register-text {
+  font-size: 14px;
+  color: #722a35;
+  margin-top: 10px; /* Abstand zum oberen Rand */
+  margin-bottom: 2px; /* Abstand zum unteren Rand */
+  padding-left: 10px;
+}
+
+/*buttons*/
+button.login-btn {
+  align-self: flex-end;
+  color: #722a35;
+  border-radius: 7px;
+}
+
+button.register-btn {
+  align-self: flex-start;
+  color: #722a35;
+  border-radius: 7px;
+}
+
+/* eingabefelder */
+mat-form-field .mat-input-element {
+  background-color: #f7ede8;
+  border-radius: 4px; /* abgerundete Ecken */
+  color: #722a35;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center; /* Horizontale Ausrichtung */
+  align-items: center; /* Vertikale Ausrichtung */
+  padding: 60px 0; /* Stellt sicher, dass es nicht zu nah am Header/Footer ist */
+  margin: 0;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2%;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+.mat-mdc-card-header {
+  margin-bottom: 2%;
+}
+
+.mat-mdc-card-actions {
+  margin-top: 2%;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.success {
+  color: seagreen;
+  margin-top: 10px;
+}
+
+.error {
+  color: darkred;
+  margin-top: 10px;
+}
+

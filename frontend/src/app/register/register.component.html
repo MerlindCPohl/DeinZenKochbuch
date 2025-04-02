@@ -1,0 +1,90 @@
+<div class="wrapper">
+  <form [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Registrierung</mat-card-title>
+    </mat-card-header>
+    <div style="height: 20px;"></div>
+    <mat-card-content>
+
+      <!-- Name -->
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Dein Username</mat-label>
+            <input matInput formControlName="name" autocomplete="off">
+            <mat-icon matSuffix>person_add</mat-icon>
+            <!-- Fehleranzeige -->
+            <mat-error *ngIf="registerForm.controls['name'].hasError('usernameTaken')">
+              Username bereits vergeben!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Passwort -->
+      <div class="row">
+        <div class="hint-text">
+          Bitte gib ein Passwort mit mind. 8 Zeichen ein, das Groß- und Kleinbuchstaben sowie mindestens eine Zahl und ein Sonderzeichen enthält:
+        </div>
+        <mat-form-field appearance="fill" class="full-width">
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Passwort*" formControlName="passwort" autocomplete="new-password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <!-- Fehleranzeige -->
+            <mat-error *ngIf="registerForm.controls['passwort'].hasError('required')">
+              Passwort <strong>erforderlich</strong>
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['passwort'].hasError('minlength')">
+              Passwort muss mind. <strong>8</strong> Zeichen enthalten!
+            </mat-error>
+          </mat-form-field>
+      </div>
+
+      <!-- Passwort wiederholen -->
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput
+                   [type]="hide2 ? 'password' : 'text'" placeholder="Passwort wiederholen*" formControlName="passwort2" autocomplete="new-password">
+            <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+              <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <!-- Fehleranzeige -->
+            <mat-error *ngIf="registerForm.controls['passwort2'].hasError('required')">
+              Wiederholung des Passwortes <strong>erforderlich</strong>
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['passwort2'].hasError('minlength')">
+              Passwort muss mind. <strong>8</strong> Zeichen enthalten!
+            </mat-error>
+            <mat-error *ngIf="registerForm.hasError('passwordsNotMatching')">
+              Passwörter stimmen nicht überein!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </mat-card-content>
+    <!-- Registrieren Button -->
+
+    <mat-card-actions class="button-container">
+    <button mat-raised-button type="button" routerLink="/login"  (click)="onCancelRegistration()" class="cancel-btn">
+      Abbrechen</button>
+    <div class="spacer"></div>
+    <button type="submit" mat-raised-button color="primary" class="register-btn">Registrieren
+    </button>
+    </mat-card-actions>
+  </mat-card>
+  </form>
+
+<!-- Fehlermeldungen und anderen NAchrichten -->
+<div *ngIf="registerMessage"
+     [ngClass]="{
+       'success': registerMessage === 'Registrierung erfolgreich!',
+       'error': registerMessage !== 'Registrierung nicht erfolgreich!'
+     }">
+  {{ registerMessage }}
+</div>
+</div>
+

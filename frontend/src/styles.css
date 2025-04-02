@@ -1,0 +1,59 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body {  background-color: #d18263; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-form-field.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #f7ede8 !important;
+  border-radius: 4px !important;
+}
+
+mat-form-field.mat-form-field-appearance-fill .mat-input-element {
+  background-color: transparent !important;
+  color: #722a35 !important;
+}
+
+.mat-mdc-snack-bar-container {
+  .red-snackbar {
+    --mdc-snackbar-container-shape: #722a35 ;
+    background: #722a35;
+  }
+}
+
+/* --snack-bar-styling funktioniert leider nicht, mache ich ggf am ende
+.mat-mdc-snack-bar-container.snackbar-success{
+ :root {
+    --mdc-snackbar-container-color: #915c49;
+    --mdc-snackbar-supporting-text-color: #f7ede8;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 15px;
+  padding: 12px 20px;
+}
+
+.mat-mdc-snack-bar-container.snackbar-error{
+  :root {
+    --mdc-snackbar-container-color: #d64951 !important;
+    --mdc-snackbar-supporting-text-color: #f7ede8;
+  }
+  font-family: 'Poppins', sans-serif, bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 15px;
+  padding: 12px 20px;
+}
+
+.custom-style {
+  color: #722a35;
+
+}
+
+*/

@@ -1,0 +1,20 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.container {
+  max-height: 90vh; /* Verhindert, dass der Button abgeschnitten wird */
+  overflow-y: auto;
+  padding-bottom: 50px; /* Platz für den Button */
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  background-color: #f8f9fa;
+}

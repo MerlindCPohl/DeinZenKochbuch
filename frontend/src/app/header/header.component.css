@@ -1,0 +1,17 @@
+.toolbar-spacer {
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-right > * {
+  margin-left: 10px; /* Optional: Abstand zwischen den Buttons */
+}
+
+.header{
+  background-color: #f7eddc
+}

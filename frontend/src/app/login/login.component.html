@@ -1,0 +1,59 @@
+<div class="wrapper">
+<form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Bitte logge dich hier ein:</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="fill">
+            <input matInput placeholder="Username" formControlName="name">
+            <mat-icon matSuffix >person_add</mat-icon>
+            @if(loginForm.controls['name'].hasError('required')) {
+              <mat-error>
+                Username <strong>erforderlich</strong>
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill" class="full-width">
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Passwort" formControlName="passwort">
+            <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            @if(loginForm.controls['passwort'].hasError('required')) {
+              <mat-error>
+                Passwort <strong>erforderlich</strong>
+              </mat-error>
+            } @else if(loginForm.controls['passwort'].hasError('minlength')) {
+              <mat-error>
+                Passwort muss mind. <strong>8</strong> Zeichen enthalten!
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="button-container">
+      <div class="register-container">
+      <p class="register-text">Noch kein Konto?</p>
+        <button mat-raised-button routerLink="/register" type="button" class="register-btn">Registrieren</button>
+      </div>
+      <div class="spacer"></div>
+      <button mat-raised-button type="submit" color="primary" class="login-btn">Login</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<div *ngIf="loginMessage" [ngClass]="{'success': loginMessage === 'Login erfolgreich', 'error': loginMessage !== 'Login erfolgreich'}">
+  {{ loginMessage }}
+</div>
+</div>
+

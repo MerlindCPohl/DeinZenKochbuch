@@ -1,0 +1,107 @@
+.full-width {
+  width: 100%;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* so body immer genau zwischen header/footer, egal ob wir sie nochmal ändern */
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+
+.shipping-card {
+  background-color: #f7eddc;
+  width: clamp(180px, 70vw, min(70vw, 1000px));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/*für die inhalte in der shipping card*/
+.mat-card-actions {
+  display: flex;
+  flex-direction: row; /* Damit die Textzeile und die Buttons vertikal ausgerichtet sind */
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 70px;
+  padding: 20px;
+}
+
+.hint-text {
+  font-size: 14px;
+  margin-bottom: 10px; /* Abstand zum Eingabefeld */
+  margin-top: 8px;
+}
+
+mat-form-field {
+  display: block;
+  margin-bottom: 8px;
+}
+
+/*für den space zwischen den buttons, anders ging es nicht, hat jahre gedauert*/
+.spacer {
+  flex-grow: 1; /* nimmt gesamten verbleibenden Raum ein */
+}
+
+.cancel-btn{
+  align-self: flex-start;
+  color: #722a35;
+  border-radius: 7px;
+}
+
+.register-btn{
+  align-self: flex-start;
+  color: #722a35;
+  border-radius: 7px;
+}
+
+/* Styling für das Dialog-Panel */
+.confirm-dialog-panel {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f7eddc;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center; /* Horizontale Ausrichtung */
+  align-items: center; /* Vertikale Ausrichtung */
+  padding: 26px 0; /* Stellt sicher, dass es nicht zu nah am Header/Footer ist */
+  box-sizing: border-box;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.success {
+  color: green;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+  padding: 10px;
+  margin-top: 10px;
+}

@@ -1,0 +1,10 @@
+<div *ngIf="loggedIn(); else loginForm">
+  <h1>Willkommen bei Mein Kochbuch.de</h1>
+  <button mat-raised-button color="primary" [routerLink]="'/newrecipe'">
+    Neues Rezept hochladen
+  </button>
+</div>
+
+<ng-template #loginForm>
+  <app-login></app-login>
+</ng-template>

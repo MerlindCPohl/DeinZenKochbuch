@@ -1,0 +1,76 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Neues Rezept erstellen</h2>
+
+  <form (ngSubmit)="onSubmit()" #rezeptForm="ngForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name des Rezepts</label>
+      <input type="text" id="name" class="form-control" required [(ngModel)]="rezept.name" name="name">
+    </div>
+
+    <!-- zutaten eingeben -->
+    <div class="mb-3">
+      <label for="zutat" class="form-label">Zutat hinzufügen</label>
+      <input type="text" id="zutat" class="form-control" [(ngModel)]="zutatInput" name="zutatInput" (keyup)="sucheZutat()">
+    </div>
+
+    <!-- Zutaten-Vorschläge -->
+    <ul class="list-group mt-2" *ngIf="zutatenVorschlaege.length > 0">
+      <li class="list-group-item clickable" *ngFor="let zutat of zutatenVorschlaege" (click)="zutatAuswaehlen(zutat)">
+        {{ zutat.name }}
+      </li>
+    </ul>
+
+    <!-- Zutatenliste mit Mengenangaben -->
+    <div class="mt-3">
+      <h6>Zutatenliste:</h6>
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let zutat of ausgewaehlteZutaten">
+          {{ zutat.name }} -
+          <input type="number" [(ngModel)]="zutat.menge" class="form-control d-inline-block w-25 ms-2 me-2" name="menge">
+          {{ zutat.mengenEinheit }}
+          <button type="button" class="btn btn-danger btn-sm" (click)="entferneZutat(zutat.id)">✕</button>
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="mb-3">
+      <label for="anleitung" class="form-label">Anleitung</label>
+      <textarea id="anleitung" class="form-control" required [(ngModel)]="rezept.anleitung" name="anleitung"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="anzahlportionen" class="form-label">Anzahl der Portionen</label>
+      <input type="number" id="anzahlportionen" class="form-control" required [(ngModel)]="rezept.anzahlportionen" name="anzahlportionen">
+    </div>
+
+    <div class="mb-3">
+      <label for="zubereitungszeitmin" class="form-label">Zubereitungszeit (in Minuten)</label>
+      <input type="number" id="zubereitungszeitmin" class="form-control" required [(ngModel)]="rezept.zubereitungszeitmin" name="zubereitungszeitmin">
+    </div>
+
+    <!-- Checkboxen -->
+    <div class="mb-3">
+      <label class="form-label">Eigenschaften</label>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="rohkost" [(ngModel)]="rezept.rohkost" name="rohkost">
+        <label class="form-check-label" for="rohkost">Rohkost</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="vegan" [(ngModel)]="rezept.vegan" name="vegan">
+        <label class="form-check-label" for="vegan">Vegan</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="vegetarisch" [(ngModel)]="rezept.vegetarisch" name="vegetarisch">
+        <label class="form-check-label" for="vegetarisch">Vegetarisch</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="glutenfrei" [(ngModel)]="rezept.glutenfrei" name="glutenfrei">
+        <label class="form-check-label" for="glutenfrei">Glutenfrei</label>
+      </div>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary w-100">Rezept speichern</button>
+  </form>
+</div>

@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*irgendwie gab es voreinstellungen, wahrscheinlich bootstrap, die sind hiermit ausgeschaltet, sonst lässt sich der text nicht formuatieren */
+
+.footer {
+  background-color: #f7eddc ;
+  padding: 2px 0;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  position: fixed;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
+
+
+}
+
+.footer .text {
+  margin: 0; /* entfernt margins, falls standardmargin vorher eingestellt war*/
+  flex-grow: 0;
+  padding-left: 10px;
+  text-align: left;
+  font-family: 'Poppins', sans-serif, bold;
+  font-size: small;
+  color: #722a35;
+}
