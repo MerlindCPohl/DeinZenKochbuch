@@ -10,7 +10,7 @@ import { MatOptionModule } from '@angular/material/core';
 interface Zutat {
   id: number;
   name: string;
-  mengenEinheit: string;
+  mengeneinheit: string;
   menge?: number;
 }
 
@@ -47,6 +47,41 @@ export class NewrecipeComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
+  private mengeneinheitMapping: { [key: string]: string } = {
+    'Stueck': 'Stück',
+    'g': 'Gramm',
+    'l': 'Liter',
+    'ml': 'Milliliter'
+  };
+
+  private ersetzeUmlaute(text: string): string {
+    return text
+      .replace(/ae/g, 'ä')
+      .replace(/oe/g, 'ö')
+      .replace(/ue/g, 'ü')
+      .replace(/Ae/g, 'Ä')
+      .replace(/Oe/g, 'Ö')
+      .replace(/Ue/g, 'Ü');
+  }
+
+  // mengeneinheit richtig ausschreiben
+  private uebersetzeMengeneinheit(mengeneinheit: string): string {
+    const translated = this.mengeneinheitMapping[mengeneinheit] || mengeneinheit;
+    return this.ersetzeUmlaute(translated);
+  }
+
+  // Beispiel für die Nutzung beim Hinzufügen einer Zutat
+  zutatAuswaehlen(zutat: any) {
+    this.ausgewaehlteZutaten.push({
+      ...zutat,
+      menge: '',
+      mengeneinheit: this.uebersetzeMengeneinheit(zutat.mengeneinheit)
+    });
+    this.zutatInput = '';
+    this.zutatenVorschlaege = [];
+  }
+
+
   sucheZutat() {
     if (this.zutatInput.length > 1) {
       this.http.get<any[]>(`http://localhost:3000/zutaten?name=${this.zutatInput}`)
@@ -56,13 +91,6 @@ export class NewrecipeComponent implements OnInit {
     }
   }
 
-
-  zutatAuswaehlen(zutat: any) {
-    this.ausgewaehlteZutaten.push({ ...zutat, menge: '' });
-    this.zutatInput = '';
-    this.zutatenVorschlaege = [];
-  }
-  
 
   // Zutat entfernen
   entferneZutat(id: number) {

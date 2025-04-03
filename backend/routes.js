@@ -97,15 +97,20 @@ router.get('/rezepte/:id', async (req, res) => {
     }
 });
 
-//GET eine spezifische zutat, damit autovervollästndigung im dropdowm funktioniert
+//GET eine spezifische zutat, damit autovervollästndigung im dropdowm funktioniert + mengeneinheit
 router.get('/zutaten', async (req, res) => {
     const searchTerm = req.query.name;
 
     if (!searchTerm) {
         return res.status(400).send('Suchbegriff fehlt');
     }
-    const query = `SELECT * FROM zutaten
-                   WHERE name ILIKE '%' || $1 || '%'`;
+
+    const query = `
+        SELECT id, name, mengeneinheit
+        FROM zutaten
+        WHERE LOWER(name) ILIKE '%' || LOWER($1) || '%'`;
+
+    console.log("Suchbegriff:", searchTerm);
 
     try {
         const result = await client.query(query, [searchTerm]);

@@ -1,8 +1,14 @@
 html, body {
+  overflow-y: scroll;
+  scrollbar-width: none;
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-y: auto;
+
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari: Scrollbalken ausblenden */
 }
 
 .container {
@@ -13,6 +19,10 @@ html, body {
 
 .clickable {
   cursor: pointer;
+}
+
+.btn-spacing {
+  margin-left: 12px; /* Abstand anpassen */
 }
 
 .clickable:hover {
