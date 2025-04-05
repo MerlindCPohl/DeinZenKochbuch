@@ -1,0 +1,28 @@
+<!-- alle rezepte laden -->
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Alle Rezepte</h2>
+
+  <div class="row">
+    <div class="col-12 mb-2" *ngFor="let rezept of paginierteRezepte">
+      <div
+        class="card shadow-sm p-3 d-flex flex-row mb-4 justify-content-between align-items-center"
+        style="cursor: pointer"
+        (click)="zeigeDetails(rezept.id)">
+        <span>{{ ersetzeUmlauteUndSonderzeichen(rezept.name) }}</span>
+        <mat-icon style="color: #722a35;">visibility</mat-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-4">
+    <button class="btn btn-outline-secondary me-2" [disabled]="seite === 1" (click)="vorherigeSeite()">
+      &#8592; Zurück
+    </button>
+    <span class="align-self-center">Seite {{ seite }}</span>
+    <button class="btn btn-outline-secondary ms-2" [disabled]="seite * seitenGroesse >= allRecipes.length" (click)="naechsteSeite()">
+      Weiter &#8594;
+    </button>
+  </div>
+
+  <app-rezept-detail *ngIf="ausgewaehlt" [rezeptId]="ausgewaehlt" (close)="ausgewaehlt = null"></app-rezept-detail>
+</div>

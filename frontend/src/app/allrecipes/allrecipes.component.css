@@ -1,0 +1,23 @@
+.recipe-card {
+  position: relative;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.recipe-card:hover {
+  transform: scale(1.02);
+}
+
+.recipe-card::after {
+  content: '🥦';
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 20px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.recipe-card:hover::after {
+  opacity: 1;
+}

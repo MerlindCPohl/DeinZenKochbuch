@@ -15,3 +15,7 @@
 .header{
   background-color: #f7eddc
 }
+
+.spacer {
+  flex: 1;
+}

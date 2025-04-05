@@ -70,13 +70,11 @@ router.post('/users/login', async (req, res) => {
 
 // GET alle Rezepte
 router.get('/rezepte', async(req, res) => {
-    const query = `SELECT * FROM rezepte`;
     try {
-        const result = await client.query(query)
-        console.log(result)
-        res.send(result.rows);
+        const result = await client.query(`SELECT * FROM rezepte`);
+        res.status(200).json(result.rows);
     } catch (err) {
-        console.log(err.stack)
+        console.error('Fehler beim Laden aller Rezepte:', err);
         res.status(500).send('Fehler beim Abrufen der Rezepte');
     }
 });
@@ -206,6 +204,28 @@ router.post('/users/neu', async(req, res) => {
         res.status(500).json({ message: "Fehler bei der Registrierung" });
     }
 });
+
+
+// GET alle Rezepte eines users (meine rezepte)
+router.get('/rezepteuser/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    if (!userId) {
+        return res.status(400).json({ error: 'User-ID fehlt' });
+    }
+
+    try {
+        const result = await client.query(
+            'SELECT id, name FROM rezepte WHERE erstelltvon = $1',
+            [userId]
+        );
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.error('Fehler beim Laden der Rezepte:', err);
+        res.status(500).json({ error: 'Fehler beim Abrufen der Rezepte' });
+    }
+});
+
 
 // DELETE ein spezifisches Rezept
 router.delete('/rezepte/:id', async (req, res) => {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
+import {Router} from '@angular/router';
 
 interface Zutat {
   id: number;
@@ -87,7 +88,7 @@ export class NewrecipeComponent implements OnInit {
 
   private ersetzeUmlaute(text: string): string {
     // hier kommen die ausnahmen hin
-    const ausnahmenUmlaute = ['balsamicoessig', 'sauerampfer'];
+    const ausnahmenUmlaute = ['balsamicoessig', 'sauerampfer', 'boeuf stroganoff'];
 
     if (ausnahmenUmlaute.includes(text.toLowerCase())) {
       return text;
@@ -115,6 +116,7 @@ export class NewrecipeComponent implements OnInit {
   zutatAuswaehlen(zutat: any) {
     this.ausgewaehlteZutaten.push({
       ...zutat,
+      name: this.formatZutatName(zutat.name),
       menge: '',
       mengeneinheit: this.uebersetzeMengeneinheit(zutat.mengeneinheit)
     });
@@ -161,6 +163,10 @@ export class NewrecipeComponent implements OnInit {
 
 
   onSubmit() {
+    if (this.ausgewaehlteZutaten.length < 2) {
+      this.snackbarAnzeigen('Bitte mindestens zwei Zutaten angeben.');
+      return;
+    }
 
     const userId = localStorage.getItem('userId');
     if (!userId) {
@@ -218,6 +224,12 @@ export class NewrecipeComponent implements OnInit {
     this.snackbarVisible = true;
     setTimeout(() => this.snackbarVisible = false, 3000);
   }
+
+  private router = inject(Router);
+  abbrechen() {
+    this.router.navigate(['/home']);
+  }
+
 
   ngOnInit(): void {
   }

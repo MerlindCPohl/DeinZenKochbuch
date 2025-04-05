@@ -1,30 +1,51 @@
+/* Entfernt den Scrollbalken, aber erlaubt Scrollen */
 html, body {
-  overflow-y: scroll;
+  overflow-y: auto;
   scrollbar-width: none;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-
 }
 
 body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari: Scrollbalken ausblenden */
+  display: none;
 }
 
+/* dynamischr container damit seite scrollbar */
 .container {
-  max-height: 90vh; /* Verhindert, dass der Button abgeschnitten wird */
-  overflow-y: auto;
-  padding-bottom: 50px; /* Platz für den Button */
+  padding-bottom: 100px;
 }
 
+/* Sonstige Styles bleiben */
 .clickable {
   cursor: pointer;
 }
 
 .btn-spacing {
-  margin-left: 12px; /* Abstand anpassen */
+  margin-left: 12px;
 }
 
-.clickable:hover {
-  background-color: #f8f9fa;
+.abbrechen-button {
+  padding: 8px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #722a35;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
 }
+
+.abbrechen-button:hover {
+  background-color: #5c1e2b;
+  cursor: pointer;
+}
+
+.speichern-button {
+  padding: 8px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #722a35;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+}
+

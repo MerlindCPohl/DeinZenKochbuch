@@ -1,1 +1,19 @@
-<p>myrecipes works!</p>
+<div class="container mt-4">
+  <h2 class="mb-4">Meine Rezepte</h2>
+
+  <div class="row g-3">
+    <div class="col-md-6 col-lg-4" *ngFor="let rezept of myRecipes">
+      <div class="card shadow-sm p-3 d-flex justify-content-between flex-row align-items-center">
+        <div class="fw-bold">{{ rezept.name }}</div>
+        <div>
+          <button mat-icon-button color="primary" (click)="bearbeiten(rezept.id)" class="me-2">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="loeschen(rezept.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

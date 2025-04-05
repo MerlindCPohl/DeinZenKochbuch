@@ -5,7 +5,8 @@
   <ng-container *ngIf="loggedIn(); else loggedOut">
     <a mat-button routerLink="/allrecipes">Kochbuch</a>
     <a mat-button routerLink="/myrecipes">Meine Rezepte</a>
-    <a mat-button routerLink="/user-settings">Benutzer*inneneinstellungen</a>
+    <a mat-button routerLink="/user-settings">Einstellungen</a>
+    <span class="spacer"></span>
     <button mat-button (click)="logout()">Logout</button>
   </ng-container>
 
