@@ -8,7 +8,7 @@ import { User } from '../user';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = '/api';
   user: WritableSignal<User | null> = signal(null);
   token: WritableSignal<string> = signal('');
   loggedIn: Signal<boolean> = computed(() => {

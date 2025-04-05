@@ -24,13 +24,13 @@ router.post('/login', async (req, res) => {
 
         // Login erfolgreich
         res.json({
-            message: 'Login erfolgreich',
+            message: 'Login erfolgreich!!!!!',
             userId: user.id,
             name: user.name,
         });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Fehler beim Login' });
+        res.status(500).json({ message: 'Fehler beim Login xxxxx' });
     }
 });
 
@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
 router.post('/users/login', async (req, res) => {
     const { name, passwort } = req.body;
     try {
-        // Überprüfen, ob der Benutzer existiert
+        // überprüft ob nutzer*in eyistiert
         const userQuery = 'SELECT * FROM users WHERE name = $1';
         const userResult = await client.query(userQuery, [name]);
 
@@ -61,6 +61,7 @@ router.post('/users/login', async (req, res) => {
             userId: user.id,
             name: user.name,
         });
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Serverfehler beim Login' });
@@ -109,8 +110,6 @@ router.get('/zutaten', async (req, res) => {
         SELECT id, name, mengeneinheit
         FROM zutaten
         WHERE LOWER(name) ILIKE '%' || LOWER($1) || '%'`;
-
-    console.log("Suchbegriff:", searchTerm);
 
     try {
         const result = await client.query(query, [searchTerm]);

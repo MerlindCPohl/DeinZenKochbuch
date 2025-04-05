@@ -54,7 +54,45 @@ export class NewrecipeComponent implements OnInit {
     'ml': 'Milliliter'
   };
 
+  private ersetzeSS(text: string): string {
+    const ausnahmen = ['kresse', 'passionsfrucht'];
+    const patternNuss = /nuss|nuesse|nüsse/i;
+    const patternEssig = /essig/i;
+    const patternWasser = /wasser/i;
+
+    const ausnahmeMitWeiss = /weissweinessig/i;
+
+    // ausnahmen wo ss greifen soll
+    if (ausnahmeMitWeiss.test(text)) {
+      return text.replace(/weiss/i, 'weiß');
+    }
+
+    const lowerText = text.toLowerCase();
+    if (
+      ausnahmen.includes(lowerText) ||
+      patternNuss.test(lowerText) ||
+      patternEssig.test(lowerText) ||
+      patternWasser.test(lowerText)
+    ) {
+      return text;
+    }
+
+    return text.replace(/ss/g, 'ß');
+  }
+
+  public formatZutatName(text: string): string {
+    const mitUmlauten = this.ersetzeUmlaute(text);
+    return this.ersetzeSS(mitUmlauten);
+  }
+
   private ersetzeUmlaute(text: string): string {
+    // hier kommen die ausnahmen hin
+    const ausnahmenUmlaute = ['balsamicoessig'];
+
+    if (ausnahmenUmlaute.includes(text.toLowerCase())) {
+      return text;
+    }
+
     return text
       .replace(/ae/g, 'ä')
       .replace(/oe/g, 'ö')
@@ -64,13 +102,14 @@ export class NewrecipeComponent implements OnInit {
       .replace(/Ue/g, 'Ü');
   }
 
+
   // mengeneinheit richtig ausschreiben
   private uebersetzeMengeneinheit(mengeneinheit: string): string {
     const translated = this.mengeneinheitMapping[mengeneinheit] || mengeneinheit;
     return this.ersetzeUmlaute(translated);
   }
 
-  // Beispiel für die Nutzung beim Hinzufügen einer Zutat
+  // hinzufügen einer zutat
   zutatAuswaehlen(zutat: any) {
     this.ausgewaehlteZutaten.push({
       ...zutat,
@@ -97,17 +136,77 @@ export class NewrecipeComponent implements OnInit {
     this.ausgewaehlteZutaten = this.ausgewaehlteZutaten.filter((z) => z.id !== id);
   }
 
-  // Rezept speichern
+
+  // Rezept speichern + bedenken, dass alle ß wieder ss werden, ebenso umlaute, sonst db nicht lesbar
+  private ersetzeFuerSpeicherung(text: string): string {
+    return text
+      .replace(/ß/g, 'ss')
+      .replace(/ä/g, 'ae')
+      .replace(/ö/g, 'oe')
+      .replace(/ü/g, 'ue')
+      .replace(/Ä/g, 'Ae')
+      .replace(/Ö/g, 'Oe')
+      .replace(/Ü/g, 'Ue');
+  }
+
+
   onSubmit() {
-    const rezeptData = {
+
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('Du musst eingeloggt sein, um ein Rezept zu speichern.');
+      return;
+    }
+    //umwandlen von feldern für db
+    const rezeptMitErsetzterSchreibweise = {
       ...this.rezept,
-      zutaten: this.ausgewaehlteZutaten
+      name: this.ersetzeFuerSpeicherung(this.rezept.name),
+      anleitung: this.ersetzeFuerSpeicherung(this.rezept.anleitung),
     };
 
-    this.http.post('/api/rezepte', rezeptData).subscribe(
-      () => alert('Rezept erfolgreich gespeichert!'),
-      () => alert('Fehler beim Speichern des Rezepts.')
+    // zutatenschreibweise umwandeln
+    const zutatenKonvertiert = this.ausgewaehlteZutaten.map(zutat => ({
+      ...zutat,
+      name: this.ersetzeFuerSpeicherung(zutat.name),
+      mengeneinheit: this.ersetzeFuerSpeicherung(zutat.mengeneinheit)
+    }));
+
+    //hier mit user id aus login speuchern
+    const rezeptData = {
+      ...rezeptMitErsetzterSchreibweise,
+      zutaten: zutatenKonvertiert,
+      userId: +userId
+    };
+
+
+    this.http.post('/api/rezept', rezeptData).subscribe(
+      () => {
+        this.snackbarAnzeigen('Rezept erfolgreich gespeichert!');
+        setTimeout(() => {
+          this.rezept = {
+            name: '',
+            anleitung: '',
+            anzahlportionen: 0,
+            zubereitungszeitmin: 0,
+            rohkost: false,
+            vegan: false,
+            vegetarisch: false,
+            glutenfrei: false
+          };
+          this.ausgewaehlteZutaten = [];
+        }, 2000);
+      },
+      () => this.snackbarAnzeigen('Fehler beim Speichern des Rezepts.')
     );
+  }
+
+  snackbarText = '';
+  snackbarVisible = false;
+
+  snackbarAnzeigen(text: string) {
+    this.snackbarText = text;
+    this.snackbarVisible = true;
+    setTimeout(() => this.snackbarVisible = false, 3000);
   }
 
   ngOnInit(): void {

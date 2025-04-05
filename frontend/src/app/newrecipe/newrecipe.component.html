@@ -16,7 +16,7 @@
     <!-- Zutaten-Vorschläge -->
     <ul class="list-group mt-2" *ngIf="zutatenVorschlaege.length > 0">
       <li class="list-group-item clickable" *ngFor="let zutat of zutatenVorschlaege" (click)="zutatAuswaehlen(zutat)">
-        {{ zutat.name }}
+        {{ formatZutatName(zutat.name) }}
       </li>
     </ul>
 
@@ -72,5 +72,9 @@
     </div>
 
     <button type="submit" class="btn btn-primary w-100">Rezept speichern</button>
+    <div *ngIf="snackbarVisible" class="alert alert-success position-fixed bottom-0 start-50 translate-middle-x mb-3" style="z-index: 1050;">
+      {{ snackbarText }}
+    </div>
+
   </form>
 </div>

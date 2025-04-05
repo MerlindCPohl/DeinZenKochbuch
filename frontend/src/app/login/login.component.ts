@@ -70,7 +70,9 @@ export class LoginComponent implements OnInit{
           console.log('message:', response.message);
 
           if (response.message && response.message.toLowerCase() === 'login erfolgreich') {
-            console.log('user logged in');
+            if (response.userId) {
+              localStorage.setItem('userId', response.userId); //hier id speichern, damit später für rezept erstellen gemerkt wird
+            }
             this.showSnackbar('Login erfolgreich', "success");
             setTimeout(() => {
               this.router.navigate(['/home']);
