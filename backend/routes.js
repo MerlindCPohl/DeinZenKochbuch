@@ -120,37 +120,50 @@ router.get('/zutaten', async (req, res) => {
     }
 });
 
-// Post ein rezept
+// Post ein Rezept
 router.post('/rezept', async (req, res) => {
-    const { name, anleitung, anzahlPortionen, zubereitungsZeitMin, rohkost, vegan, vegetarisch, glutenfrei, zutaten, userId } = req.body;
-
-    if (!userId) {
-        return res.status(400).json({ error: 'User-ID fehlt' });
-    }
-
     try {
+            const {
+            name,
+            anleitung,
+            anzahlportionen,
+            zubereitungszeitmin,
+            rohkost,
+            vegan,
+            vegetarisch,
+            glutenfrei,
+            zutaten,
+            userId
+        } = req.body;
+
+        if (!userId) {
+            return res.status(400).json({ error: 'User-ID fehlt' });
+        }
+
         // Rezept einfügen
         const result = await client.query(
-            'INSERT INTO rezepte (name, anleitung, anzahlPortionen, zubereitungsZeitMin, erstelltVon, rohkost, vegan, vegetarisch, glutenfrei) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [name, anleitung, anzahlPortionen, zubereitungsZeitMin, userId, rohkost, vegan, vegetarisch, glutenfrei]
+            'INSERT INTO rezepte (name, anleitung, anzahlportionen, zubereitungszeitmin, erstelltvon, rohkost, vegan, vegetarisch, glutenfrei) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id',
+            [name, anleitung, anzahlportionen, zubereitungszeitmin, userId, rohkost, vegan, vegetarisch, glutenfrei]
         );
 
-        const rezeptId = result.insertId; // automatisch generierte ID des Rezepts
+        const rezeptId = result.rows[0].id;
 
         // Zutaten speichern
         for (const zutat of zutaten) {
-            await db.query(
-                'INSERT INTO beinhaltet (zutaten_id, rezepte_id, menge) VALUES (?, ?, ?)',
+            await client.query(
+                'INSERT INTO beinhaltet (zutaten_id, rezepte_id, menge) VALUES ($1, $2, $3)',
                 [zutat.id, rezeptId, zutat.menge]
             );
+
         }
 
         res.status(201).json({ message: 'Rezept gespeichert', rezeptId });
+
     } catch (error) {
+        console.error('Fehler beim Speichern:', error);
         res.status(500).json({ message: 'Fehler beim Speichern des Rezepts' });
     }
 });
-
 
 // POST einen neuen User
 router.post('/users/neu', async(req, res) => {

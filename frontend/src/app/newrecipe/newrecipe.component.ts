@@ -87,7 +87,7 @@ export class NewrecipeComponent implements OnInit {
 
   private ersetzeUmlaute(text: string): string {
     // hier kommen die ausnahmen hin
-    const ausnahmenUmlaute = ['balsamicoessig'];
+    const ausnahmenUmlaute = ['balsamicoessig', 'sauerampfer'];
 
     if (ausnahmenUmlaute.includes(text.toLowerCase())) {
       return text;
@@ -109,6 +109,8 @@ export class NewrecipeComponent implements OnInit {
     return this.ersetzeUmlaute(translated);
   }
 
+
+
   // hinzufügen einer zutat
   zutatAuswaehlen(zutat: any) {
     this.ausgewaehlteZutaten.push({
@@ -122,14 +124,22 @@ export class NewrecipeComponent implements OnInit {
 
 
   sucheZutat() {
-    if (this.zutatInput.length > 1) {
-      this.http.get<any[]>(`http://localhost:3000/zutaten?name=${this.zutatInput}`)
+    if (this.zutatInput.length >= 1) {
+      const suchbegriff = this.normalisiereEingabe(this.zutatInput);
+      this.http.get<any[]>(`/api/zutaten?name=${suchbegriff}`)
         .subscribe(data => this.zutatenVorschlaege = data);
     } else {
       this.zutatenVorschlaege = [];
     }
   }
 
+  private normalisiereEingabe(text: string): string {
+    return text
+      .replace(/ä/g, 'ae')
+      .replace(/ö/g, 'oe')
+      .replace(/ü/g, 'ue')
+      .replace(/ß/g, 'ss');
+  }
 
   // Zutat entfernen
   entferneZutat(id: number) {
