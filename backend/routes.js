@@ -2,6 +2,17 @@ const express = require('express');
 const router = express.Router();
 const client = require('./db');
 
+function ersetzeFuerSuche(text) {
+    return text
+        .replace(/ß/g, 'ss')
+        .replace(/ä/g, 'ae')
+        .replace(/ö/g, 'oe')
+        .replace(/ü/g, 'ue')
+        .replace(/Ä/g, 'Ae')
+        .replace(/Ö/g, 'Oe')
+        .replace(/Ü/g, 'Ue');
+}
+
 
 // Login-Endpunkt
 router.post('/login', async (req, res) => {
@@ -80,21 +91,43 @@ router.get('/rezepte', async(req, res) => {
 });
 
 // GET ein spezifisches Rezept
-router.get('/rezepte/:id', async (req, res) => {
-    const query = `SELECT r.name AS rezept, z.name AS zutat, b.menge
-                   FROM beinhaltet b
-                   JOIN zutaten z ON b.zutaten_id = z.id
-                   JOIN rezepte r ON b.rezepte_id = r.id
-                   WHERE b.rezepte_id = $1;`;
+router.get('/rezeptdetail/:id', async (req, res) => {
+    console.log('Route HAT gegriffen für /rezeptdetail/:id');
+    const rezeptId = req.params.id;
+
+    const rezeptQuery = `
+        SELECT id, name, vegan, vegetarisch, glutenfrei, rohkost, anleitung
+        FROM rezepte
+        WHERE id = $1
+    `;
+
+    const zutatenQuery = `
+        SELECT z.name, b.menge, z.mengeneinheit
+        FROM beinhaltet b
+                 JOIN zutaten z ON b.zutaten_id = z.id
+        WHERE b.rezepte_id = $1
+    `;
+
     try {
-        const rezeptId = req.params.id;
-        const result = await client.query(query, [rezeptId]);
-        res.send(result.rows);
+        const rezeptResult = await client.query(rezeptQuery, [rezeptId]);
+        const zutatenResult = await client.query(zutatenQuery, [rezeptId]);
+
+        if (rezeptResult.rows.length === 0) {
+            return res.status(404).send('Rezept nicht gefunden');
+        }
+
+        const rezept = rezeptResult.rows[0];
+        rezept.zutaten = zutatenResult.rows;
+
+        console.log('Gebe folgendes Rezept zurück:', rezept); // <- zum Debuggen
+
+        res.json(rezept);
     } catch (err) {
-        console.log("error", err.stack)
+        console.error("Fehler beim Laden des Rezepts:", err.stack);
         res.status(500).send('Fehler beim Abrufen des Rezeptes');
     }
 });
+
 
 //GET eine spezifische zutat, damit autovervollästndigung im dropdowm funktioniert + mengeneinheit
 router.get('/zutaten', async (req, res) => {
@@ -228,7 +261,7 @@ router.get('/rezepteuser/:userId', async (req, res) => {
 
 
 // DELETE ein spezifisches Rezept
-router.delete('/rezepte/:id', async (req, res) => {
+router.delete('/deleterezepte/:id', async (req, res) => {
     const { id } = req.params;
     try {
         await client.query('DELETE FROM beinhaltet WHERE rezepte_id = $1', [id]);
@@ -241,7 +274,7 @@ router.delete('/rezepte/:id', async (req, res) => {
 });
 
 // UPDATE Rezeptangaben - dynamisch,sodass nur geänderte werte gespeichert werden, aber egal welche werte, sonst brauchen wir mehree update methoden
-router.put('/rezepte/:id', async (req, res) => {
+router.put('/updaterezepte/:id', async (req, res) => {
     const { id } = req.params;
     const { anleitung, zutaten } = req.body;
     try {
@@ -288,5 +321,62 @@ router.put('/users/:id/passwort', async (req, res) => {
         res.status(500).send('Fehler beim Ändern des Passworts');
     }
 });
+
+//für suchleiste unter alle rezepte
+router.get('/rezepte/suche', async (req, res) => {
+    const { begriff } = req.query;
+    const normalisiert = ersetzeFuerSuche(begriff);
+    const pattern = `%${normalisiert.toLowerCase()}%`;
+
+    try {
+        const result = await client.query(`
+            SELECT DISTINCT r.*
+            FROM rezepte r
+            LEFT JOIN rezept_synonyme rs ON rs.rezepte_id = r.id
+            LEFT JOIN beinhaltet b ON b.rezepte_id = r.id
+            LEFT JOIN zutaten z ON z.id = b.zutaten_id
+            LEFT JOIN zutat_synonyme zs ON zs.zutaten_id = z.id
+            WHERE LOWER(r.name) LIKE $1
+               OR LOWER(rs.synonyme) LIKE $1
+               OR LOWER(z.name) LIKE $1
+               OR LOWER(zs.synonyme) LIKE $1
+        `, [pattern]);
+
+        res.json(result.rows);
+    } catch (err) {
+        console.error("Fehler bei der Rezeptsuche:", err);
+        res.status(500).json({ message: 'Fehler bei der Suche' });
+    }
+});
+
+// autocomplete route
+router.get('/suchvorschlaege', async (req, res) => {
+    let query = req.query.query;
+    if (!query || query.length < 3) {
+        return res.status(400).json({ error: 'Zu kurzer Suchbegriff' });
+    }
+
+    query = ersetzeFuerSuche(query);
+
+    try {
+        const result = await client.query(`
+            SELECT name AS begriff, 'rezeptname' AS typ FROM rezepte WHERE LOWER(name) ILIKE LOWER($1)
+            UNION
+            SELECT synonyme AS begriff, 'rezeptsynonym' AS typ FROM rezept_synonyme WHERE LOWER(synonyme) ILIKE LOWER($1)
+            UNION
+            SELECT name AS begriff, 'zutat' AS typ FROM zutaten WHERE LOWER(name) ILIKE LOWER($1)
+            UNION
+            SELECT synonyme AS begriff, 'zutatsynonym' AS typ FROM zutat_synonyme WHERE LOWER(synonyme) ILIKE LOWER($1)
+        `, [`%${query}%`]);
+
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Fehler bei Suchvorschlägen:', err);
+        res.status(500).json({ error: 'Fehler beim Abrufen der Vorschläge' });
+    }
+});
+
+
+
 
 module.exports = router;

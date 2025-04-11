@@ -195,7 +195,7 @@ export class NewrecipeComponent implements OnInit {
     };
 
 
-    this.http.post('/api/rezept', rezeptData).subscribe(
+    this.http.post('/api/rezeptneu', rezeptData).subscribe(
       () => {
         this.snackbarAnzeigen('Rezept erfolgreich gespeichert!');
         setTimeout(() => {

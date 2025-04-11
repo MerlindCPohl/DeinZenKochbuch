@@ -1,4 +1,5 @@
-<div *ngIf="loggedIn(); else loginForm">
+<div class="home-container">
+  <div *ngIf="loggedIn(); else loginForm">
   <h4>Willkommen bei DeinZenKochbuch</h4>
   <button mat-raised-button color="primary" [routerLink]="'/newrecipe'">
     Neues Rezept hochladen
@@ -8,3 +9,4 @@
 <ng-template #loginForm>
   <app-login></app-login>
 </ng-template>
+</div>

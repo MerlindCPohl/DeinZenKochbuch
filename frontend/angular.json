@@ -29,9 +29,11 @@
               }
             ],
             "styles": [
-              "src/custom-theme.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+                "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "src/custom-theme.scss",
+                "src/styles.css"
+              ]
+
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
@@ -93,9 +95,12 @@
               "src/assets"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/rose-red.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+                "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "src/custom-theme.scss",
+                "src/styles.css"
+              ]
+
+
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap. bundle.min.js"

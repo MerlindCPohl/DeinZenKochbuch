@@ -7,7 +7,6 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AllrecipesComponent } from './allrecipes/allrecipes.component';
-import { RezeptDetailComponent } from './recipedetail/recipedetail.component';
 
 
 export const routes: Routes = [

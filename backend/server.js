@@ -23,5 +23,9 @@ app.listen(PORT, (error) => {
     }
 });
 
+app.use((req, res) => {
+    res.status(404).json({ error: 'Not Found' });
+});
+
 app.use(express.json());
 
