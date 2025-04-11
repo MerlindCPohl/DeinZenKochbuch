@@ -6,7 +6,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 interface Zutat {
   id: number;
@@ -45,8 +45,44 @@ export class NewrecipeComponent implements OnInit {
   zutatInput = '';
   zutatenVorschlaege: Zutat[] = [];
   ausgewaehlteZutaten: Zutat[] = [];
+  bearbeiteId: number | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.queryParamMap.get('id');
+    if (id) {
+      this.bearbeiteId = +id;
+      this.ladeRezeptZurBearbeitung(this.bearbeiteId);
+    }
+  }
+
+  ladeRezeptZurBearbeitung(id: number) {
+    this.http.get<any>(`/api/rezeptdetail/${id}`).subscribe(data => {
+      this.rezept = {
+        name: data.name,
+        anleitung: data.anleitung,
+        anzahlportionen: data.anzahlportionen ?? 1,
+        zubereitungszeitmin: data.zubereitungszeitmin ?? 0,
+        rohkost: data.rohkost,
+        vegan: data.vegan,
+        vegetarisch: data.vegetarisch,
+        glutenfrei: data.glutenfrei
+      };
+
+      this.ausgewaehlteZutaten = data.zutaten.map((z: any) => ({
+        ...z,
+        menge: z.menge,
+        name: this.formatZutatName(z.name),
+        mengeneinheit: this.uebersetzeMengeneinheit(z.mengeneinheit)
+      }));
+    });
+  }
+
 
   private mengeneinheitMapping: { [key: string]: string } = {
     'Stueck': 'Stück',
@@ -114,12 +150,17 @@ export class NewrecipeComponent implements OnInit {
 
   // hinzufügen einer zutat
   zutatAuswaehlen(zutat: any) {
-    this.ausgewaehlteZutaten.push({
-      ...zutat,
-      name: this.formatZutatName(zutat.name),
-      menge: '',
-      mengeneinheit: this.uebersetzeMengeneinheit(zutat.mengeneinheit)
-    });
+    const bereitsHinzugefuegt = this.ausgewaehlteZutaten.find(z => z.id === zutat.id);
+
+    if (!bereitsHinzugefuegt) {
+      this.ausgewaehlteZutaten.push({
+        ...zutat,
+        name: this.formatZutatName(zutat.name),
+        menge: '',
+        mengeneinheit: this.uebersetzeMengeneinheit(zutat.mengeneinheit)
+      });
+    }
+
     this.zutatInput = '';
     this.zutatenVorschlaege = [];
   }
@@ -178,11 +219,14 @@ export class NewrecipeComponent implements OnInit {
       ...this.rezept,
       name: this.ersetzeFuerSpeicherung(this.rezept.name),
       anleitung: this.ersetzeFuerSpeicherung(this.rezept.anleitung),
+      anzahlportionen: this.rezept.anzahlportionen || 1,
+      zubereitungszeitmin: this.rezept.zubereitungszeitmin || 0
     };
 
     // zutatenschreibweise umwandeln
     const zutatenKonvertiert = this.ausgewaehlteZutaten.map(zutat => ({
-      ...zutat,
+      id: zutat.id,
+      menge: Number(zutat.menge),
       name: this.ersetzeFuerSpeicherung(zutat.name),
       mengeneinheit: this.ersetzeFuerSpeicherung(zutat.mengeneinheit)
     }));
@@ -194,26 +238,39 @@ export class NewrecipeComponent implements OnInit {
       userId: +userId
     };
 
+    console.log('Rezept-Daten zur Speicherung:', rezeptData);
 
-    this.http.post('/api/rezeptneu', rezeptData).subscribe(
-      () => {
-        this.snackbarAnzeigen('Rezept erfolgreich gespeichert!');
-        setTimeout(() => {
-          this.rezept = {
-            name: '',
-            anleitung: '',
-            anzahlportionen: 0,
-            zubereitungszeitmin: 0,
-            rohkost: false,
-            vegan: false,
-            vegetarisch: false,
-            glutenfrei: false
-          };
-          this.ausgewaehlteZutaten = [];
-        }, 2000);
-      },
-      () => this.snackbarAnzeigen('Fehler beim Speichern des Rezepts.')
-    );
+    if (this.bearbeiteId) {
+      this.http.put(`/api/updaterezepte/${this.bearbeiteId}`, rezeptData).subscribe(
+        () => {
+          this.snackbarAnzeigen('Rezept aktualisiert!');
+          setTimeout(() => {
+            this.router.navigate(['/myrecipes']);
+          }, 3000);
+        },
+        () => this.snackbarAnzeigen('Fehler beim Aktualisieren.')
+      );
+    } else {
+      this.http.post('api/rezept', rezeptData).subscribe(
+        () => {
+          this.snackbarAnzeigen('Rezept erfolgreich gespeichert!');
+          setTimeout(() => {
+            this.rezept = {
+              name: '',
+              anleitung: '',
+              anzahlportionen: 0,
+              zubereitungszeitmin: 0,
+              rohkost: false,
+              vegan: false,
+              vegetarisch: false,
+              glutenfrei: false
+            };
+            this.ausgewaehlteZutaten = [];
+          }, 2000);
+        },
+        () => this.snackbarAnzeigen('Fehler beim Speichern des Rezepts.')
+      );
+    }
   }
 
   snackbarText = '';
@@ -225,12 +282,9 @@ export class NewrecipeComponent implements OnInit {
     setTimeout(() => this.snackbarVisible = false, 3000);
   }
 
-  private router = inject(Router);
+
   abbrechen() {
     this.router.navigate(['/home']);
   }
 
-
-  ngOnInit(): void {
-  }
 }

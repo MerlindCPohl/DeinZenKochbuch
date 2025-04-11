@@ -1,19 +1,29 @@
 <div class="container mt-4">
-  <h2 class="mb-4">Meine Rezepte</h2>
+  <h2 class="text-center mb-4">Meine Rezepte</h2>
 
-  <div class="row g-3">
-    <div class="col-md-6 col-lg-4" *ngFor="let rezept of myRecipes">
-      <div class="card shadow-sm p-3 d-flex justify-content-between flex-row align-items-center">
-        <div class="fw-bold">{{ rezept.name }}</div>
-        <div>
-          <button mat-icon-button color="primary" (click)="bearbeiten(rezept.id)" class="me-2">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="loeschen(rezept.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
+  <div class="col-12 mb-2" *ngFor="let rezept of meineRezepte">
+    <div
+      class="card shadow-sm p-3 d-flex flex-row mb-4 justify-content-between align-items-center"
+      (mousedown)="$event.preventDefault()"
+      role="button"
+      tabindex="0"
+    >
+      <span>{{ rezept.name }}</span>
+      <div>
+        <i class="bi bi-pencil-square me-3 text-secondary" style="cursor: pointer;" (click)="bearbeiten(rezept.id)" title="Bearbeiten"></i>
+        <i class="bi bi-trash text-danger" style="cursor: pointer;" (click)="bestaetigeLoeschen(rezept)" title="Löschen"></i>
       </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Löschbestätigung Modal -->
+<div class="modal-backdrop" *ngIf="ausgewaehltZumLoeschen">
+  <div class="modal-content p-4 shadow rounded bg-white">
+    <h5 class="mb-3">Möchtest du das Rezept wirklich löschen?</h5>
+    <div class="d-flex justify-content-between">
+      <button class="abbrechen-button" (click)="ausgewaehltZumLoeschen = null">Abbrechen</button>
+      <button class="btn btn-danger" (click)="loescheRezept()">Ja, löschen</button>
     </div>
   </div>
 </div>

@@ -1,5 +1,8 @@
 <div class="container mt-5" style="min-height: 100vh; padding-bottom: 100px;">
-  <h2 class="text-center mb-4">Neues Rezept erstellen</h2>
+  <h2 class="text-center mb-4">
+    {{ bearbeiteId ? 'Rezept bearbeiten' : 'Neues Rezept erstellen' }}
+  </h2>
+
 
   <form (ngSubmit)="onSubmit()" #rezeptForm="ngForm">
     <div class="mb-3">
@@ -9,7 +12,7 @@
 
     <!-- zutaten eingeben -->
     <div class="mb-3 ps-5 border-secondary-subtle">
-      <label for="zutat" class="form-label"> 🧅 Zutaten hinzufügen </label>
+      <label for="zutat" class="form-label"> 🍴 Zutaten hinzufügen </label>
       <input
         type="text"
         id="zutat"
@@ -35,7 +38,13 @@
         <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let zutat of ausgewaehlteZutaten ; let i = index">
           <div class="d-flex justify-content-between align-items-center w-100">
             <span class="w-50">{{ zutat.name }}</span>
-            <input type="number" [(ngModel)]="zutat.menge" class="form-control w-50" [placeholder]="'Menge in ' + zutat.mengeneinheit" name="menge" [attr.tabindex]="100 + i" >
+            <input type="number"
+                   [(ngModel)]="zutat.menge"
+                   class="form-control w-50"
+                   [placeholder]="'Menge in ' + zutat.mengeneinheit"
+                   [name]="'menge' + i"
+                   [attr.tabindex]="100 + i">
+
           </div>
           <button type="button" class="btn btn-danger btn-sm ml-5 btn-spacing" (click)="entferneZutat(zutat.id)">✕</button>
         </li>
@@ -62,27 +71,29 @@
     <div class="mb-3">
       <label class="form-label">Eigenschaften:</label>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="rohkost" [(ngModel)]="rezept.rohkost" name="rohkost">
-        <label class="form-check-label" for="rohkost">Rohkost</label>
+        <input class="form-check-input" type="checkbox" id="vegetarisch" [(ngModel)]="rezept.vegetarisch" name="vegetarisch">
+        <label class="form-check-label" for="vegetarisch">🧀 Vegetarisch</label>
       </div>
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="vegan" [(ngModel)]="rezept.vegan" name="vegan">
-        <label class="form-check-label" for="vegan">Vegan</label>
+        <label class="form-check-label" for="vegan">🌱 Vegan</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="vegetarisch" [(ngModel)]="rezept.vegetarisch" name="vegetarisch">
-        <label class="form-check-label" for="vegetarisch">Vegetarisch</label>
+        <input class="form-check-input" type="checkbox" id="rohkost" [(ngModel)]="rezept.rohkost" name="rohkost">
+        <label class="form-check-label" for="rohkost">🥑 Rohkost</label>
       </div>
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="glutenfrei" [(ngModel)]="rezept.glutenfrei" name="glutenfrei">
-        <label class="form-check-label" for="glutenfrei">Glutenfrei</label>
+        <label class="form-check-label" for="glutenfrei">🌾Glutenfrei</label>
       </div>
     </div>
 
     <div class="d-flex justify-content-between mt-4">
       <button type="button" class="btn btn-secondary abbrechen-button" (click)="abbrechen()">Abbrechen</button>
-    <button type="submit" class="btn btn-primary speichern-button">Rezept speichern</button>
-    <div *ngIf="snackbarVisible" class="alert alert-success position-fixed bottom-0 start-50 translate-middle-x mb-3" style="z-index: 1050;">
+      <button type="submit" class="btn btn-primary speichern-button">
+        {{ bearbeiteId ? 'Rezept aktualisieren' : 'Rezept speichern' }}
+      </button>
+      <div *ngIf="snackbarVisible" class="alert alert-success position-fixed bottom-0 start-50 translate-middle-x mb-3" style="z-index: 1050;">
       {{ snackbarText }}
     </div>
     </div>

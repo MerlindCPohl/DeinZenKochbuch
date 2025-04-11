@@ -92,14 +92,14 @@ router.get('/rezepte', async(req, res) => {
 
 // GET ein spezifisches Rezept
 router.get('/rezeptdetail/:id', async (req, res) => {
-    console.log('Route HAT gegriffen für /rezeptdetail/:id');
     const rezeptId = req.params.id;
 
     const rezeptQuery = `
-        SELECT id, name, vegan, vegetarisch, glutenfrei, rohkost, anleitung
+        SELECT id, name, vegan, vegetarisch, glutenfrei, rohkost, anleitung, anzahlportionen, zubereitungszeitmin
         FROM rezepte
         WHERE id = $1
     `;
+
 
     const zutatenQuery = `
         SELECT z.name, b.menge, z.mengeneinheit
@@ -276,23 +276,54 @@ router.delete('/deleterezepte/:id', async (req, res) => {
 // UPDATE Rezeptangaben - dynamisch,sodass nur geänderte werte gespeichert werden, aber egal welche werte, sonst brauchen wir mehree update methoden
 router.put('/updaterezepte/:id', async (req, res) => {
     const { id } = req.params;
-    const { anleitung, zutaten } = req.body;
+    const {
+        name,
+        anleitung,
+        anzahlportionen,
+        zubereitungszeitmin,
+        rohkost,
+        vegan,
+        vegetarisch,
+        glutenfrei,
+        zutaten
+    } = req.body;
+
     try {
-        if (anleitung) {
-            await client.query('UPDATE rezepte SET anleitung = $1 WHERE id = $2', [anleitung, id]);
+        // Rezeptfelder aktualisieren
+        await client.query(`
+            UPDATE rezepte SET
+              name = $1,
+              anleitung = $2,
+              anzahlportionen = $3,
+              zubereitungszeitmin = $4,
+              rohkost = $5,
+              vegan = $6,
+              vegetarisch = $7,
+              glutenfrei = $8
+            WHERE id = $9
+        `, [name, anleitung, anzahlportionen, zubereitungszeitmin, rohkost, vegan, vegetarisch, glutenfrei, id]);
+
+        // Bestehende Zutaten löschen
+        await client.query('DELETE FROM beinhaltet WHERE rezepte_id = $1', [id]);
+
+        // Neue Zutaten einfügen
+        for (const zutat of zutaten) {
+            await client.query(`
+              INSERT INTO beinhaltet (zutaten_id, rezepte_id, menge)
+              VALUES ($1, $2, $3)
+            `, [zutat.id, id, zutat.menge]);
         }
-        if (zutaten && Array.isArray(zutaten)) {
-            for (const zutat of zutaten) {
-                const { zutaten_id, menge } = zutat;
-                await client.query('UPDATE beinhaltet SET menge = $1 WHERE rezepte_id = $2 AND zutaten_id = $3',[menge, id, zutaten_id]);
-            }
-        }
+        console.log('Rezept-Update ID:', id);
+        console.log('Neue Zutaten:', zutaten);
+
+
         res.status(200).json({ message: 'Rezept erfolgreich aktualisiert!' });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Fehler beim Aktualisieren des Rezepts' });
     }
 });
+
 
 //Test:
 router.post('/test', express.json(), (req, res) => {

@@ -1,12 +1,27 @@
-<div class="home-container">
-  <div *ngIf="loggedIn(); else loginForm">
-  <h4>Willkommen bei DeinZenKochbuch</h4>
-  <button mat-raised-button color="primary" [routerLink]="'/newrecipe'">
-    Neues Rezept hochladen
-  </button>
-</div>
+<div class="home-wrapper">
+  <div class="container-fluid h-100 d-flex flex-column">
+    <h2 class="text-center mt-4">Willkommen bei DeinZenKochbuch</h2>
 
-<ng-template #loginForm>
-  <app-login></app-login>
-</ng-template>
+    <div class="row flex-grow-1 align-items-center justify-content-center">
+      <!-- Chart links -->
+      <div class="col-12 col-md-6 d-flex justify-content-center mb-4 mb-md-0">
+        <canvas baseChart
+                [data]="chartData"
+                [type]="chartType"
+                [options]="chartOptions"
+                style="width: 250px; height: 250px;">
+        </canvas>
+      </div>
+
+      <!-- Buttons rechts -->
+      <div class="col-12 col-md-6 text-center">
+        <h4 class="mb-4">Was möchtest du tun?</h4>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a routerLink="/newrecipe" class="button">Neues Rezept</a>
+          <a routerLink="/myrecipes" class="button">Meine Rezepte</a>
+          <a routerLink="/allrecipes" class="button">Schmökern</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
