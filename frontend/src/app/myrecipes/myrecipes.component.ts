@@ -52,7 +52,7 @@ export class MyrecipesComponent implements OnInit {
     if (this.ausgewaehltZumLoeschen) return;
 
     this.http.get<any>(`/api/rezeptdetail/${id}`).subscribe(data => {
-      this.meineRezepte = {
+      this.rezept = {
         ...data,
         zutaten: data.zutaten.map((z: any) => ({
           ...z,

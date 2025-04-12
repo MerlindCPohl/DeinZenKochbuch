@@ -19,7 +19,7 @@
   margin-bottom: 60px !important;
 }
 
-.recipe-card {
+.recipe-card-hover {
   position: relative;
   transition: transform 0.2s ease;
   cursor: pointer;
@@ -27,13 +27,15 @@
   border-radius: 16px
 }
 
-.recipe-card:hover {
-  transform: scale(1.02);
+.recipe-card-hover:hover {
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
-.recipe-card:hover::after {
-  opacity: 1;
-}
+
 
 /*pop up für rezept anzeige*/
 .modal-backdrop {

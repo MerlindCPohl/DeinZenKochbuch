@@ -1,13 +1,25 @@
 .container {
-  padding-bottom: 100px;
+  overflow: visible !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  padding: 2rem;
 }
 
-.card {
-  border-radius: 16px;
-  background-color: #fffaf7;
-  color: #5c1e2b;
+.recipe-card {
+  background-color: #f1f3f5 !important;
+  border-radius: 25px;
+  font-size: large;
 }
 
+.recipe-card-hover:hover {
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -42,3 +54,33 @@
 .abbrechen-button:hover {
   background-color: #5c1e2b;
 }
+
+/* das sind die icons in den cards für löschen uns bearbeiten
+.icon-btn {
+  font-size: 1.4rem !important;
+  font-weight: bold !important;
+  color:#5c1e32; !important;
+  padding: 6px;
+  border-radius: 10px;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.icon-btn:hover {
+  background-color: #f1f3f5 !important;
+  transform: scale(1.2);
+  color: #5c1e2b; !important;
+}
+*/
+
+.card-hover {
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+.card-hover:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
