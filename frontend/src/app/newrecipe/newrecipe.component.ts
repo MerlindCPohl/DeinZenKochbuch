@@ -1,5 +1,5 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormsModule, NgForm} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Sonderzeichenservice} from '../services/sonderzeichenservice';
 
 interface Zutat {
   id: number;
@@ -46,11 +47,13 @@ export class NewrecipeComponent implements OnInit {
   zutatenVorschlaege: Zutat[] = [];
   ausgewaehlteZutaten: Zutat[] = [];
   bearbeiteId: number | null = null;
+  formularUngueltig = false;
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    protected sonderzeichenservice: Sonderzeichenservice
   ) {}
 
   ngOnInit(): void {
@@ -64,8 +67,8 @@ export class NewrecipeComponent implements OnInit {
   ladeRezeptZurBearbeitung(id: number) {
     this.http.get<any>(`/api/rezeptdetail/${id}`).subscribe(data => {
       this.rezept = {
-        name: data.name,
-        anleitung: data.anleitung,
+        name: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(data.name),
+        anleitung: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(data.anleitung),
         anzahlportionen: data.anzahlportionen ?? 1,
         zubereitungszeitmin: data.zubereitungszeitmin ?? 0,
         rohkost: data.rohkost,
@@ -75,78 +78,16 @@ export class NewrecipeComponent implements OnInit {
       };
 
       this.ausgewaehlteZutaten = data.zutaten.map((z: any) => ({
-        ...z,
+        id: z.id,
         menge: z.menge,
-        name: this.formatZutatName(z.name),
-        mengeneinheit: this.uebersetzeMengeneinheit(z.mengeneinheit)
+        name: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(z.name),
+        mengeneinheit: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(z.mengeneinheit)
+
       }));
+      console.log('Zutaten aus der API:', data.zutaten);
+
     });
   }
-
-
-  private mengeneinheitMapping: { [key: string]: string } = {
-    'Stueck': 'Stück',
-    'g': 'Gramm',
-    'l': 'Liter',
-    'ml': 'Milliliter'
-  };
-
-  private ersetzeSS(text: string): string {
-    const ausnahmen = ['kresse', 'passionsfrucht'];
-    const patternNuss = /nuss|nuesse|nüsse/i;
-    const patternEssig = /essig/i;
-    const patternWasser = /wasser/i;
-
-    const ausnahmeMitWeiss = /weissweinessig/i;
-
-    // ausnahmen wo ss greifen soll
-    if (ausnahmeMitWeiss.test(text)) {
-      return text.replace(/weiss/i, 'weiß');
-    }
-
-    const lowerText = text.toLowerCase();
-    if (
-      ausnahmen.includes(lowerText) ||
-      patternNuss.test(lowerText) ||
-      patternEssig.test(lowerText) ||
-      patternWasser.test(lowerText)
-    ) {
-      return text;
-    }
-
-    return text.replace(/ss/g, 'ß');
-  }
-
-  public formatZutatName(text: string): string {
-    const mitUmlauten = this.ersetzeUmlaute(text);
-    return this.ersetzeSS(mitUmlauten);
-  }
-
-  private ersetzeUmlaute(text: string): string {
-    // hier kommen die ausnahmen hin
-    const ausnahmenUmlaute = ['balsamicoessig', 'sauerampfer', 'boeuf stroganoff'];
-
-    if (ausnahmenUmlaute.includes(text.toLowerCase())) {
-      return text;
-    }
-
-    return text
-      .replace(/ae/g, 'ä')
-      .replace(/oe/g, 'ö')
-      .replace(/ue/g, 'ü')
-      .replace(/Ae/g, 'Ä')
-      .replace(/Oe/g, 'Ö')
-      .replace(/Ue/g, 'Ü');
-  }
-
-
-  // mengeneinheit richtig ausschreiben
-  private uebersetzeMengeneinheit(mengeneinheit: string): string {
-    const translated = this.mengeneinheitMapping[mengeneinheit] || mengeneinheit;
-    return this.ersetzeUmlaute(translated);
-  }
-
-
 
   // hinzufügen einer zutat
   zutatAuswaehlen(zutat: any) {
@@ -155,9 +96,9 @@ export class NewrecipeComponent implements OnInit {
     if (!bereitsHinzugefuegt) {
       this.ausgewaehlteZutaten.push({
         ...zutat,
-        name: this.formatZutatName(zutat.name),
+        name: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(zutat.name),
         menge: '',
-        mengeneinheit: this.uebersetzeMengeneinheit(zutat.mengeneinheit)
+        mengeneinheit: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(zutat.mengeneinheit)
       });
     }
 
@@ -168,7 +109,7 @@ export class NewrecipeComponent implements OnInit {
 
   sucheZutat() {
     if (this.zutatInput.length >= 1) {
-      const suchbegriff = this.normalisiereEingabe(this.zutatInput);
+      const suchbegriff = this.sonderzeichenservice.ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(this.zutatInput);
       this.http.get<any[]>(`/api/zutaten?name=${suchbegriff}`)
         .subscribe(data => this.zutatenVorschlaege = data);
     } else {
@@ -176,36 +117,19 @@ export class NewrecipeComponent implements OnInit {
     }
   }
 
-  private normalisiereEingabe(text: string): string {
-    return text
-      .replace(/ä/g, 'ae')
-      .replace(/ö/g, 'oe')
-      .replace(/ü/g, 'ue')
-      .replace(/ß/g, 'ss');
-  }
-
   // Zutat entfernen
   entferneZutat(id: number) {
     this.ausgewaehlteZutaten = this.ausgewaehlteZutaten.filter((z) => z.id !== id);
   }
 
+  onSubmit(form: NgForm) {
+    this.formularUngueltig = form.invalid || this.rezept.anzahlportionen <= 0 || this.rezept.zubereitungszeitmin <= 0;
 
-  // Rezept speichern + bedenken, dass alle ß wieder ss werden, ebenso umlaute, sonst db nicht lesbar
-  private ersetzeFuerSpeicherung(text: string): string {
-    return text
-      .replace(/ß/g, 'ss')
-      .replace(/ä/g, 'ae')
-      .replace(/ö/g, 'oe')
-      .replace(/ü/g, 'ue')
-      .replace(/Ä/g, 'Ae')
-      .replace(/Ö/g, 'Oe')
-      .replace(/Ü/g, 'Ue');
-  }
+    if (this.formularUngueltig) return;
+    this.formularUngueltig = false;
 
-
-  onSubmit() {
     if (this.ausgewaehlteZutaten.length < 2) {
-      this.snackbarAnzeigen('Bitte mindestens zwei Zutaten angeben.');
+      this.snackbarAnzeigen('Bitte fülle alle Felder korrekt aus und gib mindestens zwei Zutaten an.');
       return;
     }
 
@@ -217,18 +141,18 @@ export class NewrecipeComponent implements OnInit {
     //umwandlen von feldern für db
     const rezeptMitErsetzterSchreibweise = {
       ...this.rezept,
-      name: this.ersetzeFuerSpeicherung(this.rezept.name),
-      anleitung: this.ersetzeFuerSpeicherung(this.rezept.anleitung),
-      anzahlportionen: this.rezept.anzahlportionen || 1,
-      zubereitungszeitmin: this.rezept.zubereitungszeitmin || 0
+      name: this.sonderzeichenservice.ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(this.rezept.name),
+      anleitung: this.sonderzeichenservice.ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(this.rezept.anleitung),
+      anzahlportionen: this.rezept.anzahlportionen,
+      zubereitungszeitmin: this.rezept.zubereitungszeitmin
     };
 
     // zutatenschreibweise umwandeln
     const zutatenKonvertiert = this.ausgewaehlteZutaten.map(zutat => ({
       id: zutat.id,
       menge: Number(zutat.menge),
-      name: this.ersetzeFuerSpeicherung(zutat.name),
-      mengeneinheit: this.ersetzeFuerSpeicherung(zutat.mengeneinheit)
+      name: this.sonderzeichenservice.ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(zutat.name),
+      mengeneinheit: this.sonderzeichenservice.ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(zutat.mengeneinheit)
     }));
 
     //hier mit user id aus login speuchern
@@ -246,7 +170,7 @@ export class NewrecipeComponent implements OnInit {
           this.snackbarAnzeigen('Rezept aktualisiert!');
           setTimeout(() => {
             this.router.navigate(['/myrecipes']);
-          }, 3000);
+          }, 2000);
         },
         () => this.snackbarAnzeigen('Fehler beim Aktualisieren.')
       );
@@ -281,7 +205,6 @@ export class NewrecipeComponent implements OnInit {
     this.snackbarVisible = true;
     setTimeout(() => this.snackbarVisible = false, 3000);
   }
-
 
   abbrechen() {
     this.router.navigate(['/home']);

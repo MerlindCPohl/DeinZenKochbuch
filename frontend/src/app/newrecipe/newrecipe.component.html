@@ -4,8 +4,8 @@
   </h2>
 
 
-  <form (ngSubmit)="onSubmit()" #rezeptForm="ngForm">
-    <div class="mb-3">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <div class="mb-3">
       <label for="name" class="form-label">Name des Rezepts:</label>
       <input type="text" id="name" class="form-control" required [(ngModel)]="rezept.name" name="name">
     </div>
@@ -27,7 +27,8 @@
     <!-- Zutaten-Vorschläge -->
     <ul class="list-group mt-2 ps-5" *ngIf="zutatenVorschlaege.length > 0">
       <li class="list-group-item clickable" *ngFor="let zutat of zutatenVorschlaege" (click)="zutatAuswaehlen(zutat)">
-        {{ formatZutatName(zutat.name) }}
+        {{ sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(zutat.name) }}
+
       </li>
     </ul>
 
@@ -58,13 +59,39 @@
 
     <div class="mb-3">
       <label for="anzahlportionen" class="form-label">Anzahl der Portionen:</label>
-      <input type="number" id="anzahlportionen" class="form-control" required [(ngModel)]="rezept.anzahlportionen" name="anzahlportionen">
+      <input
+        id="anzahlportionen"
+        type="number"
+        [(ngModel)]="rezept.anzahlportionen"
+        name="anzahlportionen"
+        required
+        min="1"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': form.submitted && rezept.anzahlportionen <= 0 }"
+      />
+      <div *ngIf="form.submitted && rezept.anzahlportionen <= 0" class="invalid-feedback">
+        Bitte gib eine gültige Portionenanzahl ein.
+      </div>
+
     </div>
 
     <div class="mb-3">
       <label for="zubereitungszeitmin" class="form-label">Zubereitungszeit (in Minuten):</label>
-      <input type="number" id="zubereitungszeitmin" class="form-control" required [(ngModel)]="rezept.zubereitungszeitmin" name="zubereitungszeitmin">
+      <input
+        id="zubereitungszeitmin"
+        type="number"
+        [(ngModel)]="rezept.zubereitungszeitmin"
+        name="zubereitungszeitmin"
+        required
+        min="1"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': form.submitted && rezept.zubereitungszeitmin <= 0 }"
+      />
+      <div *ngIf="form.submitted && rezept.zubereitungszeitmin <= 0" class="invalid-feedback">
+        Bitte gib eine gültige Zubereitungszeit an.
+      </div>
     </div>
+
 
 
     <!-- Checkboxen -->

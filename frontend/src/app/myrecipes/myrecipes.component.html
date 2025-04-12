@@ -27,3 +27,29 @@
     </div>
   </div>
 </div>
+<!-- Rezept-Detail Modal -->
+<div class="modal-backdrop" *ngIf="ausgewaehltFuerModal && rezept">
+  <div class="modal-content p-4 shadow rounded bg-white">
+    <button (click)="schliessen()" class="btn-close position-absolute top-0 end-0 m-3" aria-label="Close"></button>
+
+    <h2 class="text-center mb-4">{{ rezept.name }}</h2>
+
+    <div class="text-center mb-3">
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegetarisch"> 🧀 Vegetarisch</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegan"> 🌱 Vegan</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.rohkost"> 🥑 Rohkost</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.glutenfrei"> 🌾 Glutenfrei</span>
+    </div>
+
+    <h5>Zutaten:</h5>
+    <ul class="list-group mb-3">
+      <li class="list-group-item" *ngFor="let zutat of rezept.zutaten">
+        {{ zutat.name }} - {{ zutat.menge }} {{ zutat.mengeneinheit }}
+      </li>
+    </ul>
+
+    <h5>Zubereitung:</h5>
+    <p>{{ rezept.anleitung }}</p>
+  </div>
+</div>
+

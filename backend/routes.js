@@ -102,7 +102,7 @@ router.get('/rezeptdetail/:id', async (req, res) => {
 
 
     const zutatenQuery = `
-        SELECT z.name, b.menge, z.mengeneinheit
+        SELECT z.id, z.name, b.menge, z.mengeneinheit
         FROM beinhaltet b
                  JOIN zutaten z ON b.zutaten_id = z.id
         WHERE b.rezepte_id = $1
@@ -110,16 +110,18 @@ router.get('/rezeptdetail/:id', async (req, res) => {
 
     try {
         const rezeptResult = await client.query(rezeptQuery, [rezeptId]);
-        const zutatenResult = await client.query(zutatenQuery, [rezeptId]);
 
         if (rezeptResult.rows.length === 0) {
             return res.status(404).send('Rezept nicht gefunden');
         }
 
+
+        const zutatenResult = await client.query(zutatenQuery, [rezeptId]);
+        console.log('Zutaten-Query-Ergebnis:', zutatenResult.rows);
+
         const rezept = rezeptResult.rows[0];
         rezept.zutaten = zutatenResult.rows;
-
-        console.log('Gebe folgendes Rezept zurück:', rezept); // <- zum Debuggen
+        console.log('Zutaten im Rezept:', rezept.zutaten);
 
         res.json(rezept);
     } catch (err) {
@@ -167,6 +169,8 @@ router.post('/rezept', async (req, res) => {
             userId
         } = req.body;
 
+        console.log('Zutaten beim POST:', zutaten);
+
         if (!userId) {
             return res.status(400).json({ error: 'User-ID fehlt' });
         }
@@ -181,10 +185,15 @@ router.post('/rezept', async (req, res) => {
 
         // Zutaten speichern
         for (const zutat of zutaten) {
-            await client.query(
-                'INSERT INTO beinhaltet (zutaten_id, rezepte_id, menge) VALUES ($1, $2, $3)',
-                [zutat.id, rezeptId, zutat.menge]
-            );
+            try {
+                console.log('Speichere Zutat:', zutat);
+                await client.query(
+                    'INSERT INTO beinhaltet (zutaten_id, rezepte_id, menge) VALUES ($1, $2, $3)',
+                    [zutat.id, rezeptId, zutat.menge]
+                );
+            } catch (err) {
+                console.error(`Fehler beim Speichern der Zutat:`, zutat, err);
+            }
 
         }
 
