@@ -1,17 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
-
+/* algemeines layout */
 html, body {
   height: 100%;
   min-height: 100%;
   /*overflow: hidden;*/
   scrollbar-width: none;
-  background-color: #d18263;
+  background-color: #deb887	;
   margin: 0;
   padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 
 }
 
+/* Container für angular allgemein*/
 app-root {
   display: flex;
   flex-direction: column;
@@ -20,6 +20,7 @@ app-root {
   overflow: auto;
 }
 
+/* Gibt router-outlet Höhe → verhindert, dass header und rest sich überschneiden */
 router-outlet {
   flex: 1;
   display: block;
@@ -32,11 +33,13 @@ router-outlet {
   border-color: #722a35;
 }
 
+/* nicht scrollen in Chrome/Safari */
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-  display: none;           /* für Chrome und Safari */
+  display: none;
 }
 
+/* styling material felder*/
 mat-form-field.mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: #f7ede8 !important;
   border-radius: 4px !important;
@@ -47,9 +50,235 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   color: #722a35 !important;
 }
 
+/* suchleiste */
+.search-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  width: 100%;
+  position: relative;
+  border-radius: 25px;
+}
+
+/*  Inputfeld suchleiste*/
+.search-wrapper input.form-control {
+  max-width: 500px;
+  width: 100%;
+  background-color: #f1f3f5 !important;
+  border-radius: 25px !important;
+  border: none;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  color: #722a35;
+  box-shadow: none;
+  position: relative;
+}
+
+/* alle cards: rezeote*/
+.card {
+  max-width: 900px;
+  background-color: #f1f3f5 !important;
+  border-radius: 25px;
+  font-size: large;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  border: none;
+  color: #722a35;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* x button in suchleiste*/
+.clear--inside {
+  position: absolute;
+  right: calc(50% - 250px + 1rem);
+  background-color: transparent;
+  border: none;
+  color: #5c1e2b;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 1;
+  text-align: center;
+  padding: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+/*dropdown styling*/
+.dropdown-list {
+  margin-bottom: 2rem;
+  width: 100%;
+  background-color: #f1f3f5;
+  border-radius: 20px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 9999;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.dropdown-list li {
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid #e9ecef;
+  color: #5c1e2b;
+  text-align: left;
+}
+
+.dropdown-list li:last-child {
+  border-bottom: none;
+  padding: 0.75rem 2rem;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+  color: #5c1e2b;
+}
+
+.dropdown-list li:hover {
+  background-color: rgba(225, 179, 148, 0.58);
+  cursor: pointer;
+}
+
+
+/*karten wrapper weil irgendein konflikt*/
+.karten-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+/*modal styling*/
+
+/* === Modal Hintergrund (Backdrop) === */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(87, 40, 34, 0.2); /* leicht transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  overflow: auto;
+  padding: 2rem;
+}
+
+/* === Modal Inhalt === */
+.modal-content {
+  background-color: #fffaf7;
+  color: #5c1e2b;
+  max-width: 670px;
+  width: 200vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 25px;
+  padding: 2rem;
+  position: fixed;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+/* kein scrollbalken */
+.modal-content::-webkit-scrollbar {
+  display: none;
+}
+.modal-content {
+  -ms-overflow-style: none;  /* IE und Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+
+/* === Schließen-Button im gewohnten Stil === */
+.modal-content .btn-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #5c1e2b;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  line-height: 1;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.modal-content .btn-close:hover {
+  background-color: #f1f3f5;
+  transform: scale(1.1);
+}
+
+/* zutatenliste */
+ul.list-group {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1.5rem;
+}
+
+ul.list-group li {
+  background-color: transparent;
+  border: none;
+  color: #5c1e2b;
+  font-size: 1rem;
+  text-align: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+ul.list-group li:last-child {
+  border-bottom: none;
+}
+
+/* Snackbar Styling */
 .mat-mdc-snack-bar-container {
-  .red-snackbar {
-    --mdc-snackbar-container-shape: #722a35 ;
-    background: #722a35;
-  }
+  border-radius: 16px !important;
+  background-color: #722a35 !important;
+  color: #fffaf7 !important;
+  text-align: center;
+  justify-content: center !important;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Position in der Mitte */
+.snackbar-center {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/*button veruch für suchleiste*/
+.clear-btn-inside {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 40%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
 }

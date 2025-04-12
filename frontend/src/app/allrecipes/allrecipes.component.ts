@@ -26,7 +26,7 @@ export class AllrecipesComponent {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private sonderzeichenservice: Sonderzeichenservice
+    private sonderzeichenservice: Sonderzeichenservice,
   ) {}
 
   ngOnInit(): void {

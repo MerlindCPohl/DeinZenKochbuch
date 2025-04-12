@@ -18,7 +18,7 @@ export class MyrecipesComponent implements OnInit {
   ausgewaehltFuerModal: number | null = null;
   rezept: any = null;
 
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, private sonderzeichenservice: Sonderzeichenservice) {}
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, protected sonderzeichenservice: Sonderzeichenservice) {}
 
   ngOnInit(): void {
     const userId = localStorage.getItem('userId');

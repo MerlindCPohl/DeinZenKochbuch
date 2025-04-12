@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <h2 class="text-center mb-4">Meine Rezepte</h2>
+  <h2 class="text-center mb-4" style="margin: 0 0 0 0;">Meine Rezepte</h2>
 
   <div class="row">
   <div class="col-12 mb-2" *ngFor="let rezept of meineRezepte">
@@ -33,7 +33,7 @@
 
 
 <!-- Löschbestätigung Modal -->
-<div class="modal-backdrop" *ngIf="ausgewaehltZumLoeschen">
+<div class="modal-backdrop request" *ngIf="ausgewaehltZumLoeschen">
   <div class="modal-content p-4 shadow rounded bg-white">
     <h5 class="mb-3">Möchtest du das Rezept wirklich löschen?</h5>
     <div class="d-flex justify-content-between">
@@ -44,26 +44,35 @@
 </div>
 <!-- Rezept-Detail Modal -->
 <div class="modal-backdrop" *ngIf="ausgewaehltFuerModal && rezept">
-  <div class="modal-content p-4 shadow rounded bg-white">
-    <button (click)="schliessen()" class="btn-close position-absolute top-0 end-0 m-3" aria-label="Close"></button>
+  <div class="modal-content">
+    <button
+      (click)="schliessen()"
+      class="btn btn-danger btn-sm rounded-3 position-absolute"
+      style="top: 1rem; right: 1rem; width: 30px; height: 30px; padding: 0; font-size: 1.8rem; display: flex; align-items: center; justify-content: center;"
+      aria-label="Schließen">
+      ×
+    </button>
 
     <h2 class="text-center mb-4">{{ rezept.name }}</h2>
 
     <div class="text-center mb-3">
-      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegetarisch"> 🧀 Vegetarisch</span>
-      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegan"> 🌱 Vegan</span>
-      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.rohkost"> 🥑 Rohkost</span>
-      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.glutenfrei"> 🌾 Glutenfrei</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegetarisch">🧀 Vegetarisch</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegan">🌱 Vegan</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.rohkost">🥑 Rohkost</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.glutenfrei">🌾 Glutenfrei</span>
     </div>
 
-    <h5>Zutaten:</h5>
-    <ul class="list-group mb-3">
-      <li class="list-group-item" *ngFor="let zutat of rezept.zutaten">
+    <h5 class="text-center">Zutaten:</h5>
+    <ul class="list-group">
+      <li *ngFor="let zutat of rezept.zutaten">
         {{ zutat.name }} - {{ zutat.menge }} {{ zutat.mengeneinheit }}
       </li>
     </ul>
 
-    <h5>Zubereitung:</h5>
-    <p>{{ rezept.anleitung }}</p>
+    <h5 class="text-center">Zubereitung:</h5>
+    <p class="text-center">
+      {{ sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(rezept.anleitung) }}
+    </p>
   </div>
 </div>
+

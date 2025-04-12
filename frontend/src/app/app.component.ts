@@ -4,15 +4,22 @@ import { FooterComponent } from './footer/footer.component';
 import {RouterOutlet} from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from './shared/components/error-dialog/error-dialog.component'; // Pass den Pfad an
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarConfig, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { NotificationService } from './services/notification.service';
 
 
 @NgModule({
-  imports: [
-    MatSnackBarModule
+  providers: [
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: <MatSnackBarConfig>{
+        duration: 2000,
+        panelClass: ['snackbar-center']
+      }
+    }
   ]
 })
+
 export class AppModule { }
 
 @Component({

@@ -10,10 +10,10 @@ import { AllrecipesComponent } from './allrecipes/allrecipes.component';
 
 
 export const routes: Routes = [
-  { path: "myrecipes", title: "My Recipes", component: MyrecipesComponent, canActivate: [AuthGuard] },
   { path: "login", title: "Login", component: LoginComponent },
-  { path: "", title: "Home", component: HomeComponent, pathMatch: 'full' },
   { path: "home", redirectTo: "", pathMatch: 'full' },
+  { path: "myrecipes", title: "My Recipes", component: MyrecipesComponent, canActivate: [AuthGuard] },
+  { path: "", title: "Home", component: HomeComponent, pathMatch: 'full' },
   { path: "newrecipe", title: "Recipe", component: NewrecipeComponent, canActivate: [AuthGuard] },
   { path: "register", title: "Register", component: RegisterComponent },
   { path: "user-settings", title: "User Settings", component: UserSettingsComponent, canActivate: [AuthGuard] }, // Fügen Sie diese Zeile hinzu

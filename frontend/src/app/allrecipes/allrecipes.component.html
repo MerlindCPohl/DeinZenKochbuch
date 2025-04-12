@@ -2,7 +2,7 @@
   <h2 class="text-center mb-4">Alle Rezepte</h2>
 
   <!-- suchfeld und dropdown-->
-  <div class="search-wrapper position-relative w-75 mx-auto mb-3">
+  <div class="search-wrapper mb-2">
     <input
       type="text"
       [(ngModel)]="suchbegriff"
@@ -15,11 +15,11 @@
       *ngIf="suchbegriff"
       type="button"
       (click)="suchbegriff = ''; vorschlaege = []"
-      class="btn btn-danger btn-sm rounded-2 position-absolute end-0 top-50 translate-middle-y me-2"
-      style="width: 30px; height: 30px; line-height: 1; padding: 0;"
+      class="btn btn-danger btn-sm rounded-2 clear-btn-inside"
       aria-label="Eingabe löschen">
       ✕
     </button>
+
     <!-- dropdown -->
     <ul *ngIf="vorschlaege.length > 0" class="list-group dropdown-list position-absolute w-100 zindex-dropdown">
       <li
@@ -27,7 +27,7 @@
         *ngFor="let v of vorschlaege"
         (click)="vorschlagAuswaehlen(v)">
         {{ v.begriff }}
-        <small class="text-muted float-end">({{ v.typ }})</small>
+       <!-- <small class="text-muted float-end">({{ v.typ }})</small> -->
       </li>
     </ul>
   </div>
@@ -36,12 +36,11 @@
   <div class="row">
     <div class="col-12 mb-2" *ngFor="let rezept of paginierteRezepte">
       <div
-        class="card recipe-card recipe-card-hover shadow-sm p-3 d-flex flex-row mb-4 justify-content-between align-items-center"
+        class="card recipe-card shadow-sm p-3 d-flex flex-row mb-4 justify-content-between align-items-center"
         (click)="zeigeDetails(rezept.id)"
         (mousedown)="$event.preventDefault()"
         role="button"
-        tabindex="0"
-      >
+        tabindex="0">
         <span>{{ uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(rezept.name) }}</span>
         <mat-icon style="color: #722a35;">visibility</mat-icon>
       </div>
@@ -63,27 +62,33 @@
 
 <!-- Rezept-Detail Modal -->
 <div class="modal-backdrop" *ngIf="ausgewaehlt && rezept">
-  <div class="modal-content p-4 shadow rounded bg-white">
-    <button (click)="schliessen()" class="btn-close position-absolute top-0 end-0 m-3" aria-label="Close"></button>
-
+  <div class="modal-content">
+    <button
+      (click)="schliessen()"
+      class="btn btn-danger btn-sm rounded-3 position-absolute"
+      style="top: 1rem; right: 1rem; width: 30px; height: 30px; padding: 0; font-size: 1.8rem; display: flex; align-items: center; justify-content: center;"
+      aria-label="Schließen">
+      ×
+    </button>
 
     <h2 class="text-center mb-4">{{ rezept.name }}</h2>
 
     <div class="text-center mb-3">
-      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegetarisch"> 🧀 Vegetarisch</span>
-      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegan"> 🌱 Vegan</span>
-      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.rohkost"> 🥑 Rohkost</span>
-      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.glutenfrei"> 🌾 Glutenfrei</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegetarisch">🧀 Vegetarisch</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegan">🌱 Vegan</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.rohkost">🥑 Rohkost</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.glutenfrei">🌾 Glutenfrei</span>
     </div>
 
-    <h5>Zutaten:</h5>
-    <ul class="list-group mb-3">
-      <li class="list-group-item" *ngFor="let zutat of rezept.zutaten">
+    <h5 class="text-center">Zutaten:</h5>
+    <ul class="list-group">
+      <li *ngFor="let zutat of rezept.zutaten">
         {{ zutat.name }} - {{ zutat.menge }} {{ zutat.mengeneinheit }}
       </li>
     </ul>
 
-    <h5>Zubereitung:</h5>
-    <p>{{ rezept.anleitung }}</p>
+    <h5 class="text-center">Zubereitung:</h5>
+    <p class="text-center">{{ rezept.anleitung }}</p>
   </div>
 </div>
+
