@@ -2,7 +2,7 @@
 <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
   <mat-card class="shipping-card">
     <mat-card-header>
-      <mat-card-title>Bitte logge dich hier ein:</mat-card-title>
+      <mat-card-title style="font-size: 1.7rem; color: #722a35;">Bitte logge dich hier ein:</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -42,18 +42,20 @@
     </mat-card-content>
 
     <mat-card-actions class="button-container">
-      <div class="register-container">
-      <p class="register-text">Noch kein Konto?</p>
-        <button mat-raised-button routerLink="/register" type="button" class="register-btn">Registrieren</button>
+      <div class="d-flex flex-column align-items-start">
+        <p class="register-text">Noch kein Konto?</p>
+        <button routerLink="/register" type="button" class="rund-button registrieren-button">
+          Registrieren
+        </button>
       </div>
-      <div class="spacer"></div>
-      <button mat-raised-button type="submit" color="primary" class="login-btn">Login</button>
+      <button type="submit" class="rund-button login-button">Login</button>
     </mat-card-actions>
-  </mat-card>
-</form>
 
-<div *ngIf="loginMessage" [ngClass]="{'success': loginMessage === 'Login erfolgreich', 'error': loginMessage !== 'Login erfolgreich'}">
+
+    <div *ngIf="loginMessage" [ngClass]="{'success': loginMessage === 'Login erfolgreich', 'error': loginMessage !== 'Login erfolgreich'}">
   {{ loginMessage }}
 </div>
+  </mat-card>
+</form>
 </div>
 

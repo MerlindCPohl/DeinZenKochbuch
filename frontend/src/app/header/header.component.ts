@@ -29,5 +29,11 @@ export class HeaderComponent {
     await this.router.navigate(['/']);
   }
 
+  isAuthPage(): boolean {
+    return ['/login', '/register'].includes(this.router.url);
+  }
+
+
+
 
 }

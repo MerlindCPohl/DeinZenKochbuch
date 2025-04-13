@@ -1,5 +1,7 @@
 <mat-toolbar color="primary">
-  <a mat-button routerLink="/">Startseite</a>
+  <ng-container *ngIf="!isAuthPage()">
+
+  <a mat-button routerLink="/home">Startseite</a>
   <span class="toolbar-spacer"></span>
 
   <ng-container *ngIf="loggedIn(); else loggedOut">
@@ -13,4 +15,5 @@
   <ng-template #loggedOut>
     <a mat-button routerLink="/login">Login</a>
   </ng-template>
+  </ng-container>
 </mat-toolbar>

@@ -2,7 +2,7 @@
   <form [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()">
   <mat-card class="shipping-card">
     <mat-card-header>
-      <mat-card-title>Registrierung</mat-card-title>
+      <mat-card-title style="font-size: 1.7rem; color: #722a35;">Registrierung</mat-card-title>
     </mat-card-header>
     <div style="height: 20px;"></div>
     <mat-card-content>
@@ -69,12 +69,14 @@
     <!-- Registrieren Button -->
 
     <mat-card-actions class="button-container">
-    <button mat-raised-button type="button" routerLink="/login"  (click)="onCancelRegistration()" class="cancel-btn">
-      Abbrechen</button>
-    <div class="spacer"></div>
-    <button type="submit" mat-raised-button color="primary" class="register-btn">Registrieren
-    </button>
+      <button routerLink="/login" type="button" class="rund-button login-button">
+        Abbrechen
+      </button>
+      <button type="submit" class="rund-button registrieren-button">
+        Registrieren
+      </button>
     </mat-card-actions>
+
   </mat-card>
   </form>
 

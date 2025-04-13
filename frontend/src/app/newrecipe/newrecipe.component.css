@@ -4,16 +4,28 @@ html, body {
   scrollbar-width: none;
 }
 
+
 body::-webkit-scrollbar {
   display: none;
 }
 
 /* dynamischr container damit seite scrollbar */
 .container {
-  padding-bottom: 100px;
+  max-width: 900px;
+  background-color: #e9d0af;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
-/* Sonstige Styles bleiben */
+.rezept-eingabe {
+  padding-bottom: 3rem; /* Abstand zum Footer */
+}
+
+
 .clickable {
   cursor: pointer;
 }

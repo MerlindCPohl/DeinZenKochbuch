@@ -1,4 +1,11 @@
-/* algemeines layout */
+/* Global Brokkoli-Cursor für alle pointer-Cursor */
+* {
+  cursor: url('./assets/broccoli (2).png') 8 8, auto !important;
+
+
+}/* algemeines layout */
+
+
 html, body {
   height: 100%;
   min-height: 100%;
@@ -18,6 +25,10 @@ app-root {
   min-height: 100vh;
   height: 100%;
   overflow: auto;
+}
+
+.main-content {
+  flex: 1; /*footer*/
 }
 
 /* Gibt router-outlet Höhe → verhindert, dass header und rest sich überschneiden */
@@ -82,9 +93,9 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   border-radius: 25px;
   font-size: large;
   transition: box-shadow 0.3s ease, transform 0.2s ease;
-  cursor: pointer;
   border: none;
   color: #722a35;
+  text-align: center;
 }
 
 .card:hover {
@@ -281,4 +292,33 @@ ul.list-group li:last-child {
   align-items: center;
   justify-content: center;
   z-index: 10;
+}
+
+.pagination-button {
+  padding: 8px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #722a35;
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #5c1e2b;
+}
+
+.pagination-button:disabled {
+  background-color: #b5a4a7;
+  cursor: not-allowed;
+  color: #eee;
+}
+
+/*pagination abstand zwischen buttins*/
+.seitenzahl {
+  padding: 0 1rem;
+  font-weight: bold;
+  min-width: 2.5rem;
+  text-align: center;
 }

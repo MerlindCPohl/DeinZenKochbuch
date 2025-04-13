@@ -2,23 +2,64 @@
   width: 100%;
 }
 
-body {
+html, body {
   display: grid;
-  grid-template-rows: auto 1fr auto; /* so body immer genau zwischen header/footer, egal ob wir sie nochmal ändern */
-  flex-direction: column;
   height: 100vh;
   margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
 }
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 0 0.7rem 0.7rem;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+
+.button-container .d-flex.flex-column {
+  gap: 0px; /* Abstand zwischen Text und Button */
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
 
 /*karte mit ganzem login*/
 .shipping-card {
   color: #722a35;
-  background-color: #f7eddc ;;
+  background-color: #e9d0af ;
   width: clamp(180px, 70vw, min(70vw, 1000px));
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-radius: 25px;
+  padding: 1em;
 }
 
 /*für die inhalte in der shipping card*/
@@ -31,6 +72,49 @@ body {
   padding: 20px;
 }
 
+.mat-card-title {
+  font-weight: bold;
+  font-size: 40px;        /* etwa 32px */
+  color: #722a35;
+  margin-bottom: 1rem;
+}
+
+
+/* Basis-Stil für alle runden Buttons */
+.rund-button {
+  margin: 0 !important;
+  display: inline-block;
+  padding: 10px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #fffaf7;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Login = Corporate-Farbe */
+.login-button {
+  background-color: #722a35;
+
+}
+
+.login-button:hover {
+  background-color: #5c1e2b;
+}
+
+/* Registrieren = grün */
+.registrieren-button {
+  background-color: #006D57;
+}
+
+.registrieren-button:hover {
+  background-color: #005645;
+}
+
+
+
 /*für den space zwischen den buttons, anders ging es nicht, hat jahre gedauert*/
 .spacer {
   flex-grow: 1; /* Nimmt den gesamten verbleibenden Raum ein */
@@ -38,30 +122,17 @@ body {
 
 /*text noch kein konto?*/
 .register-text {
-  font-size: 14px;
+  font-size: 16px;
   color: #722a35;
   margin-top: 10px; /* Abstand zum oberen Rand */
   margin-bottom: 2px; /* Abstand zum unteren Rand */
-  padding-left: 10px;
-}
-
-/*buttons*/
-button.login-btn {
-  align-self: flex-end;
-  color: #722a35;
-  border-radius: 7px;
-}
-
-button.register-btn {
-  align-self: flex-start;
-  color: #722a35;
-  border-radius: 7px;
+  padding-left: 0.5rem;
 }
 
 /* eingabefelder */
 mat-form-field .mat-input-element {
   background-color: #f7ede8;
-  border-radius: 4px; /* abgerundete Ecken */
+  border-radius: 15px; /* abgerundete Ecken */
   color: #722a35;
 }
 
@@ -99,14 +170,3 @@ mat-form-field .mat-input-element {
 .col:last-child {
   margin-right: 0;
 }
-
-.success {
-  color: seagreen;
-  margin-top: 10px;
-}
-
-.error {
-  color: darkred;
-  margin-top: 10px;
-}
-

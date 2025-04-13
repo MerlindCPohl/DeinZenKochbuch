@@ -10,13 +10,14 @@ import { AllrecipesComponent } from './allrecipes/allrecipes.component';
 
 
 export const routes: Routes = [
-  { path: "login", title: "Login", component: LoginComponent },
-  { path: "home", redirectTo: "", pathMatch: 'full' },
-  { path: "myrecipes", title: "My Recipes", component: MyrecipesComponent, canActivate: [AuthGuard] },
-  { path: "", title: "Home", component: HomeComponent, pathMatch: 'full' },
-  { path: "newrecipe", title: "Recipe", component: NewrecipeComponent, canActivate: [AuthGuard] },
+  { path: "", redirectTo: "login", pathMatch: 'full' },
   { path: "register", title: "Register", component: RegisterComponent },
-  { path: "user-settings", title: "User Settings", component: UserSettingsComponent, canActivate: [AuthGuard] }, // Fügen Sie diese Zeile hinzu
+  { path: "login", title: "Login", component: LoginComponent },
+  { path: "home", title: "Home", component: HomeComponent },
+  { path: "myrecipes", title: "My Recipes", component: MyrecipesComponent, canActivate: [AuthGuard] },
+  { path: "newrecipe", title: "Recipe", component: NewrecipeComponent, canActivate: [AuthGuard] },
+  { path: "user-settings", title: "User Settings", component: UserSettingsComponent, canActivate: [AuthGuard] },
   { path: "allrecipes", title: "Alle Rezepte", component: AllrecipesComponent },
-  { path: "**", redirectTo: "" },
+  { path: "**", redirectTo: "login" },  // Fallback auch auf login leiten
+
 ];

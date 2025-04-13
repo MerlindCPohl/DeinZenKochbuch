@@ -35,9 +35,10 @@ export class Sonderzeichenservice {
     const original = text;
 
     text = text.replace(/weissweinessig/gi, 'Weißweinessig');
+    text = text.replace(/gemuese paella/gi, 'Gemüse Paella');
 
-    const ausnahmenSS = ['schuessel', 'kresse', 'passionsfrucht', 'essig', 'wasser', 'dressing'];
-    const musterSSAusnahme = /(nuss|nuesse|nüsse|nuß|nuessen|nüssen|nussig|nussöl|nussoel)/i;
+    const ausnahmenSS = ['moussaka','schuessel', 'kresse', 'passionsfrucht', 'essig', 'wasser', 'dressing'];
+    const musterSSAusnahme = /(mousse|nuss|nuesse|nüsse|nuß|nuessen|nüssen|nussig|nussöl|nussoel)/i;
     const ausnahmeMitWeiss = /weissweinessig/i;
 
     if (ausnahmeMitWeiss.test(text)) {
@@ -51,7 +52,7 @@ export class Sonderzeichenservice {
     }
 
     // Umlaute ersetzen, wenn keine inhaltlichen Ausnahmen wie „boeuf stroganoff“ etc.
-    const ausnahmenUmlaute = ['paella', 'balsamicoessig', 'sauerampfer', 'boeuf stroganoff'];
+    const ausnahmenUmlaute = [ 'paella', 'balsamicoessig', 'sauerampfer', 'boeuf stroganoff'];
     const istUmlautAusnahme = ausnahmenUmlaute.some(a => original.toLowerCase().includes(a));
     if (!istUmlautAusnahme) {
       text = text

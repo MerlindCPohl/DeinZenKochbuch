@@ -4,19 +4,23 @@
 
 body {
   display: grid;
-  grid-template-rows: auto 1fr auto; /* so body immer genau zwischen header/footer, egal ob wir sie nochmal ändern */
   flex-direction: column;
   height: 100vh;
   margin: 0;
+  overflow: hidden;
+  position: relative;
 }
 
 .shipping-card {
-  background-color: #f7eddc;
+  border-radius: 25px;
+  color: #722a35;
+  background-color: #e9d0af ;
   width: clamp(180px, 70vw, min(70vw, 1000px));
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 1em;
 }
 
 /*für die inhalte in der shipping card*/
@@ -30,7 +34,7 @@ body {
 }
 
 .hint-text {
-  font-size: 14px;
+  font-size: 15px;
   margin-bottom: 10px; /* Abstand zum Eingabefeld */
   margin-top: 8px;
 }
@@ -45,17 +49,52 @@ mat-form-field {
   flex-grow: 1; /* nimmt gesamten verbleibenden Raum ein */
 }
 
-.cancel-btn{
-  align-self: flex-start;
-  color: #722a35;
-  border-radius: 7px;
+/* Basis-Stil für alle runden Buttons */
+.rund-button {
+  margin: 0 !important;
+  display: inline-block;
+  padding: 10px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #fffaf7;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.register-btn{
-  align-self: flex-start;
-  color: #722a35;
-  border-radius: 7px;
+/* Login = Corporate-Farbe */
+.login-button {
+  background-color: #722a35;
+
 }
+
+.login-button:hover {
+  background-color: #5c1e2b;
+}
+
+/* Registrieren = grün */
+.registrieren-button {
+  background-color: #006D57;
+}
+
+.registrieren-button:hover {
+  background-color: #005645;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 0 0.7rem 0.7rem;
+}
+
+/*für den space zwischen den buttons, anders ging es nicht, hat jahre gedauert*/
+.spacer {
+  flex-grow: 1; /* Nimmt den gesamten verbleibenden Raum ein */
+}
+
 
 /* Styling für das Dialog-Panel */
 .confirm-dialog-panel {
@@ -94,14 +133,3 @@ mat-form-field {
   margin-right: 0;
 }
 
-.success {
-  color: green;
-  padding: 10px;
-  margin-top: 10px;
-}
-
-.error {
-  color: red;
-  padding: 10px;
-  margin-top: 10px;
-}

@@ -18,19 +18,29 @@ h4 {
   margin-top: 2rem;
 }
 
-.button{
-  align-content: center;
-  color: #722a35;
-  border-radius: 7px;
-  background-color: #f7eddc;
+.button {
+  display: inline-block;
+  padding: 10px 24px;
+  font-size: 16px;
+  color: #fffaf7;
+  background-color: #006D57;
   border: none;
-  margin: 0 auto;
-  padding: 0.6rem 1rem;
+  border-radius: 25px;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .button:hover {
   background-color: #5c1e2b;
+  transform: translateY(-2px);
 }
+
+.button:active {
+  background-color: #4a161f;
+  transform: scale(0.98);
+}
+
 
 @media (max-width: 768px) {
   .chart-container,
