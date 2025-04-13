@@ -392,11 +392,16 @@ router.get('/rezepte/suche', async (req, res) => {
 // autocomplete route
 router.get('/suchvorschlaege', async (req, res) => {
     let query = req.query.query;
+    console.log("Ursprünglicher Query:", query);
     if (!query || query.length < 3) {
         return res.status(400).json({ error: 'Zu kurzer Suchbegriff' });
     }
 
     query = ersetzeFuerSuche(query);
+    console.log("Nach ersetzeFuerSuche:", query);
+
+    const sqlPattern = `%${query}%`;
+    console.log("SQL Pattern:", sqlPattern);
 
     try {
         const result = await client.query(`

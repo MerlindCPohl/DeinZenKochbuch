@@ -1,3 +1,4 @@
+<app-alert></app-alert>
 <div class="container mt-4">
   <h2 class="text-center mb-4">Alle Rezepte</h2>
 
@@ -9,13 +10,13 @@
         autocomplete="off"
         [(ngModel)]="suchbegriff"
         (input)="sucheVorschlaege()"
-        placeholder="🔍  Suche nach einem Rezept oder einer Zutat"
+        placeholder="                              🔍  Suche nach einem Rezept oder einer Zutat"
         class="form-control" />
       <!--button für sucheingabe löscen-->
       <button
         *ngIf="suchbegriff"
         type="button"
-        (click)="suchbegriff = ''; vorschlaege = []"
+        (click)="eingabeLeeren()"
         class="clear-button"
         aria-label="Eingabe löschen">
         ✕
@@ -37,10 +38,10 @@
 
 
 <!--rezepte in cards-->
-  <div class="row">
-    <div class="col-12 mb-2" *ngFor="let rezept of paginierteRezepte">
+    <div class="card-wrapper" *ngFor="let rezept of paginierteRezepte; let first = first">
       <div
-        class="card recipe-card shadow-sm p-3 d-flex mb-4 justify-content-center align-items-center"
+        class="card recipe-card shadow-sm p-3 mb-4"
+        [ngClass]="{ 'mt-5': first }"
         (click)="zeigeDetails(rezept.id)"
         (mousedown)="$event.preventDefault()"
         role="button"
@@ -48,7 +49,6 @@
         <span>{{ uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(rezept.name) }}</span>
       </div>
     </div>
-  </div>
 
   <!--seiten pagination-->
   <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
@@ -60,7 +60,6 @@
       Weiter &#8594;
     </button>
   </div>
-  <div style="height: 60px;"></div>
 </div>
 
 <!-- Rezept-Detail Modal -->
@@ -93,8 +92,4 @@
     <h5 class="text-center">Zubereitung:</h5>
     <p class="text-center">{{ rezept.anleitung }}</p>
   </div>
-</div>
-
-<div *ngIf="alertVisible" class="alert alert-warning text-center alert-position" role="alert">
-  {{ alertText }}
 </div>

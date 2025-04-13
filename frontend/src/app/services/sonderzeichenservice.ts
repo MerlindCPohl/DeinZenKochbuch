@@ -37,7 +37,7 @@ export class Sonderzeichenservice {
     text = text.replace(/weissweinessig/gi, 'Weißweinessig');
     text = text.replace(/gemuese paella/gi, 'Gemüse Paella');
 
-    const ausnahmenSS = ['moussaka','schuessel', 'kresse', 'passionsfrucht', 'essig', 'wasser', 'dressing'];
+    const ausnahmenSS = ['kuerbissuppe','moussaka','schuessel', 'kresse', 'passionsfrucht', 'essig', 'wasser', 'dressing'];
     const musterSSAusnahme = /(mousse|nuss|nuesse|nüsse|nuß|nuessen|nüssen|nussig|nussöl|nussoel)/i;
     const ausnahmeMitWeiss = /weissweinessig/i;
 

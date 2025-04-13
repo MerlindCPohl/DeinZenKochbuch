@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from './shared/components/error-dialog/error-dialog.component'; // Pass den Pfad an
 import { MatSnackBarConfig, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { NotificationService } from './services/notification.service';
+import {AlertComponent} from './alert/alert.component';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ export class AppModule { }
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, RouterOutlet],
+  imports: [HeaderComponent, FooterComponent, RouterOutlet, AlertComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

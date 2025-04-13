@@ -6,16 +6,11 @@
 
 /*irgendwie gab es voreinstellungen, wahrscheinlich bootstrap, die sind hiermit ausgeschaltet, sonst lässt sich der text nicht formuatieren */
 
-.footer,
-.footer .container {
-  background-color: #f1f3f5 !important;
+.footer {
+  background-color: #f1f3f5;
   padding: 0.5rem 1rem;
   text-align: left;
   width: 100%;
-  position: sticky;
-  bottom: 0;
-  z-index: 10;
-  margin-top: auto;
 }
 
 
@@ -27,4 +22,10 @@
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: small;
   color: #161616;
+}
+
+.footer .container {
+  width: 100%;
+  padding: 0;
+  margin: 0 !important;
 }

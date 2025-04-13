@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { AlertService } from '../services/alertservice';
-import {AsyncPipe} from '@angular/common';
+import {AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-alert',
   standalone: true,
   imports: [
-    AsyncPipe
+    AsyncPipe,
+    CommonModule
   ],
   template: `
     <div *ngIf="(alertService.alertText$ | async) as message"

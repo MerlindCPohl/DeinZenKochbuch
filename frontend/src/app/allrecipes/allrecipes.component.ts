@@ -6,12 +6,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import {Sonderzeichenservice} from '../services/sonderzeichenservice';
 import { AlertService } from '../services/alertservice';
+import {AlertComponent} from '../alert/alert.component';
 
 
 @Component({
   selector: 'app-allrecipes',
   standalone: true,
-  imports: [CommonModule, MatIconModule, FormsModule],
+  imports: [CommonModule, MatIconModule, FormsModule, AlertComponent],
   templateUrl: './allrecipes.component.html'
 })
 
@@ -24,6 +25,7 @@ export class AllrecipesComponent {
   gefilterteRezepte: any[] = [];
   suchbegriff: string = '';
   vorschlaege: { begriff: string, typ: string }[] = [];
+
 
   constructor(
     private http: HttpClient,
@@ -80,7 +82,9 @@ export class AllrecipesComponent {
       return;
     }
 
-    this.http.get<{ begriff: string, typ: string }[]>(`/api/suchvorschlaege?query=${this.suchbegriff}`)
+    const normalisiert = this.sonderzeichenservice.ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(this.suchbegriff);
+
+    this.http.get<{ begriff: string, typ: string }[]>(`/api/suchvorschlaege?query=${normalisiert}`)
       .subscribe(data => {
         this.vorschlaege = data.map(v => ({
           ...v,
@@ -89,6 +93,7 @@ export class AllrecipesComponent {
       });
   }
 
+
   vorschlagAuswaehlen(vorschlag: { begriff: string, typ: string }) {
     const original = vorschlag.begriff;
     this.suchbegriff = original;
@@ -96,8 +101,12 @@ export class AllrecipesComponent {
 
     if (vorschlag.typ === 'rezeptname') {
       const rezept = this.allRecipes.find(r =>
-        this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(r.name) === original
+        this.sonderzeichenservice
+          .uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(r.name)
+          .toLowerCase()
+          .includes(original.toLowerCase())
       );
+
       if (rezept) {
         this.zeigeDetails(rezept.id);
       } else {
@@ -115,6 +124,14 @@ export class AllrecipesComponent {
         });
     }
   }
+
+  eingabeLeeren() {
+    this.suchbegriff = '';
+    this.vorschlaege = [];
+    this.gefilterteRezepte = []; // <- zeigt wieder alle an
+    this.seite = 1;
+  }
+
 
   snackbarZeigenUndAlleRezepteLaden() {
     this.alertService.zeigeAlert('Keine passenden Rezepte gefunden');

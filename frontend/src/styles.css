@@ -6,16 +6,35 @@
 }/* algemeines layout */
 
 
-html, body {
+html, body,  app-root {
   height: 100%;
   min-height: 100%;
-  /*overflow: hidden;*/
-  scrollbar-width: none;
-  background-color: #deb887	;
   margin: 0;
   padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
+/*für footer*/
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: rgba(0,255,0,0.1);
+}
+
+.main-content {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #deb887;
+}
+
+.footer {
+  background-color: #f1f3f5;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  width: 100%;
+  flex-shrink: 0; /* Verhindert, dass Footer schrumpft */
 }
 
 /* Container für angular allgemein*/
@@ -25,10 +44,6 @@ app-root {
   min-height: 100vh;
   height: 100%;
   overflow: auto;
-}
-
-.main-content {
-  flex: 1; /*footer*/
 }
 
 /* Gibt router-outlet Höhe → verhindert, dass header und rest sich überschneiden */
@@ -66,11 +81,19 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2rem;
   width: 100%;
   position: relative;
   border-radius: 25px;
+  margin-bottom: 3rem;
 }
+
+.container.mt-4 {
+  background-color: #e9d0af;
+  padding: 2rem 0.1rem !important;
+  border-radius: 25px;
+  margin-bottom: 3rem;
+}
+
 
 /*  Inputfeld suchleiste*/
 .search-wrapper input.form-control {
@@ -88,7 +111,8 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
 
 /* alle cards: rezeote*/
 .card {
-  max-width: 900px;
+  max-width: 700px;
+  width: 100%;
   background-color: #f1f3f5 !important;
   border-radius: 25px;
   font-size: large;
@@ -96,6 +120,12 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   border: none;
   color: #722a35;
   text-align: center;
+}
+
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .card:hover {
@@ -295,6 +325,7 @@ ul.list-group li:hover {
   border-radius: 18px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
+  margin-bottom: 18px;
 }
 
 .pagination-button:hover:not(:disabled) {
@@ -328,3 +359,11 @@ ul.list-group li:hover {
   color: #333333;
   font-size: large;
 }
+
+/*für wachsende seiten damit footer unten bleibt*/
+:host {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
