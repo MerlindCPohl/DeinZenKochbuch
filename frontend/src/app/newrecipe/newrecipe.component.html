@@ -1,3 +1,5 @@
+<app-alert></app-alert>
+
 <div class="container mt-5" style="min-height: 100vh; padding-bottom: 100px;">
   <h2 class="text-center mb-4">
     {{ bearbeiteId ? 'Rezept bearbeiten' : 'Neues Rezept erstellen' }}
@@ -5,10 +7,22 @@
 
 
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-  <div class="mb-3">
+    <div class="mb-3">
       <label for="name" class="form-label">Name des Rezepts:</label>
-      <input type="text" id="name" class="form-control" required [(ngModel)]="rezept.name" name="name">
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        required
+        [(ngModel)]="rezept.name"
+        name="name"
+        [ngClass]="{ 'is-invalid': form.submitted && !rezept.name.trim() }"
+      >
+      <div *ngIf="form.submitted && !rezept.name.trim()" class="invalid-feedback">
+        Bitte gib einen Namen für dein Rezept ein.
+      </div>
     </div>
+
 
     <!-- zutaten eingeben -->
     <div class="mb-3 ps-5 border-secondary-subtle">
@@ -120,9 +134,6 @@
       <button type="submit" class="btn btn-primary speichern-button">
         {{ bearbeiteId ? 'Rezept aktualisieren' : 'Rezept speichern' }}
       </button>
-      <div *ngIf="snackbarVisible" class="alert alert-success position-fixed bottom-0 start-50 translate-middle-x mb-3" style="z-index: 1050;">
-      {{ snackbarText }}
-    </div>
     </div>
 
   </form>

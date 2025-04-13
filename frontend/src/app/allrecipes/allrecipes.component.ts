@@ -5,6 +5,7 @@ import {CommonModule} from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import {Sonderzeichenservice} from '../services/sonderzeichenservice';
+import { AlertService } from '../services/alertservice';
 
 
 @Component({
@@ -13,6 +14,7 @@ import {Sonderzeichenservice} from '../services/sonderzeichenservice';
   imports: [CommonModule, MatIconModule, FormsModule],
   templateUrl: './allrecipes.component.html'
 })
+
 export class AllrecipesComponent {
   allRecipes: any[] = [];
   ausgewaehlt: number | null = null;
@@ -25,8 +27,8 @@ export class AllrecipesComponent {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     private sonderzeichenservice: Sonderzeichenservice,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -98,14 +100,29 @@ export class AllrecipesComponent {
       );
       if (rezept) {
         this.zeigeDetails(rezept.id);
+      } else {
+        this.snackbarZeigenUndAlleRezepteLaden();
       }
     } else {
       this.http.get<any[]>(`/api/rezepte/suche?begriff=${encodeURIComponent(original)}`)
         .subscribe(data => {
-          this.gefilterteRezepte = data;
-          this.seite = 1;
+          if (data.length === 0) {
+            this.snackbarZeigenUndAlleRezepteLaden();
+          } else {
+            this.gefilterteRezepte = data;
+            this.seite = 1;
+          }
         });
     }
+  }
+
+  snackbarZeigenUndAlleRezepteLaden() {
+    this.alertService.zeigeAlert('Keine passenden Rezepte gefunden');
+
+    setTimeout(() => {
+      this.gefilterteRezepte = [];
+      this.seite = 1;
+    }, 1500);
   }
 
   public uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(text: string): string {

@@ -1,13 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {FormsModule, NgForm} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Sonderzeichenservice} from '../services/sonderzeichenservice';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Sonderzeichenservice } from '../services/sonderzeichenservice';
+import { AlertService } from '../services/alertservice';
+import {AlertComponent} from '../alert/alert.component';
 
 interface Zutat {
   id: number;
@@ -25,13 +27,13 @@ interface Zutat {
     MatAutocompleteModule,
     MatInputModule,
     MatFormFieldModule,
-    MatOptionModule],
+    MatOptionModule,
+    AlertComponent
+  ],
   templateUrl: './newrecipe.component.html',
   styleUrl: './newrecipe.component.css'
 })
-
 export class NewrecipeComponent implements OnInit {
-
   rezept = {
     name: '',
     anleitung: '',
@@ -53,7 +55,8 @@ export class NewrecipeComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    protected sonderzeichenservice: Sonderzeichenservice
+    protected sonderzeichenservice: Sonderzeichenservice,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -82,14 +85,11 @@ export class NewrecipeComponent implements OnInit {
         menge: z.menge,
         name: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(z.name),
         mengeneinheit: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(z.mengeneinheit)
-
       }));
       console.log('Zutaten aus der API:', data.zutaten);
-
     });
   }
 
-  // hinzufügen einer zutat
   zutatAuswaehlen(zutat: any) {
     const bereitsHinzugefuegt = this.ausgewaehlteZutaten.find(z => z.id === zutat.id);
 
@@ -106,7 +106,6 @@ export class NewrecipeComponent implements OnInit {
     this.zutatenVorschlaege = [];
   }
 
-
   sucheZutat() {
     if (this.zutatInput.length >= 1) {
       const suchbegriff = this.sonderzeichenservice.ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(this.zutatInput);
@@ -117,19 +116,22 @@ export class NewrecipeComponent implements OnInit {
     }
   }
 
-  // Zutat entfernen
   entferneZutat(id: number) {
     this.ausgewaehlteZutaten = this.ausgewaehlteZutaten.filter((z) => z.id !== id);
   }
 
   onSubmit(form: NgForm) {
-    this.formularUngueltig = form.invalid || this.rezept.anzahlportionen <= 0 || this.rezept.zubereitungszeitmin <= 0;
+    this.formularUngueltig = form.invalid || !this.rezept.name.trim() || this.rezept.anzahlportionen <= 0 || this.rezept.zubereitungszeitmin <= 0;
 
-    if (this.formularUngueltig) return;
-    this.formularUngueltig = false;
+    if (this.formularUngueltig) {
+      if (!this.rezept.name.trim()) {
+        this.alertService.zeigeAlert('Bitte gib einen Namen für dein Rezept ein.');
+      }
+      return;
+    }
 
     if (this.ausgewaehlteZutaten.length < 2) {
-      this.snackbarAnzeigen('Bitte fülle alle Felder korrekt aus und gib mindestens zwei Zutaten an.');
+      this.alertService.zeigeAlert('Bitte fülle alle Felder korrekt aus und gib mindestens zwei Zutaten an.');
       return;
     }
 
@@ -138,7 +140,7 @@ export class NewrecipeComponent implements OnInit {
       alert('Du musst eingeloggt sein, um ein Rezept zu speichern.');
       return;
     }
-    //umwandlen von feldern für db
+
     const rezeptMitErsetzterSchreibweise = {
       ...this.rezept,
       name: this.sonderzeichenservice.ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(this.rezept.name),
@@ -147,7 +149,6 @@ export class NewrecipeComponent implements OnInit {
       zubereitungszeitmin: this.rezept.zubereitungszeitmin
     };
 
-    // zutatenschreibweise umwandeln
     const zutatenKonvertiert = this.ausgewaehlteZutaten.map(zutat => ({
       id: zutat.id,
       menge: Number(zutat.menge),
@@ -155,7 +156,6 @@ export class NewrecipeComponent implements OnInit {
       mengeneinheit: this.sonderzeichenservice.ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(zutat.mengeneinheit)
     }));
 
-    //hier mit user id aus login speuchern
     const rezeptData = {
       ...rezeptMitErsetzterSchreibweise,
       zutaten: zutatenKonvertiert,
@@ -167,17 +167,17 @@ export class NewrecipeComponent implements OnInit {
     if (this.bearbeiteId) {
       this.http.put(`/api/updaterezepte/${this.bearbeiteId}`, rezeptData).subscribe(
         () => {
-          this.snackbarAnzeigen('Rezept aktualisiert!');
+          this.alertService.zeigeAlert('Rezept aktualisiert!');
           setTimeout(() => {
             this.router.navigate(['/myrecipes']);
           }, 2000);
         },
-        () => this.snackbarAnzeigen('Fehler beim Aktualisieren.')
+        () => this.alertService.zeigeAlert('Fehler beim Aktualisieren.')
       );
     } else {
       this.http.post('api/rezept', rezeptData).subscribe(
         () => {
-          this.snackbarAnzeigen('Rezept erfolgreich gespeichert!');
+          this.alertService.zeigeAlert('Rezept erfolgreich gespeichert!');
           setTimeout(() => {
             this.rezept = {
               name: '',
@@ -192,22 +192,12 @@ export class NewrecipeComponent implements OnInit {
             this.ausgewaehlteZutaten = [];
           }, 2000);
         },
-        () => this.snackbarAnzeigen('Fehler beim Speichern des Rezepts.')
+        () => this.alertService.zeigeAlert('Fehler beim Speichern des Rezepts.')
       );
     }
-  }
-
-  snackbarText = '';
-  snackbarVisible = false;
-
-  snackbarAnzeigen(text: string) {
-    this.snackbarText = text;
-    this.snackbarVisible = true;
-    setTimeout(() => this.snackbarVisible = false, 3000);
   }
 
   abbrechen() {
     this.router.navigate(['/home']);
   }
-
 }

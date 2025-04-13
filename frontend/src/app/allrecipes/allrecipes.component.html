@@ -9,7 +9,7 @@
         autocomplete="off"
         [(ngModel)]="suchbegriff"
         (input)="sucheVorschlaege()"
-        placeholder="🔍 Suche nach einem Rezept oder einer Zutat"
+        placeholder="🔍  Suche nach einem Rezept oder einer Zutat"
         class="form-control" />
       <!--button für sucheingabe löscen-->
       <button
@@ -95,3 +95,6 @@
   </div>
 </div>
 
+<div *ngIf="alertVisible" class="alert alert-warning text-center alert-position" role="alert">
+  {{ alertText }}
+</div>

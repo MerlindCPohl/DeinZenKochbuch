@@ -285,25 +285,6 @@ ul.list-group li:hover {
 
 }
 
-/* Snackbar Styling */
-.mat-mdc-snack-bar-container {
-  border-radius: 16px !important;
-  background-color: #722a35 !important;
-  color: #fffaf7 !important;
-  text-align: center;
-  justify-content: center !important;
-  font-size: 1rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-
-/* Position in der Mitte */
-.snackbar-center {
-  position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-}
-
 /*pagination*/
 .pagination-button {
   padding: 8px 20px;
@@ -331,4 +312,19 @@ ul.list-group li:hover {
   font-weight: bold;
   min-width: 2.5rem;
   text-align: center;
+}
+
+/*snackbars*/
+
+.alert-position {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  padding: 2rem 2.5rem;
+  border-radius: 1rem;
+  background-color: #53AA73;
+  color: #333333;
+  font-size: large;
 }
