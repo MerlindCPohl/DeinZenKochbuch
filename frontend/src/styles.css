@@ -241,12 +241,11 @@ ul.list-group {
 }
 
 ul.list-group li {
-  background-color: transparent;
   border: none;
   color: #5c1e2b;
   font-size: 1rem;
   text-align: center;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0.5rem;
   border-bottom: 1px solid #eee;
 }
 

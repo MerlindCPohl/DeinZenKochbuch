@@ -23,20 +23,3 @@
   background-color: #5c1e2b;
 }
 
-/* das sind die icons in den cards für löschen uns bearbeiten
-.icon-btn {
-  font-size: 1.4rem !important;
-  font-weight: bold !important;
-  color:#5c1e32; !important;
-  padding: 6px;
-  border-radius: 10px;
-  margin-left: 0.5rem;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.icon-btn:hover {
-  background-color: #f1f3f5 !important;
-  transform: scale(1.2);
-  color: #5c1e2b; !important;
-}
-*/
