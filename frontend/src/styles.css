@@ -156,7 +156,6 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
 
 .dropdown-list li:hover {
   background-color: rgba(225, 179, 148, 0.58);
-  cursor: pointer;
 }
 
 
@@ -251,6 +250,11 @@ ul.list-group li {
 
 ul.list-group li:last-child {
   border-bottom: none;
+}
+
+ul.list-group li:hover {
+  background-color: rgba(225, 179, 148, 0.58);
+
 }
 
 /* Snackbar Styling */
