@@ -116,23 +116,22 @@ input.form-control:-webkit-autofill {
   margin: auto;
 }
 
-.input-container {
-  position: relative;
-  width: 100%;
-}
-
 .input-container.with-dropdown {
   position: relative;
   width: 100%;
+
 }
 
 .input-container input.form-control {
   width: 100%;
+  height: 45px;
   padding-right: 2.5rem; /* Platz für X-Button */
-  border-radius: 25px;
+  border-radius: 20px;
   background-color: #f1f3f5;
   color: #5c1e2b;
   font-size: 1rem;
+  padding-top: 0.9rem; /* vorher: Standardwert */
+  padding-bottom: 1rem; /* vorher: Standardwert */
 }
 
 .list-group.dropdown-list {
