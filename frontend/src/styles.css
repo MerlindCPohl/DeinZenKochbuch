@@ -103,40 +103,49 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   transform: translateY(-2px);
 }
 
-/* x button in suchleiste*/
-.clear--inside {
-  position: absolute;
-  right: calc(50% - 250px + 1rem);
-  background-color: transparent;
-  border: none;
-  color: #5c1e2b;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  line-height: 1;
-  text-align: center;
-  padding: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  z-index: 10;
+/*dropdown styling*/
+
+input.form-control:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #f1f3f5 inset !important;
 }
 
-/*dropdown styling*/
-.dropdown-list {
-  margin-bottom: 2rem;
+.dropdown-wrapper {
+  position: relative;
   width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.input-container.with-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.input-container input.form-control {
+  width: 100%;
+  padding-right: 2.5rem; /* Platz für X-Button */
+  border-radius: 25px;
   background-color: #f1f3f5;
+  color: #5c1e2b;
+  font-size: 1rem;
+}
+
+.list-group.dropdown-list {
+  border: none;
   border-radius: 20px;
-  padding: 0;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  z-index: 9999;
   position: absolute;
   top: 100%;
   left: 0;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: #f1f3f5;
+  z-index: 10;
 }
 
 .dropdown-list li {
@@ -148,16 +157,36 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
 
 .dropdown-list li:last-child {
   border-bottom: none;
-  padding: 0.75rem 2rem;
-  text-align: left;
-  border-bottom: 1px solid #e9ecef;
-  color: #5c1e2b;
 }
 
 .dropdown-list li:hover {
   background-color: rgba(225, 179, 148, 0.58);
 }
 
+/*button veruch für dropdown suchleiste*/
+.clear-button{
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 20%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.clear-button:hover {
+  background-color: #b02a37;
+}
 
 /*karten wrapper weil irgendein konflikt*/
 .karten-wrapper {
@@ -224,7 +253,7 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   line-height: 1;
   text-align: center;
   transition: background-color 0.2s ease, transform 0.2s ease;
-  cursor: pointer;
+
 }
 
 .modal-content .btn-close:hover {
@@ -232,7 +261,7 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   transform: scale(1.1);
 }
 
-/* zutatenliste */
+/* zutatenliste - dropdown in meineRezepte/bearbeiten > neuesRezept */
 ul.list-group {
   list-style: none;
   padding-left: 0;
@@ -276,27 +305,7 @@ ul.list-group li:hover {
   transform: translate(-50%, -50%) !important;
 }
 
-/*button veruch für suchleiste*/
-.clear-btn-inside {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #dc3545;
-  border: none;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-radius: 40%;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-}
-
+/*pagination*/
 .pagination-button {
   padding: 8px 20px;
   font-size: 16px;
@@ -314,7 +323,6 @@ ul.list-group li:hover {
 
 .pagination-button:disabled {
   background-color: #b5a4a7;
-  cursor: not-allowed;
   color: #eee;
 }
 

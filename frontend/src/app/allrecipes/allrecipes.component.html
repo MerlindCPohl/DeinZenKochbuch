@@ -2,35 +2,39 @@
   <h2 class="text-center mb-4">Alle Rezepte</h2>
 
   <!-- suchfeld und dropdown-->
-  <div class="search-wrapper mb-2">
-    <input
-      type="text"
-      [(ngModel)]="suchbegriff"
-      (input)="sucheVorschlaege()"
-      placeholder="🔍 Suche nach einem Rezept oder einer Zutat"
-      class="form-control pe-5" />
+  <div class="dropdown-wrapper">
+    <div class="input-container with-dropdown">
+      <input
+        type="text"
+        autocomplete="off"
+        [(ngModel)]="suchbegriff"
+        (input)="sucheVorschlaege()"
+        placeholder="🔍 Suche nach einem Rezept oder einer Zutat"
+        class="form-control" />
+      <!--button für sucheingabe löscen-->
+      <button
+        *ngIf="suchbegriff"
+        type="button"
+        (click)="suchbegriff = ''; vorschlaege = []"
+        class="clear-button"
+        aria-label="Eingabe löschen">
+        ✕
+      </button>
 
-    <!--button für sucheingabe löscen-->
-    <button
-      *ngIf="suchbegriff"
-      type="button"
-      (click)="suchbegriff = ''; vorschlaege = []"
-      class="btn btn-danger btn-sm rounded-2 clear-btn-inside"
-      aria-label="Eingabe löschen">
-      ✕
-    </button>
 
     <!-- dropdown -->
-    <ul *ngIf="vorschlaege.length > 0" class="list-group dropdown-list position-absolute w-100 zindex-dropdown">
+    <ul id="auto-vorschlag"  *ngIf="vorschlaege.length > 0" class="list-group dropdown-list">
       <li
         class="list-group-item list-group-item-action"
         *ngFor="let v of vorschlaege"
         (click)="vorschlagAuswaehlen(v)">
+        <!-- Vorschlag: {{ v.begriff }} -->
         {{ v.begriff }}
-       <!-- <small class="text-muted float-end">({{ v.typ }})</small> -->
       </li>
     </ul>
   </div>
+  </div>
+
 
 <!--rezepte in cards-->
   <div class="row">

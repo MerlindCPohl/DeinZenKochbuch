@@ -112,4 +112,5 @@ export class AllrecipesComponent {
     return this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(text);
   }
 
+
 }

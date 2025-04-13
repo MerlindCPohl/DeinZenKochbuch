@@ -52,7 +52,7 @@ export class Sonderzeichenservice {
     }
 
     // Umlaute ersetzen, wenn keine inhaltlichen Ausnahmen wie „boeuf stroganoff“ etc.
-    const ausnahmenUmlaute = [ 'paella', 'balsamicoessig', 'sauerampfer', 'boeuf stroganoff'];
+    const ausnahmenUmlaute = [ 'sauer', 'paella', 'balsamicoessig', 'sauerampfer', 'boeuf stroganoff'];
     const istUmlautAusnahme = ausnahmenUmlaute.some(a => original.toLowerCase().includes(a));
     if (!istUmlautAusnahme) {
       text = text
