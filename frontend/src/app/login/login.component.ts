@@ -9,6 +9,8 @@ import { AuthService } from '../shared/auth/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import {AlertComponent} from '../alert/alert.component';
+import { AlertService } from '../services/alertservice';
 
 @Component({
   selector: 'app-login',
@@ -22,19 +24,24 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     RouterModule,
     CommonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    AlertComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
+
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     name: new FormControl('', Validators.required),
     passwort: new FormControl('', [Validators.required, Validators.minLength(8)]),
   });
 
+  constructor(
+    private alertService: AlertService
+  ) {}
+
   hide = true;
-  loginMessage: string = '';
 
   private auth = inject(AuthService);
   private router = inject(Router);
@@ -43,7 +50,6 @@ export class LoginComponent implements OnInit {
   togglePasswordVisibility(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-    this.hide = !this.hide;
   }
 
   ngOnInit(): void {
@@ -63,28 +69,24 @@ export class LoginComponent implements OnInit {
             if (response.userId) {
               localStorage.setItem('userId', response.userId);
             }
-            this.showSnackbar('Login erfolgreich', 'success');
+            this.alertService.zeigeAlert('Login erfolgreich', 1000);
             setTimeout(() => this.router.navigate(['/home']), 1000);
           } else {
-            this.showSnackbar('Login fehlgeschlagen, bitte versuche es noch einmal.', 'error');
+            this.alertService.zeigeAlert('Login fehlgeschlagen, bitte versuche es noch einmal.', 2000);
           }
         },
         error: () => {
-          this.showSnackbar('Login fehlgeschlagen, bitte versuche es noch einmal.', 'error');
+          this.alertService.zeigeAlert('Login fehlgeschlagen, bitte versuche es noch einmal.', 2000);
         },
       });
     } else {
-      this.showSnackbar('Bitte fülle alle Felder korrekt aus.', 'error');
+      this.alertService.zeigeAlert('Bitte fülle alle Felder korrekt aus.', 2000);
     }
   }
 
-  private showSnackbar(message: string, type: 'success' | 'error'): void {
-    this.snackBar.open(message, '', {
-      duration: 2000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: [`snackbar-${type}`],
-    });
+  zeigeLoginStatus(nachricht: string, erfolg: boolean = true) {
+    this.alertService.zeigeAlert(nachricht, erfolg ? 1500 : 1500);
   }
+
 
 }

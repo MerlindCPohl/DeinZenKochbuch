@@ -134,7 +134,7 @@ export class AllrecipesComponent {
 
 
   snackbarZeigenUndAlleRezepteLaden() {
-    this.alertService.zeigeAlert('Keine passenden Rezepte gefunden');
+    this.alertService.zeigeAlert('Keine passenden Rezepte gefunden', 1500);
 
     setTimeout(() => {
       this.gefilterteRezepte = [];

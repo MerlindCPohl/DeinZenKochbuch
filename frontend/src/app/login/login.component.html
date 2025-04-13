@@ -1,3 +1,5 @@
+<app-alert></app-alert>
+
 <div class="wrapper">
 <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
   <mat-card class="shipping-card">
@@ -50,11 +52,6 @@
       </div>
       <button type="submit" class="rund-button login-button">Login</button>
     </mat-card-actions>
-
-
-    <div *ngIf="loginMessage" [ngClass]="{'success': loginMessage === 'Login erfolgreich', 'error': loginMessage !== 'Login erfolgreich'}">
-  {{ loginMessage }}
-</div>
   </mat-card>
 </form>
 </div>
