@@ -450,18 +450,18 @@ router.get('/rezepte-saison/:monat', async (req, res) => {
         const query = `
       SELECT r.*
       FROM rezepte r
-      JOIN beinhaltet b ON r.id = b.rezept_id
-      JOIN zutaten z ON z.id = b.zutat_id
+      JOIN beinhaltet b ON r.id = b.rezepte_id
+      JOIN zutaten z ON z.id = b.zutaten_id
       WHERE z.hatSaison = true
-      AND z.verfuegbarkeit[$1 + 1] = true
+      AND z.verfuegbarkeit[($1 + 1)] = true
       GROUP BY r.id
     `;
-
         const result = await client.query(query, [monat]);
         res.json(result.rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Fehler beim Laden der Rezepte');
+    }
+    catch (error) {
+        console.error('Fehler bei /rezepte-saison/:monat:', error.message, error.stack);
+        res.status(500).json({ message: error.message || 'Fehler beim Laden der Rezepte' });
     }
 });
 
