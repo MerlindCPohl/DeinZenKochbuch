@@ -20,22 +20,24 @@ export class HomeComponent {
 
   constructor(private router: Router) {
   }
-
-
-  public chartLabels: string[] = [
-    'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
-    'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
-  ];
-
   public chartData: ChartData<'pie', number[], string> = {
-    labels: this.chartLabels,
+    labels: [
+      'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+      'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
+    ],
     datasets: [
       {
         data: Array(12).fill(1),
         backgroundColor: [
-          '#e57373', '#64b5f6', '#ffd54f', '#b0bec5', '#81c784', '#f8bbd0',
-          '#ffcc80', '#f06292', '#4db6ac', '#ffb74d', '#bcaaa4', '#90a4ae'
-        ]
+          '#efdcc3', '#e9d0af', '#e4c49b', '#deb887', '#e4b981', '#eccf8a',
+          '#e3cea1', '#d2b793', '#D2B48C' , '#c1b4a4', '#bcaaa4', '#bbb4aa'
+        ],
+        hoverOffset: 30, // sanft rauszoomen
+        hoverBackgroundColor: [
+          '#B8A179'
+        ],
+        borderColor: '#F5DEB3',
+        borderWidth: 1
       }
     ]
   };
@@ -54,14 +56,28 @@ export class HomeComponent {
         display: false
       },
       tooltip: {
+        backgroundColor: '#006D57 ',
+        titleColor: '#f1f3f5',
+        titleFont: { size: 12, weight: 'bold' },
+        bodyColor:  '#f1f3f5',
+        bodyFont: { size: 16 },
+        padding: 10,
+        cornerRadius: 15,
         callbacks: {
-          label: context => {
-            return this.chartLabels[context.dataIndex];
-          }
+          // titel entfernen
+          title: () => [],
+          // Keine zusätzlichen Labels
+          label: () => '',
+          // nut monatsnamen
+          beforeLabel: (context) => context.label || ''
         }
+      },
+      title: {
+        display: false
       }
     }
   };
+
 
   chartClick(event: { event?: any, active?: any[] }): void {
     const nativeEvent = event.event?.native;

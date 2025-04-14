@@ -90,6 +90,9 @@
     </ul>
 
     <h5 class="text-center">Zubereitung:</h5>
-    <p class="text-center">{{ rezept.anleitung }}</p>
+    <p class="text-center">
+      {{ sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(rezept.anleitung) }}
+    </p>
+
   </div>
 </div>
