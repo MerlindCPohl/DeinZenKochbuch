@@ -83,4 +83,10 @@ export class AuthService {
     this.unsetUser();
     console.log('Logout erfolgreich');
   }
+
+  isLoggedIn(): boolean {
+    const currentUser = this.user();
+    return currentUser !== null && currentUser.id !== undefined && currentUser.id > 0;
+  }
+
 }

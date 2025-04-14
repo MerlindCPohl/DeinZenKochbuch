@@ -9,6 +9,7 @@
                 [data]="chartData"
                 [type]="chartType"
                 [options]="chartOptions"
+                (chartClick)="chartClick($event)">
                 style="width: 250px; height: 250px;">
         </canvas>
       </div>

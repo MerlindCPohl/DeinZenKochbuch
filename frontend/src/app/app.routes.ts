@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AllrecipesComponent } from './allrecipes/allrecipes.component';
+import { MonthsComponent } from './months/months.component';
 
 
 export const routes: Routes = [
@@ -19,5 +20,6 @@ export const routes: Routes = [
   { path: "user-settings", title: "User Settings", component: UserSettingsComponent, canActivate: [AuthGuard] },
   { path: "allrecipes", title: "Alle Rezepte", component: AllrecipesComponent },
   { path: "**", redirectTo: "login" },  // Fallback auch auf login leiten
+  { path: 'months', component: MonthsComponent, canActivate: [AuthGuard]}
 
 ];

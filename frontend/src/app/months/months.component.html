@@ -1,0 +1,95 @@
+<app-alert></app-alert>
+
+<div class="container mt-4">
+  <!-- Dynamische Monatsüberschrift -->
+  <h2 class="text-center mb-4">{{ monatName }}</h2>
+
+  <!-- Suchleiste im gewohnten Design -->
+  <div class="dropdown-wrapper">
+    <div class="input-container with-dropdown">
+      <input
+        type="text"
+        autocomplete="off"
+        [(ngModel)]="suchbegriff"
+        (input)="sucheVorschlaege()"
+        placeholder="🔍  Suche nach einem Rezept oder einer Zutat"
+        class="form-control" />
+      <button
+        *ngIf="suchbegriff"
+        type="button"
+        (click)="eingabeLeeren()"
+        class="clear-button"
+        aria-label="Eingabe löschen">
+        ✕
+      </button>
+
+      <ul *ngIf="vorschlaege.length > 0" class="list-group dropdown-list">
+        <li
+          class="list-group-item list-group-item-action"
+          *ngFor="let v of vorschlaege"
+          (click)="vorschlagAuswaehlen(v)">
+          {{ v.begriff }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Rezeptkarten -->
+  <div class="card-wrapper" *ngFor="let rezept of paginierteRezepte; let first = first">
+    <div
+      class="card recipe-card shadow-sm p-3 mb-4"
+      [ngClass]="{ 'mt-5': first }"
+      (click)="zeigeDetails(rezept.id)"
+      (mousedown)="$event.preventDefault()"
+      role="button"
+      tabindex="0">
+      <span>{{ sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(rezept.name) }}</span>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
+    <button class="pagination-button me-2" [disabled]="seite === 1" (click)="vorherigeSeite()">
+      ← Zurück
+    </button>
+    <span class="seitenzahl px-3">{{ seite }}</span>
+    <button
+      class="pagination-button me-2"
+      [disabled]="seite * seitenGroesse >= rezepte.length"
+      (click)="naechsteSeite()">
+      Weiter →
+    </button>
+  </div>
+</div>
+
+<!-- Rezeptdetails als Modal -->
+<div class="modal-backdrop" *ngIf="ausgewaehlt && rezept">
+  <div class="modal-content">
+    <button
+      (click)="schliessen()"
+      class="btn btn-danger btn-sm rounded-3 position-absolute"
+      style="top: 1rem; right: 1rem; width: 30px; height: 30px; padding: 0; font-size: 1.8rem; display: flex; align-items: center; justify-content: center;"
+      aria-label="Schließen">
+      ×
+    </button>
+
+    <h2 class="text-center mb-4">{{ rezept.name }}</h2>
+
+    <div class="text-center mb-3">
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegetarisch">🧀 Vegetarisch</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.vegan">🌱 Vegan</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.rohkost">🥑 Rohkost</span>
+      <span class="badge badge-pill badge-light text-dark border me-2" *ngIf="rezept.glutenfrei">🌾 Glutenfrei</span>
+    </div>
+
+    <h5 class="text-center">Zutaten:</h5>
+    <ul class="list-group">
+      <li *ngFor="let zutat of rezept.zutaten">
+        {{ zutat.name }} - {{ zutat.menge }} {{ zutat.mengeneinheit }}
+      </li>
+    </ul>
+
+    <h5 class="text-center">Zubereitung:</h5>
+    <p class="text-center">{{ rezept.anleitung }}</p>
+  </div>
+</div>

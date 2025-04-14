@@ -438,6 +438,32 @@ router.get('/suchvorschlaege', async (req, res) => {
     }
 });
 
+//get anfrage für monatsspezifische rezepte
+router.get('/rezepte-saison/:monat', async (req, res) => {
+    const monat = parseInt(req.params.monat, 10);
+
+    if (isNaN(monat) || monat < 0 || monat > 11) {
+        return res.status(400).send('Ungültiger Monat');
+    }
+
+    try {
+        const query = `
+      SELECT r.*
+      FROM rezepte r
+      JOIN beinhaltet b ON r.id = b.rezept_id
+      JOIN zutaten z ON z.id = b.zutat_id
+      WHERE z.hatSaison = true
+      AND z.verfuegbarkeit[$1 + 1] = true
+      GROUP BY r.id
+    `;
+
+        const result = await client.query(query, [monat]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Fehler beim Laden der Rezepte');
+    }
+});
 
 
 
