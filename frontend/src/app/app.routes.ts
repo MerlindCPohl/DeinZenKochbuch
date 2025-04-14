@@ -19,7 +19,7 @@ export const routes: Routes = [
   { path: "newrecipe", title: "Recipe", component: NewrecipeComponent, canActivate: [AuthGuard] },
   { path: "user-settings", title: "User Settings", component: UserSettingsComponent, canActivate: [AuthGuard] },
   { path: "allrecipes", title: "Alle Rezepte", component: AllrecipesComponent },
-  { path: "**", redirectTo: "login" },  // Fallback auch auf login leiten
-  { path: 'months', component: MonthsComponent, canActivate: [AuthGuard]}
+  { path: "months", component: MonthsComponent, canActivate: [AuthGuard] },
+  { path: "**", redirectTo: "login" } //fallback falss falsche url eingabe
 
 ];
