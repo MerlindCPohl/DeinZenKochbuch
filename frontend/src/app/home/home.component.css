@@ -6,12 +6,8 @@
   padding: 2rem 1rem;
 }
 
-
-h4 {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  color: #5c0c1d;
+body {
+  overflow: hidden;
 }
 
 .new-recipe-container {
@@ -20,7 +16,7 @@ h4 {
 
 .button {
   display: inline-block;
-  padding: 10px 24px;
+  padding: 10px 13px;
   font-size: 16px;
   color: #fffaf7;
   background-color: #006D57;
@@ -35,6 +31,16 @@ h4 {
   background-color: #5c1e2b;
   transform: translateY(-2px);
 }
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: nowrap;
+
+}
+
 
 .button:active {
   background-color: #4a161f;
@@ -54,3 +60,37 @@ h4 {
   width: 50px !important;
   height: 50px !important;
 }
+
+.home-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  flex-wrap: wrap;
+  padding: 2rem;
+}
+
+.chart-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.welcome-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+  z-index: 1;
+  position: relative;
+}
+

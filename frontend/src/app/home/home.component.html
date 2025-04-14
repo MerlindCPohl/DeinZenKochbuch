@@ -1,23 +1,26 @@
 <div class="home-wrapper">
   <div class="container-fluid h-100 d-flex flex-column">
-    <h2 class="text-center mt-4">Willkommen bei DeinZenKochbuch</h2>
+    <div class="welcome-wrapper">
+    <h2 class="welcome-title mt-4">Willkommen bei DeinZenKochbuch</h2>
+    </div>
 
     <div class="row flex-grow-1 align-items-center justify-content-center">
-      <!-- Chart links -->
-      <div class="col-12 col-md-6 d-flex justify-content-center mb-4 mb-md-0">
+      <!-- pie chart -->
+      <div class="chart-wrapper">
         <canvas baseChart
                 [data]="chartData"
                 [type]="chartType"
                 [options]="chartOptions"
                 (chartClick)="chartClick($event)">
-                style="width: 300px; height: 300px;">
+                style="width: 400px; height: 400px;">
         </canvas>
       </div>
 
+
       <!-- Buttons rechts -->
-      <div class="col-12 col-md-6 text-center">
+      <div class="col-12 col-md-6 text-center ">
         <h4 class="mb-4">Was möchtest du tun?</h4>
-        <div class="d-flex flex-wrap justify-content-center gap-3">
+        <div class="button-row">
           <a routerLink="/newrecipe" class="button">➕ Neues Rezept</a>
           <a routerLink="/myrecipes" class="button">🍴 Meine Rezepte</a>
           <a routerLink="/allrecipes" class="button">📖 In Rezepten schmökern</a>
