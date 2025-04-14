@@ -10,11 +10,12 @@ import { User } from '../shared/user';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../shared/auth/auth.service';
 import { CommonModule } from '@angular/common';
-import { passwortMatchValidator } from '../shared/validators/passwort-match/passwort-match.validator'; // Import des Validators
+import { passwortMatchValidator } from '../shared/validators/passwort-match/passwort-match.validator';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { ConfirmComponent } from '../shared/components/confirm/confirm.component';
 import {RouterLink} from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertService } from '../services/alertservice';
+import {AlertComponent} from '../alert/alert.component';
 
 
 export interface DialogData {
@@ -39,6 +40,7 @@ export interface DialogData {
     ReactiveFormsModule,
     MatDialogModule,
     RouterLink,
+    AlertComponent,
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -54,6 +56,9 @@ export class RegisterComponent implements OnInit {
   hide = true;
   hide2 = true;
   user!: User;
+  zeigeAbbrechenDialog = false;
+
+
 
   registerMessage: string = '';
 
@@ -61,12 +66,11 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private dialog: MatDialog,
     private router: Router,
-    private snackBar: MatSnackBar,
+    private alertService: AlertService
   ) {
   }
 
     ngOnInit(): void {
-    // Scrollen beim Initialisieren der Seite deaktivieren
     document.body.style.overflow = 'hidden';
     }
 
@@ -76,34 +80,28 @@ export class RegisterComponent implements OnInit {
     const passwort1 = values.passwort!;
     const passwort2 = values.passwort2!;
 
+
     if (passwort1 !== passwort2) {
-      this.showSnackbar('Die Passwörter stimmen nicht überein.', 'error');
+      this.alertService.zeigeAlert('Die Passwörter stimmen nicht überein.', 2000);
       return;
-    }
-
-    else if(name.length < 5) {
-      this.showSnackbar('Der Username muss mindestens 5 Zeichen lang sein.', 'error');
+    } else if(name.length < 5) {
+      this.alertService.zeigeAlert('Dein Username muss mindestens 5 Zeichen lang sein.', 2000);
       return;
-    }
-
-    else if (!name || !passwort1) {
-      this.showSnackbar('Bitte fülle alle Pflichtfelder aus.', 'error');
+    } else if (!name || !passwort1) {
+      this.alertService.zeigeAlert('Bitte fülle alle Pflichtfelder aus.', 2000);
       return;
     }
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(passwort1)) {
-      this.showSnackbar(
-        'Das Passwort entspricht nicht den Anforderungen.',
-        'error'
-      );
+      this.alertService.zeigeAlert('Dein Passwort entspricht nicht den Anforderungen.', 2000);
       return;
     }
 
     if (this.registerForm.valid) {
       this.authService.registerUser({name, passwort: passwort1}).subscribe({
         next: () => {
-          this.showSnackbar('Registrierung erfolgreich!', 'success');
+          this.alertService.zeigeAlert('Registrierung erfolgreich! 🍉 ', 2000);
           setTimeout(() => this.router.navigate(['/login']), 3000);
         },
         error: (error) => {
@@ -112,63 +110,25 @@ export class RegisterComponent implements OnInit {
 
           if (error.status === 0) {
             errorMessage = 'Keine Verbindung zum Server.';
-
           } else if (error.status === 400) {
             console.log('Server Error Response:', error.error);
-            if (error.error?.message === 'Benutzername bereits vergeben') {
-              errorMessage = 'Der Benutzername ist bereits vergeben. \nBitte wähle einen anderen Namen oder melde dich an.';
+            if (error.error?.message === 'Der Username ist bereits vergeben') {
+              errorMessage = 'Der Username ist bereits vergeben. \nBitte wähle einen anderen Namen oder melde dich an.';
             } else {
               errorMessage = error.error?.message || 'Fehler bei der Registrierung.';
             }
           }
-          this.showSnackbar(errorMessage, 'error');
+          this.alertService.zeigeAlert(errorMessage, 2000);
         }
       });
     }
   }
 
-  //code für snackbar (also pop-up)
-  private showSnackbar(message: string, type: 'success' | 'error'): void {
-    const config = {
-      duration: 3000,
-      panelClass: type === 'success' ? 'snackbar-success' : 'snackbar-error',
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      overlayPanelClass: ['red-snackbar']
-
-    };
-    // @ts-ignore
-    this.snackBar.open(message, '', config);
-  }
-
   //registrieren abbrechen dialog
-  onCancelRegistration(): void {
-    const dialogRef = this.dialog.open(ConfirmComponent, {
-      data: {
-        title: 'Registrierung abbrechen',
-        message: 'Möchtest du die Registrierung wirklich abbrechen? Alle Eingaben gehen dann verloren.',
-        confirmText: 'Ja, abbrechen',
-        cancelText: 'Nein, fortfahren',
-      },
-      panelClass: 'custom-dialog-container',
-      backdropClass: 'custom-backdrop',
-    });
-    dialogRef.afterOpened().subscribe(() => {
-      const dialogContainer = document.querySelector('.custom-dialog-container');
-      if (dialogContainer) {
-        dialogContainer.setAttribute('style', `
-        background-color:#722a35;
-        color: #f7ede8;
-      `);
-      }
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.router.navigate(['/login']);
-        }
-      });
-    });
+  abbrechenUndZurueck() {
+    this.router.navigate(['/login']);
   }
-
 
 }
+
+

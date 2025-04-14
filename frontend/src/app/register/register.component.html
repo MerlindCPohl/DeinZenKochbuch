@@ -1,3 +1,4 @@
+<app-alert></app-alert>
 <div class="wrapper">
   <form [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()">
   <mat-card class="shipping-card">
@@ -69,9 +70,10 @@
     <!-- Registrieren Button -->
 
     <mat-card-actions class="button-container">
-      <button routerLink="/login" type="button" class="rund-button login-button">
+      <button type="button" class="rund-button login-button" (click)="zeigeAbbrechenDialog = true">
         Abbrechen
       </button>
+
       <button type="submit" class="rund-button registrieren-button">
         Registrieren
       </button>
@@ -79,14 +81,19 @@
 
   </mat-card>
   </form>
-
-<!-- Fehlermeldungen und anderen NAchrichten -->
-<div *ngIf="registerMessage"
-     [ngClass]="{
-       'success': registerMessage === 'Registrierung erfolgreich!',
-       'error': registerMessage !== 'Registrierung nicht erfolgreich!'
-     }">
-  {{ registerMessage }}
 </div>
+
+<!-- Bestätigung für Abbrechen der Registrierung -->
+<div class="modal-backdrop request" *ngIf="zeigeAbbrechenDialog">
+  <div class="modal-content p-4 shadow rounded bg-white">
+    <h5 class="mb-3" style="margin : 0">Möchtest du die Registrierung wirklich abbrechen?</h5>
+    <p class="text-muted" style="font-size: 1rem; margin-bottom: 1.5rem; padding-top: 0">
+      Alle Eingaben gehen dann verloren.
+    </p>
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-danger" (click)="abbrechenUndZurueck()">Ja, abbrechen</button>
+      <button class="abbrechen-button" (click)="zeigeAbbrechenDialog = false">Nein, fortfahren</button>
+    </div>
+  </div>
 </div>
 

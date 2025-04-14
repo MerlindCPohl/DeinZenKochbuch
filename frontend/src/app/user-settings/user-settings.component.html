@@ -1,1 +1,62 @@
-<p>user-settings works!</p>
+<app-alert></app-alert>
+
+<div class="einstellungen-formular">
+<div class="container mt-4">
+  <div class="einstellungen-container">
+  <h2 class="text-center mb-4">Einstellungen</h2>
+
+  <!-- Benutzername anzeigen -->
+  <div class="mb-3">
+    <label for="username" class="form-label">Username:</label>
+    <input type="text" id="username" class="form-control" [value]="username" readonly>
+  </div>
+
+  <!-- Passwort anzeigen/ausblenden -->
+  <div class="mb-3">
+    <label for="password" class="form-label">Passwort:</label>
+    <div class="input-group">
+      <input [type]="showPassword ? 'text' : 'password'" id="password" class="form-control" [value]="password" readonly>
+      <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
+        <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Passwort ändern Button -->
+  <div class="text-end">
+    <button class="btn btn-success" (click)="zeigePasswortModal = true">
+      Passwort ändern
+    </button>
+  </div>
+</div>
+
+<!-- Modal zum Passwort ändern -->
+<div class="modal-backdrop request" *ngIf="zeigePasswortModal">
+  <div class="modal-content p-4 shadow rounded bg-white">
+    <h5 class="mb-3">Gib hier dein neues Passwort ein:</h5>
+
+    <div class="mb-3">
+      <input class="form-control"
+             placeholder="Neues Passwort"
+             type="password"
+             autocomplete="new-password"
+             [(ngModel)]="neuesPasswort">
+    </div>
+
+    <div class="mb-4">
+      <input class="form-control"
+             placeholder="Wiederholung"
+             type="password"
+             autocomplete="new-password"
+             [(ngModel)]="neuesPasswort2">
+    </div>
+
+
+    <div class="d-flex justify-content-between">
+      <button class="abbrechen-button" (click)="zeigePasswortModal = false">Abbrechen</button>
+      <button class="btn btn-success" (click)="passwortSpeichern()">Passwort speichern</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>

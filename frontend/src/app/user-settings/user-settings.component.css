@@ -1,0 +1,34 @@
+.btn-success {
+  padding: 8px 20px;
+  background-color: #005645;
+  border: none;
+  border-radius: 18px;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #42915d;
+}
+
+.abbrechen-button {
+  padding: 8px 20px;
+  background-color: #722a35;
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  transition: background-color 0.3s ease;
+}
+.abbrechen-button:hover {
+  background-color: #5c1e2b;
+}
+
+.einstellungen-formular {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.einstellungen-container {
+  padding: 1.3rem;
+  border-radius: 2rem;
+}

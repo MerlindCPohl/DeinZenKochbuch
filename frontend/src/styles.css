@@ -85,6 +85,7 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   position: relative;
   border-radius: 25px;
   margin-bottom: 3rem;
+  border-color: #005645 !important;
 }
 
 .container.mt-4 {
@@ -101,10 +102,8 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   width: 100%;
   background-color: #f1f3f5 !important;
   border-radius: 25px !important;
-  border: none;
   padding: 0.5rem 2rem;
   font-size: 1rem;
-  color: #722a35;
   box-shadow: none;
   position: relative;
 }
@@ -320,7 +319,7 @@ ul.list-group li:hover {
   padding: 8px 20px;
   font-size: 16px;
   color: white;
-  background-color: #722a35;
+  background-color: #006D57;
   border: none;
   border-radius: 18px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

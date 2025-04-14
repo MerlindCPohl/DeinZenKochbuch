@@ -79,6 +79,23 @@ router.post('/users/login', async (req, res) => {
     }
 });
 
+// GET Benutzer*in mit Passwort und Name
+router.get('/users/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await client.query('SELECT * FROM users WHERE id = $1', [id]);
+        if (result.rows.length > 0) {
+            res.json(result.rows[0]);
+        } else {
+            res.status(404).json({ message: 'User nicht gefunden' });
+        }
+    } catch (err) {
+        console.error('Fehler beim Abrufen des Users:', err);
+        res.status(500).json({ message: 'Serverfehler' });
+    }
+});
+
+
 // GET alle Rezepte
 router.get('/rezepte', async(req, res) => {
     try {

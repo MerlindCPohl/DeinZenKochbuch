@@ -13,7 +13,7 @@ body::-webkit-scrollbar {
 .container {
   max-width: 900px;
   background-color: #e9d0af;
-  border-radius: 16px;
+  border-radius: 25px;
   padding: 2rem;
   margin: 0 auto;
   padding-bottom: 2rem;
@@ -41,13 +41,14 @@ body::-webkit-scrollbar {
   color: white;
   background-color: #722a35;
   border: none;
-  border-radius: 8px;
+  border-radius: 18px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: background-color 0.3s ease;
+
 }
 
 .abbrechen-button:hover {
-  background-color: #5c1e2b;
+  background-color: #722a45;
   cursor: pointer;
 }
 
@@ -55,10 +56,15 @@ body::-webkit-scrollbar {
   padding: 8px 20px;
   font-size: 16px;
   color: white;
-  background-color: #722a35;
+  background-color: #005645;
   border: none;
-  border-radius: 8px;
+  border-radius: 18px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: background-color 0.3s ease;
+}
+
+.speichern-button:hover {
+  background-color: #006D57;
+  cursor: pointer;
 }
 

@@ -23,3 +23,19 @@
   background-color: #5c1e2b;
 }
 
+.neue-rezept-button {
+  background-color: #006D57;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.neue-rezept-button:hover {
+  background-color: #5c1e2b;
+  transform: translateY(-2px);
+}

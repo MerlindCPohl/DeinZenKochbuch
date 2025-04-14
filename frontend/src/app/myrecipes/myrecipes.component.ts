@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute, RouterLink} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { Sonderzeichenservice } from '../services/sonderzeichenservice';
@@ -8,7 +8,7 @@ import { Sonderzeichenservice } from '../services/sonderzeichenservice';
 @Component({
   selector: 'app-myrecipes',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, RouterLink],
   templateUrl: './myrecipes.component.html',
   styleUrl: './myrecipes.component.css'
 })
