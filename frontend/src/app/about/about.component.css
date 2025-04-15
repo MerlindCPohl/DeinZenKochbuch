@@ -1,0 +1,37 @@
+.about-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.about-card {
+  box-sizing: border-box !important;
+  max-width: 850px;
+  background-color:  #e9d0af;
+  border-radius: 16px;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.7;
+  text-align: center;
+  padding: 2rem !important; /* hinzugefügt für mehr Innenabstand */
+  margin: 3rem 1rem;
+}
+
+.zen-container {
+  font-style: italic;
+  text-align: center;
+  margin-top: 2.6rem;
+  color: #006D57;
+  font-size: larger;
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    padding: 1rem;
+  }
+
+  .about-card {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+}

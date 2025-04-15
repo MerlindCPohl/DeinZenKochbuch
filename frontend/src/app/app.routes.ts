@@ -20,6 +20,9 @@ export const routes: Routes = [
   { path: "user-settings", title: "User Settings", component: UserSettingsComponent, canActivate: [AuthGuard] },
   { path: "allrecipes", title: "Alle Rezepte", component: AllrecipesComponent },
   { path: "months", component: MonthsComponent, canActivate: [AuthGuard] },
+  { path: 'about',
+    loadComponent: () => import('./about/about.component').then(m => m.AboutComponent)
+  },
   { path: "**", redirectTo: "login" } //fallback falss falsche url eingabe
 
 ];
