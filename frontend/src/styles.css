@@ -94,7 +94,7 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
 .container.mt-4 {
   background-color: #e9d0af;
   padding: 2rem 0.1rem !important;
-  border-radius: 25px;
+  border-radius: 50px;
   margin-bottom: 3rem;
 }
 
@@ -116,7 +116,7 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   max-width: 700px;
   width: 100%;
   background-color: #f1f3f5 !important;
-  border-radius: 25px;
+  border-radius: 50px;
   font-size: large;
   transition: box-shadow 0.3s ease, transform 0.2s ease;
   border: none;
@@ -158,7 +158,7 @@ input.form-control:-webkit-autofill {
   width: 100%;
   height: 45px;
   padding-right: 2.5rem; /* Platz für X-Button */
-  border-radius: 20px;
+  border-radius: 50px;
   background-color: #f1f3f5;
   color: #006D57;;
   font-size: 1rem;
@@ -254,7 +254,7 @@ input.form-control:-webkit-autofill {
   width: 200vw;
   max-height: 90vh;
   overflow-y: auto;
-  border-radius: 25px;
+  border-radius: 50px;
   padding: 2rem;
   position: fixed;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
@@ -271,6 +271,8 @@ input.form-control:-webkit-autofill {
 
 /* === Schließen-Button im gewohnten Stil === */
 .modal-content .btn-close {
+  padding: 8px 20px;
+  border-radius: 18px;
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -280,7 +282,6 @@ input.form-control:-webkit-autofill {
   color: #006D57;;
   width: 30px;
   height: 30px;
-  border-radius: 50%;
   line-height: 1;
   text-align: center;
   transition: background-color 0.2s ease, transform 0.2s ease;
@@ -320,11 +321,11 @@ ul.list-group li:hover {
 /*pagination*/
 .pagination-button {
   padding: 8px 20px;
+  border-radius: 18px;
   font-size: 16px;
   color: white;
   background-color: #006D57;
   border: none;
-  border-radius: 18px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
   margin-bottom: 18px;
@@ -356,7 +357,7 @@ ul.list-group li:hover {
   transform: translate(-50%, -50%);
   z-index: 9999;
   padding: 2rem 2.5rem;
-  border-radius: 1rem;
+  border-radius: 50px;
   background-color: #006D57;
   color: #f1f3f5;
   font-size: x-large;
@@ -367,4 +368,10 @@ ul.list-group li:hover {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+.container {
+  margin-top: 1.8rem;
+  margin-bottom: 1.8rem;
+
 }

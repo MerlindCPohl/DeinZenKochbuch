@@ -8,21 +8,20 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AllrecipesComponent } from './allrecipes/allrecipes.component';
 import { MonthsComponent } from './months/months.component';
+import {AboutComponent} from './about/about.component';
 
 
 export const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: 'full' },
-  { path: "register", title: "Register", component: RegisterComponent },
+  { path: "register", title: "Registrieren", component: RegisterComponent },
   { path: "login", title: "Login", component: LoginComponent },
-  { path: "home", title: "Home", component: HomeComponent },
-  { path: "myrecipes", title: "My Recipes", component: MyrecipesComponent, canActivate: [AuthGuard] },
-  { path: "newrecipe", title: "Recipe", component: NewrecipeComponent, canActivate: [AuthGuard] },
-  { path: "user-settings", title: "User Settings", component: UserSettingsComponent, canActivate: [AuthGuard] },
+  { path: "home", title: "Startseite", component: HomeComponent },
+  { path: "myrecipes", title: "Meine Rezepte", component: MyrecipesComponent, canActivate: [AuthGuard] },
+  { path: "newrecipe", title: "Meine Rezepte", component: NewrecipeComponent, canActivate: [AuthGuard] },
+  { path: "user-settings", title: "Einstellungen", component: UserSettingsComponent, canActivate: [AuthGuard] },
   { path: "allrecipes", title: "Alle Rezepte", component: AllrecipesComponent },
-  { path: "months", component: MonthsComponent, canActivate: [AuthGuard] },
-  { path: 'about',
-    loadComponent: () => import('./about/about.component').then(m => m.AboutComponent)
-  },
+  { path: "months", title: "Jahresuhr", component: MonthsComponent, canActivate: [AuthGuard] },
+  { path: 'about', title:"Mehr erfahren", component: AboutComponent, canActivate: [AuthGuard] },
   { path: "**", redirectTo: "login" } //fallback falss falsche url eingabe
 
 ];

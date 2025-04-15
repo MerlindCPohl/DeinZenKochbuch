@@ -22,8 +22,8 @@ export class HomeComponent {
   }
   public chartData: ChartData<'pie', number[], string> = {
     labels: [
-      'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
-      'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
+      'Januar ❄️  ', 'Februar 🌱  ', 'März 🌿  ', 'April 🌷  ', 'Mai 🌳  ', 'Juni 🍓  ',
+      'Juli 🌻  ', 'August 🌾  ', 'September 🌰  ', 'Oktober 🍂  ', 'November 🍄‍  ', 'Dezember 🕯️  '
     ],
     datasets: [
       {

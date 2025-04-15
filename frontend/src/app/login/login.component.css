@@ -58,7 +58,7 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 25px;
+  border-radius: 50px;
   padding: 1em;
 }
 
@@ -84,19 +84,20 @@ p {
 .rund-button {
   margin: 0 !important;
   display: inline-block;
-  padding: 10px 24px;
+  padding: 8px 20px;
+  border-radius: 18px;
   font-size: 16px;
   border: none;
-  border-radius: 20px;
   text-decoration: none;
   color: #fffaf7;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Login = Corporate-Farbe */
 .login-button {
   background-color: #006D57;
+  padding: 8px 20px;
+  border-radius: 18px;
 
 }
 
@@ -104,16 +105,15 @@ p {
   background-color:  #42915d;
 }
 
-/* Registrieren = grün */
 .registrieren-button {
   background-color: #006D57;
+  padding: 8px 20px;
+  border-radius: 18px;
 }
 
 .registrieren-button:hover {
   background-color: #005645;
 }
-
-
 
 /*für den space zwischen den buttons, anders ging es nicht, hat jahre gedauert*/
 .spacer {
@@ -126,7 +126,7 @@ p {
   color: #333333;
   margin-top: 10px; /* Abstand zum oberen Rand */
   margin-bottom: 2px; /* Abstand zum unteren Rand */
-  padding-left: 0.5rem;
+  padding-left: 0.2rem;
 }
 
 /* eingabefelder */

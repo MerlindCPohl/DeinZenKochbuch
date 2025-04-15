@@ -1,4 +1,3 @@
-/* Entfernt den Scrollbalken, aber erlaubt Scrollen */
 html, body {
   overflow-y: auto;
   scrollbar-width: none;
@@ -13,12 +12,14 @@ body::-webkit-scrollbar {
 .container {
   max-width: 900px;
   background-color: #e9d0af;
-  border-radius: 25px;
-  padding: 2rem;
-  margin: 0 auto;
-  padding-bottom: 2rem;
-  margin-bottom: 3rem;
+  border-radius: 35px;
+  padding: 3rem 4rem 1.5rem 4rem;
+  margin-top: 1.8rem;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+form {
+  padding: 0.5rem;
 }
 
 .rezept-eingabe {
@@ -35,6 +36,11 @@ body::-webkit-scrollbar {
   margin-right: 7px;
 }
 
+.d-flex.justify-content-between.mt-4 {
+  margin-top: 3rem !important;
+}
+
+
 .abbrechen-button {
   padding: 8px 20px;
   font-size: 16px;
@@ -49,14 +55,13 @@ body::-webkit-scrollbar {
 
 .abbrechen-button:hover {
   background-color:  #42915d;
-  cursor: pointer;
 }
 
 .speichern-button {
   padding: 8px 20px;
   font-size: 16px;
   color: white;
-  background-color: #005645;
+  background-color: #006D57;
   border: none;
   border-radius: 18px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -64,7 +69,10 @@ body::-webkit-scrollbar {
 }
 
 .speichern-button:hover {
-  background-color: #006D57;
-  cursor: pointer;
+  background-color: #42915d;
 }
 
+.btn-danger {
+  padding: 8px 20px;
+  border-radius: 18px;
+}

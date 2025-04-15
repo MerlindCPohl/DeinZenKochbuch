@@ -197,7 +197,14 @@ export class NewrecipeComponent implements OnInit {
     }
   }
 
-  abbrechen() {
+ zeigeAbbrechenDialog: boolean = false;
+
+  abbrechen(): void {
+    this.zeigeAbbrechenDialog = true;
+  }
+
+  abbrechenUndZurueck(): void {
     this.router.navigate(['/home']);
   }
+
 }

@@ -12,7 +12,7 @@ body {
 }
 
 .shipping-card {
-  border-radius: 25px !important;
+  border-radius: 50px !important;
   color: #333333;
   background-color: #e9d0af !important;
   width: clamp(180px, 70vw, min(70vw, 1000px));
@@ -53,10 +53,10 @@ mat-form-field {
 .rund-button {
   margin: 0 !important;
   display: inline-block;
-  padding: 10px 24px;
+  padding: 8px 20px;
+  border-radius: 18px;
   font-size: 16px;
   border: none;
-  border-radius: 20px;
   text-decoration: none;
   color: #fffaf7;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -65,7 +65,9 @@ mat-form-field {
 
 /* Login = Corporate-Farbe */
 .login-button {
-  background-color: #006D57;;
+  background-color: #006D57;
+  padding: 8px 20px;
+  border-radius: 18px;
 
 }
 
@@ -73,9 +75,10 @@ mat-form-field {
   background-color:  #42915d;
 }
 
-/* Registrieren = grün */
 .registrieren-button {
   background-color: #006D57;
+  padding: 8px 20px;
+  border-radius: 18px;
 }
 
 .registrieren-button:hover {
@@ -99,7 +102,7 @@ mat-form-field {
 /* Styling für das Dialog-Panel */
 .confirm-dialog-panel {
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 50px !important;
   background-color: #f7eddc;
   max-width: 400px;
   margin: 0 auto;
@@ -135,15 +138,20 @@ mat-form-field {
 
 .abbrechen-button {
   padding: 8px 20px;
+  border-radius: 18px;
   font-size: 16px;
   color: white;
   background-color: #006D57;
   border: none;
-  border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: background-color 0.3s ease;
 }
 
 .abbrechen-button:hover {
   background-color:  #42915d ;
+}
+
+.btn-danger {
+  padding: 8px 20px;
+  border-radius: 18px;
 }

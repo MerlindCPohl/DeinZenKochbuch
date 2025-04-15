@@ -1,6 +1,6 @@
 <app-alert></app-alert>
 
-<div class="container mt-5" style="min-height: 100vh; padding-bottom: 100px;">
+<div class="container mt-5">
   <h2 class="text-center mb-4">
     {{ bearbeiteId ? 'Rezept bearbeiten' : 'Neues Rezept erstellen' }}
   </h2>
@@ -137,4 +137,18 @@
     </div>
 
   </form>
+</div>
+
+<!-- Modal  klick uf Abbrechen" -->
+<div class="modal-backdrop request" *ngIf="zeigeAbbrechenDialog">
+  <div class="modal-content p-4 shadow rounded bg-white">
+    <h5 class="mb-3" style="margin : 0">Möchtest du das Rezept wirklich verwerfen?</h5>
+    <p class="text-muted" style="font-size: 1rem; margin-bottom: 1.5rem; padding-top: 0">
+      Alle Eingaben gehen dann verloren.
+    </p>
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-danger" (click)="abbrechenUndZurueck()">Ja, verwerfen</button>
+      <button class="abbrechen-button" (click)="zeigeAbbrechenDialog = false">Nein, zurück zum Rezept</button>
+    </div>
+  </div>
 </div>

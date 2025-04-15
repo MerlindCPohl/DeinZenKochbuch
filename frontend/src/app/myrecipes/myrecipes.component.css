@@ -5,7 +5,6 @@
   flex-direction: column;
   position: relative;
   width: 100%;
-  padding: 2rem;
 }
 
 .abbrechen-button {
@@ -14,7 +13,7 @@
   color: white;
   background-color: #722a35;
   border: none;
-  border-radius: 8px;
+  border-radius: 18px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: background-color 0.3s ease;
 }
@@ -26,8 +25,8 @@
 .neue-rezept-button {
   background-color: #006D57;
   color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
+  padding: 8px 20px;
+  border-radius: 18px;
   text-decoration: none;
   font-size: 1rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);

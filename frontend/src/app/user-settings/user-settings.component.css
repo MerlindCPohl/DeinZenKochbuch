@@ -1,8 +1,8 @@
 .btn-success {
   padding: 8px 20px;
+  border-radius: 18px;
   background-color: #006D57;
   border: none;
-  border-radius: 18px;
   color: #fff;
   transition: background-color 0.3s ease;
 }
@@ -30,5 +30,5 @@
 
 .einstellungen-container {
   padding: 1.3rem;
-  border-radius: 2rem;
+  border-radius: 50px;
 }
