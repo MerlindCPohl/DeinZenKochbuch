@@ -1,0 +1,11 @@
+.badge-pill {
+  background-color: #ffffff !important;
+  color: #333 !important;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 2rem;
+  margin: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-weight: normal !important;
+}

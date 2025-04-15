@@ -27,6 +27,23 @@ export class MonthsComponent implements OnInit {
   rezept: any = null;
   ausgewaehlt: number | null = null;
 
+  saisonaleZutaten: string[] = [];
+
+  readonly saisonaleDaten: Record<number, string[]> = {
+    0: ['🥔 Kartoffel', '🥕 Möhre', '🧅 Zwiebel', '🥬 Grünkohl', '🍏 Apfel'],
+    1: ['🥔 Kartoffel', '🥕 Möhre', '🥬 Wirsing', '🧄 Knoblauch', '🍎 Apfel'],
+    2: ['🧅 Zwiebel', '🥬 Spinat', '🌿 Bärlauch', '🥕 Möhre', '🍎 Apfel'],
+    3: ['🥬 Spinat', '🥗 Rucola', '🥔 Frühkartoffel', '🌿 Bärlauch', '🍓 Erdbeere'],
+    4: ['🥬 Mangold', '🥦 Brokkoli', '🧄 Knoblauch', '🍓 Erdbeere', '🫛 Erbsen'],
+    5: ['🥒 Gurke', '🥦 Brokkoli', '🌽 Mais', '🍒 Kirsche', '🍓 Erdbeere'],
+    6: ['🍅 Tomate', '🥒 Zucchini', '🌽 Mais', '🫑 Paprika', '🍑 Pfirsich'],
+    7: ['🍆 Aubergine', '🫑 Paprika', '🧅 Zwiebel', '🍎 Apfel', '🍇 Beeren'],
+    8: ['🍏 Apfel', '🍐 Birne', '🥬 Chinakohl', '🥕 Möhre', '🍇 Trauben'],
+    9: ['🎃 Kürbis', '🍎 Apfel', '🧄 Knoblauch', '🥬 Wirsing', '🧅 Zwiebel'],
+    10: ['🧅 Zwiebel', '🥔 Kartoffel', '🎃 Kürbis', '🍏 Apfel', '🥬 Grünkohl'],
+    11: ['🥔 Kartoffel', '🥬 Grünkohl', '🧅 Zwiebel', '🥕 Möhre', '🍎 Apfel']
+  };
+
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
@@ -40,6 +57,7 @@ export class MonthsComponent implements OnInit {
       if (!isNaN(index)) {
         this.monatIndex = index;
         this.monatName = this.monatsname(index);
+        this.saisonaleZutaten = this.saisonaleDaten[index] || [];
         this.rezepteLaden();
       }
     });
@@ -84,12 +102,12 @@ export class MonthsComponent implements OnInit {
   }
 
   sucheVorschlaege(): void {
-    if (this.suchbegriff.length < 2) {
+    if (this.suchbegriff.length < 3) {
       this.vorschlaege = [];
       return;
     }
-
-    this.http.get<any[]>(`/api/suchvorschlaege?begriff=${encodeURIComponent(this.suchbegriff)}`).subscribe(data => {
+    this.http.get<any[]>(`/api/suchvorschlaege?query=${encodeURIComponent(this.suchbegriff)}`)
+    .subscribe(data => {
       this.vorschlaege = data;
     });
   }

@@ -1,10 +1,19 @@
 <app-alert></app-alert>
 
 <div class="container mt-4">
-  <!-- Dynamische Monatsüberschrift -->
+  <!-- Monatsüberschrift -->
   <h2 class="text-center mb-4">{{ monatName }}</h2>
+  <!-- Saisonale Gemüse/Obst -->
+  <div class="text-center mb-3">
+  <span
+    *ngFor="let zutat of saisonaleZutaten"
+    class="badge badge-pill badge-light text-dark border me-2"
+  >
+    {{ zutat }}
+  </span>
+  </div>
 
-  <!-- Suchleiste im gewohnten Design -->
+  <!-- Suchleiste  -->
   <div class="dropdown-wrapper">
     <div class="input-container with-dropdown">
       <input
