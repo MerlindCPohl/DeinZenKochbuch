@@ -177,7 +177,7 @@ export class NewrecipeComponent implements OnInit {
     } else {
       this.http.post('api/rezept', rezeptData).subscribe(
         () => {
-          this.alertService.zeigeAlert('Rezept erfolgreich gespeichert!');
+          this.alertService.zeigeAlert('Rezept erfolgreich gespeichert! 🥭');
           setTimeout(() => {
             this.rezept = {
               name: '',

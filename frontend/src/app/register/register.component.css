@@ -12,9 +12,9 @@ body {
 }
 
 .shipping-card {
-  border-radius: 25px;
-  color: #722a35;
-  background-color: #e9d0af ;
+  border-radius: 25px !important;
+  color: #333333;
+  background-color: #e9d0af !important;
   width: clamp(180px, 70vw, min(70vw, 1000px));
   margin: 0 auto;
   display: flex;
@@ -65,12 +65,12 @@ mat-form-field {
 
 /* Login = Corporate-Farbe */
 .login-button {
-  background-color: #722a35;
+  background-color: #006D57;;
 
 }
 
 .login-button:hover {
-  background-color: #5c1e2b;
+  background-color:  #42915d;
 }
 
 /* Registrieren = grün */
@@ -79,7 +79,7 @@ mat-form-field {
 }
 
 .registrieren-button:hover {
-  background-color: #005645;
+  background-color:  #42915d;
 }
 
 .button-container {
@@ -145,5 +145,5 @@ mat-form-field {
 }
 
 .abbrechen-button:hover {
-  background-color: #005645 ;
+  background-color:  #42915d ;
 }

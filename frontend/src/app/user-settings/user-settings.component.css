@@ -1,6 +1,6 @@
 .btn-success {
   padding: 8px 20px;
-  background-color: #005645;
+  background-color: #006D57;
   border: none;
   border-radius: 18px;
   color: #fff;
@@ -13,14 +13,14 @@
 
 .abbrechen-button {
   padding: 8px 20px;
-  background-color: #722a35;
+  background-color: #006D57;
   color: #fff;
   border: none;
   border-radius: 18px;
   transition: background-color 0.3s ease;
 }
 .abbrechen-button:hover {
-  background-color: #5c1e2b;
+  background-color: #42915d;
 }
 
 .einstellungen-formular {

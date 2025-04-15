@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
             if (response.userId) {
               localStorage.setItem('userId', response.userId);
             }
-            this.alertService.zeigeAlert('Login erfolgreich', 1000);
+            this.alertService.zeigeAlert('Login erfolgreich 🫛', 1000);
             setTimeout(() => this.router.navigate(['/home']), 1000);
           } else {
             this.alertService.zeigeAlert('Login fehlgeschlagen, bitte versuche es noch einmal.', 2000);

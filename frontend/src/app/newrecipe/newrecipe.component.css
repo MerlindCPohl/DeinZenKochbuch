@@ -39,7 +39,7 @@ body::-webkit-scrollbar {
   padding: 8px 20px;
   font-size: 16px;
   color: white;
-  background-color: #722a35;
+  background-color: #006D57;;
   border: none;
   border-radius: 18px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -48,7 +48,7 @@ body::-webkit-scrollbar {
 }
 
 .abbrechen-button:hover {
-  background-color: #722a45;
+  background-color:  #42915d;
   cursor: pointer;
 }
 

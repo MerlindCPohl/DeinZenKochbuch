@@ -12,8 +12,6 @@ import { AuthService } from '../shared/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { passwortMatchValidator } from '../shared/validators/passwort-match/passwort-match.validator';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import { ConfirmComponent } from '../shared/components/confirm/confirm.component';
-import {RouterLink} from '@angular/router';
 import { AlertService } from '../services/alertservice';
 import {AlertComponent} from '../alert/alert.component';
 
@@ -39,7 +37,6 @@ export interface DialogData {
     MatCardModule,
     ReactiveFormsModule,
     MatDialogModule,
-    RouterLink,
     AlertComponent,
   ],
   encapsulation: ViewEncapsulation.None

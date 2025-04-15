@@ -51,7 +51,7 @@ p {
 
 /*karte mit ganzem login*/
 .shipping-card {
-  color: #722a35;
+  color: #333333;
   background-color: #e9d0af ;
   width: clamp(180px, 70vw, min(70vw, 1000px));
   margin: 0 auto;
@@ -75,7 +75,7 @@ p {
 .mat-card-title {
   font-weight: bold;
   font-size: 40px;        /* etwa 32px */
-  color: #722a35;
+  color: #333333;
   margin-bottom: 1rem;
 }
 
@@ -96,12 +96,12 @@ p {
 
 /* Login = Corporate-Farbe */
 .login-button {
-  background-color: #722a35;
+  background-color: #006D57;
 
 }
 
 .login-button:hover {
-  background-color: #5c1e2b;
+  background-color:  #42915d;
 }
 
 /* Registrieren = grün */
@@ -123,7 +123,7 @@ p {
 /*text noch kein konto?*/
 .register-text {
   font-size: 16px;
-  color: #722a35;
+  color: #333333;
   margin-top: 10px; /* Abstand zum oberen Rand */
   margin-bottom: 2px; /* Abstand zum unteren Rand */
   padding-left: 0.5rem;
@@ -133,7 +133,7 @@ p {
 mat-form-field .mat-input-element {
   background-color: #f7ede8;
   border-radius: 15px; /* abgerundete Ecken */
-  color: #722a35;
+  color: #006D57;;
 }
 
 .wrapper {
