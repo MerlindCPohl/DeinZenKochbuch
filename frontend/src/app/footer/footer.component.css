@@ -4,8 +4,6 @@
   box-sizing: border-box;
 }
 
-/*irgendwie gab es voreinstellungen, wahrscheinlich bootstrap, die sind hiermit ausgeschaltet, sonst lässt sich der text nicht formuatieren */
-
 .footer {
   background-color: #f1f3f5;
   padding: 0.5rem 1rem;
@@ -19,9 +17,8 @@
   flex-grow: 0;
   padding-left: 8px;
   text-align: left;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: small;
-  color: #333333;
+  color: #1b1919;
 }
 
 .footer .container {

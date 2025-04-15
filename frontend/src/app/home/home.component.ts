@@ -29,15 +29,14 @@ export class HomeComponent {
       {
         data: Array(12).fill(1),
         backgroundColor: [
-          '#efdcc3', '#e9d0af', '#e4c49b', '#deb887', '#e4b981', '#eccf8a',
+          '#efdcc3', '#e9d0af', '#e4c49b', '#c9c497', '#c3bd8d', '#cdc693',
           '#e3cea1', '#d2b793', '#D2B48C' , '#c1b4a4', '#bcaaa4', '#bbb4aa'
         ],
-        hoverOffset: 30, // sanft rauszoomen
-        hoverBackgroundColor: [
-          '#B8A179'
-        ],
-        borderColor: '#F5DEB3',
-        borderWidth: 1
+        hoverOffset: 50,
+        hoverBackgroundColor: '#B8A179',
+        hoverBorderColor: '#B8A179',
+        borderColor: '#e9d0af',
+        borderWidth: 4
       }
     ]
   };
@@ -47,9 +46,12 @@ export class HomeComponent {
   public chartOptions: ChartConfiguration<'pie'>['options'] = {
     responsive: true,
     maintainAspectRatio: false,
+    layout: {
+      padding: 30
+    },
     interaction: {
       mode: 'nearest',
-      intersect: true
+      intersect: true //evtl auf false setzen?
     },
     plugins: {
       legend: {
@@ -64,11 +66,8 @@ export class HomeComponent {
         padding: 10,
         cornerRadius: 15,
         callbacks: {
-          // titel entfernen
           title: () => [],
-          // Keine zusätzlichen Labels
           label: () => '',
-          // nut monatsnamen
           beforeLabel: (context) => context.label || ''
         }
       },
@@ -77,6 +76,7 @@ export class HomeComponent {
       }
     }
   };
+
 
 
   chartClick(event: { event?: any, active?: any[] }): void {

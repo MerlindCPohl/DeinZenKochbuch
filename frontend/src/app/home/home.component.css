@@ -1,99 +1,148 @@
+html, body {
+  overflow: hidden !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+* {
+  box-sizing: border-box;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+
 .home-container {
-  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  border-radius: 50px;
+  box-sizing: border-box;
+  /*padding-top: 0.1rem;
+  padding-bottom: 5px ;
+  margin: 1.5rem;*/
+}
+
+.home-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  max-width: 1300px;
+  width: 100%;
+}
+/* Linke Seite (Pie) */
+.left-part {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin-right: 15rem;
+}
+
+/* Rechte Seite (Text & Buttons) */
+.right-part {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 2rem 1rem;
+  justify-content: center;
+  padding: 1rem;
 }
 
+/* Überschrift*/
+.welcome-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.8rem;
+  margin-bottom: 6rem;
+  margin-left: -21rem;
+  color: rgba(51, 51, 51, 0.82);
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0); /* x, y, blur, Farbe */
+  z-index: 2;
+  position: relative;
+}
 
-h4 {
-  margin-top: 1.5rem;
+/* Pie */
+.chart-wrapper canvas {
+  max-width: 450px;
+  height: auto;
+  margin-bottom: 1.7rem;
+  margin-left: 2rem;
+}
+
+/* Buttons */
+.button-row {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.button {
+  padding: 10px 16px;
+  border-radius: 18px;
+  background-color: #006D57;
+  color: #fffaf7;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.button:hover {
+  background-color: #42915d;
+  transform: translateY(-2px);
+}
+
+/*was willst du tun?*/
+.frage-class {
   margin-bottom: 1.5rem;
+  color: rgba(51, 51, 51, 0.91);
+}
+
+/*buttons mit frage*/
+.choice-class {
+  background-color: #e9d0af;
+  height: 10rem;
+  font-size: 3.8rem;
   text-align: center;
-  color: #333333;
+  margin-right: 10rem;
+  padding: 1.5rem 2.4rem;
+  border-radius: 50px;
+  max-width: 800px;
+  width: 90%;
 }
 
-  body {
-    overflow: hidden;
+/*nur buttons*/
+.button-row {
+  gap: 0.5rem;
+  justify-content: space-around;
+  flex-wrap: wrap;;
 }
 
-  .new-recipe-container {
-    margin-top: 2rem;
-  }
+.button {
+  padding: 5px;
+}
 
-  .button {
-    display: inline-block;
-    padding: 10px 13px;
-    font-size: 16px;
-    color: #fffaf7;
-    background-color: #006D57;
-    border: none;
-    border-radius: 18px;
-    text-decoration: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-
-  .button:hover {
-    background-color:  #42915d;
-    transform: translateY(-2px);
-  }
-
-  .button-row {
-    display: flex;
-    flex-direction: row;
-    gap: 1.5rem;
-    justify-content: center;
-    flex-wrap: nowrap;
-
-  }
-
-
-  @media (max-width: 768px) {
-    .chart-container,
-    .action-buttons {
-      width: 100% !important;
-      text-align: center;
-    }
-  }
-
-  .small-chart {
-    width: 50px !important;
-    height: 50px !important;
-  }
-
-  .home-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5rem;
-    flex-wrap: wrap;
-    padding: 2rem;
-  }
-
-  .chart-wrapper {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .welcome-wrapper {
-    flex: 1;
-    display: flex;
+/*für responsives design*/
+@media (max-width: 768px) {
+  .home-content {
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    color: #333333;
+    gap: 2rem;
+  }
 
+  .left-part {
+    margin-right: 0;
+    justify-content: center;
   }
 
   .welcome-title {
-    font-size: 2rem;
-    margin-bottom: 2rem;
     text-align: center;
-    z-index: 1;
-    position: relative;
-    color: #333333;
+    margin-left: 0;
   }
+
+  .choice-class {
+    margin-right: 0;
+    width: 90%;
+    padding: 2rem;
+  }
+}
