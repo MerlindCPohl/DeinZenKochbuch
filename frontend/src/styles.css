@@ -91,14 +91,6 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   border-color: #005645 !important;
 }
 
-.container.mt-4 {
-  background-color: #e9d0af;
-  padding: 2rem 0.1rem !important;
-  border-radius: 50px;
-  margin-bottom: 3rem;
-}
-
-
 /*  Inputfeld suchleiste*/
 .search-wrapper input.form-control {
   max-width: 500px;
@@ -370,8 +362,25 @@ ul.list-group li:hover {
   flex-grow: 1;
 }
 
-.container {
+/*alle container*/
+.rezepte-container {
+  background-color: #e9d0af;
+  padding: 2rem !important;
+  border-radius: 50px;
+  margin: 3rem auto 3rem auto !important; /* oben, seitlich zentriert, unten */
+  max-width: 900px; /* oder z. B. 80% für dynamische Breite */
+  box-sizing: border-box; /* stellt sicher, dass Padding in der Breite mitgerechnet wird */
+}
+
+.einstellungen-container {
+  background-color: #e9d0af;
+  padding: 1.5rem 2rem !important;
+  border-radius: 50px;
+  margin-bottom: 1.8rem;
+ }
+
+.about-container {
+  padding: 1.5rem 2rem !important;
   margin-top: 1.8rem;
   margin-bottom: 1.8rem;
-
 }

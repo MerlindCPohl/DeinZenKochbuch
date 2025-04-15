@@ -54,7 +54,7 @@ p {
   color: #333333;
   background-color: #e9d0af ;
   width: clamp(180px, 70vw, min(70vw, 1000px));
-  margin: 0 auto;
+  margin-top: 1.6rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
