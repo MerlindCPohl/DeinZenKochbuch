@@ -18,7 +18,7 @@ export class Sonderzeichenservice {
   }
 
   private readonly ausnahmenSS = ['kresse', 'passionsfrucht'];
-  private readonly ausnahmenUmlaute = ['balsamicoessig', 'sauerampfer', 'boeuf stroganoff'];
+  private readonly ausnahmenUmlaute = ['balsamicoessig', 'sauerampfer', 'liptauer','boeuf stroganoff'];
 
   public ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(text: string): string {
     return text

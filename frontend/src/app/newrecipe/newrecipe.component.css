@@ -14,9 +14,8 @@ body::-webkit-scrollbar {
   background-color: #e9d0af;
   border-radius: 35px;
   padding: 3rem 4rem 1.5rem 4rem;
-  margin-top: 1.8rem;
+  margin: 1.8rem auto 2.8rem auto;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  margin-bottom: 2.8rem;
 }
 
 form {
@@ -76,4 +75,34 @@ form {
 .btn-danger {
   padding: 8px 20px;
   border-radius: 18px;
+}
+
+.abbrechen-button,
+.speichern-button {
+  padding: 8px 20px;
+  font-size: 16px;
+  white-space: nowrap; /* verhindert Zeilenumbruch */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px; /* optional: max. Breite, anpassbar */
+}
+
+/*für responsives design*/
+@media (max-width: 768px) {
+  .d-flex.justify-content-between.mt-4 {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+  }
+
+  .container {
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
+  .abbrechen-button,
+  .speichern-button {
+    font-size: 14px;
+    width: 100%;
+    max-width: 100%;
+  }
 }

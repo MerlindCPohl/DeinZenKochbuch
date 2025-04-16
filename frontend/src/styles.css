@@ -367,9 +367,9 @@ ul.list-group li:hover {
   background-color: #e5c7a0;
   padding: 2rem !important;
   border-radius: 50px;
-  margin: 3rem auto 3rem auto !important; /* oben, seitlich zentriert, unten */
-  max-width: 900px; /* oder z. B. 80% für dynamische Breite */
-  box-sizing: border-box; /* stellt sicher, dass Padding in der Breite mitgerechnet wird */
+  margin: 3rem auto 3rem auto !important; /
+  max-width: 900px;
+  box-sizing: border-box;
 }
 
 .einstellungen-container {
