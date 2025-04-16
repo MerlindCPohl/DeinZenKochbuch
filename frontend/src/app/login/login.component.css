@@ -51,8 +51,9 @@ p {
 
 /*karte mit ganzem login*/
 .shipping-card {
+  font-family: 'Poppins', sans-serif !important;
   color: #333333;
-  background-color: #e9d0af ;
+  background-color: #e5c7a0 ;
   width: clamp(180px, 70vw, min(70vw, 1000px));
   margin-top: 1.6rem;
   display: flex;

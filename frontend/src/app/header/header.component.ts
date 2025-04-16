@@ -33,7 +33,4 @@ export class HeaderComponent {
     return ['/login', '/register'].includes(this.router.url);
   }
 
-
-
-
 }

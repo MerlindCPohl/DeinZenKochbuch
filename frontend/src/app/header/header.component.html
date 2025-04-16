@@ -1,20 +1,21 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="header-toolbar">
   <ng-container *ngIf="!isAuthPage()">
-
-  <a mat-button routerLink="/home">Startseite</a>
-  <span class="toolbar-spacer"></span>
-
-  <ng-container *ngIf="loggedIn(); else loggedOut">
-    <a mat-button routerLink="/allrecipes">Alle Rezepte</a>
-    <a mat-button routerLink="/myrecipes">Meine Rezepte</a>
-    <a mat-button routerLink="/user-settings">Einstellungen</a>
-    <a mat-button routerLink="/about">Mehr erfahren</a>
-    <span class="spacer"></span>
-    <button mat-button (click)="logout()">Logout</button>
-  </ng-container>
-
-  <ng-template #loggedOut>
-    <a mat-button routerLink="/login">Login</a>
-  </ng-template>
+    <div class="nav-container">
+      <div class="nav-left">
+        <a mat-button routerLink="/home">Startseite</a>
+        <a mat-button routerLink="/allrecipes">Alle Rezepte</a>
+        <a mat-button routerLink="/myrecipes">Meine Rezepte</a>
+        <a mat-button routerLink="/user-settings">Einstellungen</a>
+        <a mat-button routerLink="/about">Mehr erfahren</a>
+      </div>
+      <div class="nav-right">
+        <ng-container *ngIf="loggedIn(); else showLogin">
+          <button mat-button (click)="logout()">Logout</button>
+        </ng-container>
+        <ng-template #showLogin>
+          <a mat-button routerLink="/login">Login</a>
+        </ng-template>
+      </div>
+    </div>
   </ng-container>
 </mat-toolbar>

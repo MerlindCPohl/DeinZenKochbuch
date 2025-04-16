@@ -12,9 +12,10 @@ body {
 }
 
 .shipping-card {
+  font-family: 'Poppins', sans-serif !important;
   border-radius: 50px !important;
   color: #333333;
-  background-color: #e9d0af !important;
+  background-color: #e5c7a0 !important;
   width: clamp(180px, 70vw, min(70vw, 1000px));
   margin: 0 auto;
   display: flex;

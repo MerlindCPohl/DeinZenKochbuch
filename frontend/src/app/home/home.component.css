@@ -55,8 +55,8 @@ body::-webkit-scrollbar {
   font-weight: 200;
   font-style: normal;
   font-size: 3.8rem;
-  margin-bottom: 6rem;
-  margin-left: -17rem;
+  margin-bottom: 10rem;
+  margin-left: -14rem;
   color: rgba(28, 28, 28, 0.82);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0); /* x, y, blur, Farbe */
   z-index: 2;
@@ -68,7 +68,8 @@ body::-webkit-scrollbar {
   max-width: 450px;
   height: auto;
   margin-bottom: 1.7rem;
-  margin-left: 2rem;
+  margin-left: 3rem;
+
 }
 
 /* Buttons */
@@ -98,32 +99,49 @@ body::-webkit-scrollbar {
 /*was willst du tun?*/
 .frage-class {
   font-family: 'Poppins', sans-serif;
-  margin-bottom: 1.5rem;
   color: rgba(28, 28, 28, 0.82);
 }
 
 /*buttons mit frage*/
 .choice-class {
-  background-color: #e9d0af;
+  background-color: #e5c7a0;
   height: 10rem;
   font-size: 3.8rem;
   text-align: center;
-  margin-right: 10rem;
+  margin-left: -10.5rem;
   padding: 1.5rem 2.4rem;
   border-radius: 50px;
-  max-width: 800px;
+  max-width: 1000px;
   width: 90%;
+  min-height: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin-top: -7rem;
+
 }
 
 /*nur buttons*/
 .button-row {
   gap: 0.5rem;
   justify-content: space-around;
-  flex-wrap: wrap;;
+  flex-wrap: nowrap;
 }
 
 .button {
   padding: 5px;
+  white-space: nowrap;
+}
+
+.right-part {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  margin-top: -3rem; /* <-- Diesen Wert anpassen, z. B. -1rem, -3rem ... */
 }
 
 /*für responsives design
