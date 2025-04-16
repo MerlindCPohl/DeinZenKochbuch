@@ -10,7 +10,7 @@ html, body,  app-root {
   min-height: 100%;
   margin: 0;
   padding: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: 'Poppins', sans-serif
 }
 
 /*für footer*/
