@@ -9,6 +9,7 @@
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
+  font-family: 'Poppins', sans-serif;
 }
 
 .header-toolbar {
@@ -26,6 +27,7 @@
 .header{
   background-color: #f1f3f5;
   color: #333333;
+  font-family: 'Poppins', sans-serif;
 }
 
 .spacer {

@@ -9,6 +9,7 @@
   padding: 0.5rem 1rem;
   text-align: left;
   width: 100%;
+  color: #131212;
 }
 
 
@@ -18,7 +19,7 @@
   padding-left: 8px;
   text-align: left;
   font-size: small;
-  color: #1b1919;
+  font-family: 'Poppins', sans-serif;
 }
 
 .footer .container {

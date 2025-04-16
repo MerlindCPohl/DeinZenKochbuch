@@ -25,9 +25,9 @@
 
 .linie {
   border: none;
-  border-top: 2px solid #2c2c2c; /* oder eine Farbe deiner Wahl */
+  border-top: 2px solid rgba(28, 28, 28, 0.79);
   margin: 2rem auto;
-  width: 80%; /* oder z. B. 80% */
+  width: 80%;
 }
 
 

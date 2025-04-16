@@ -1,94 +1,102 @@
+/* Standard-Layout */
 html, body {
-  overflow: hidden !important;
-  height: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-* {
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #deb887 !important;
+  overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {
   display: none;
 }
-
-
 .home-container {
   display: flex;
   justify-content: center;
-  border-radius: 50px;
-  box-sizing: border-box;
-  /*padding-top: 0.1rem;
-  padding-bottom: 5px ;
-  margin: 1.5rem;*/
+  padding: 2rem 1rem;
 }
 
 .home-content {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 4rem;
-  max-width: 1300px;
+  justify-content: space-between;
+  gap: 3rem;
+  max-width: 1200px;
   width: 100%;
 }
-/* Linke Seite (Pie) */
+
+/* Linke Seite */
 .left-part {
   flex: 1;
   display: flex;
   justify-content: center;
-  margin-right: 15rem;
 }
 
-/* Rechte Seite (Text & Buttons) */
+.chart-wrapper canvas {
+  max-width: 400px;
+  height: auto;
+}
+
+/* Rechte Seite */
 .right-part {
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
   padding: 1rem;
+  transform: translateY(-6rem);
 }
 
-/* Überschrift*/
+/* Überschrift */
 .welcome-title {
-  font-family: "Poppins", sans-serif;
+  font-size: 3.6rem;
   font-weight: 200;
-  font-style: normal;
-  font-size: 3.8rem;
-  margin-bottom: 10rem;
-  margin-left: -14rem;
-  color: rgba(28, 28, 28, 0.82);
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0); /* x, y, blur, Farbe */
-  z-index: 2;
-  position: relative;
+  margin-bottom: 2rem;
+  color: #333;
+  text-align: center;
+  width: 100%;
 }
 
-/* Pie */
-.chart-wrapper canvas {
-  max-width: 450px;
-  height: auto;
-  margin-bottom: 1.7rem;
-  margin-left: 3rem;
+/* Block mit Frage + Buttons */
+.choice-class {
+  background-color: #e5c7a0;
+  border-radius: 50px;
+  padding: 1.5rem 2rem;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
 
+/* Frage */
+.frage-class {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #333;
 }
 
 /* Buttons */
 .button-row {
   display: flex;
-  gap: 1.2rem;
-  flex-wrap: wrap;
-  margin-top: 1rem;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .button {
-  padding: 10px 16px;
-  border-radius: 18px;
+  text-decoration: none !important;
+  padding: 8px 20px;
+  font-size: 1rem;
   background-color: #006D57;
-  color: #fffaf7;
-  text-decoration: none;
-  font-size: 16px;
-  transition: all 0.3s ease;
+  color: white;
+  border: none;
+  border-radius: 18px;
+  white-space: nowrap;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
 }
 
 .button:hover {
@@ -96,76 +104,44 @@ body::-webkit-scrollbar {
   transform: translateY(-2px);
 }
 
-/*was willst du tun?*/
-.frage-class {
-  font-family: 'Poppins', sans-serif;
-  color: rgba(28, 28, 28, 0.82);
-}
-
-/*buttons mit frage*/
-.choice-class {
-  background-color: #e5c7a0;
-  height: 10rem;
-  font-size: 3.8rem;
-  text-align: center;
-  margin-left: -10.5rem;
-  padding: 1.5rem 2.4rem;
-  border-radius: 50px;
-  max-width: 1000px;
-  width: 90%;
-  min-height: 8rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  margin-top: -7rem;
-
-}
-
-/*nur buttons*/
-.button-row {
-  gap: 0.5rem;
-  justify-content: space-around;
-  flex-wrap: nowrap;
-}
-
-.button {
-  padding: 5px;
-  white-space: nowrap;
-}
-
-.right-part {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1rem;
-  margin-top: -3rem; /* <-- Diesen Wert anpassen, z. B. -1rem, -3rem ... */
-}
-
-/*für responsives design
-@media (max-width: 768px) {
+/*responsives deisgn*/
+@media (max-width: 900px) {
   .home-content {
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 2rem;
   }
 
   .left-part {
-    margin-right: 0;
-    justify-content: center;
+    margin: 0;
+  }
+
+  .right-part {
+    align-items: center;
   }
 
   .welcome-title {
-    text-align: center;
-    margin-left: 0;
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
   }
 
   .choice-class {
-    margin-right: 0;
-    width: 90%;
-    padding: 2rem;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 90vw;
   }
-}  */
 
+  .button-row {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .button {
+    max-width: 250px;
+    width: 100%;
+  }
+}
