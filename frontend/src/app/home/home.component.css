@@ -4,16 +4,21 @@ html, body {
   padding: 0;
   font-family: 'Poppins', sans-serif;
   background-color: #deb887 !important;
-  overflow-x: hidden;
+  overflow: hidden;
+  height: 100vh;
 }
 
 body::-webkit-scrollbar {
   display: none;
 }
+
 .home-container {
   display: flex;
   justify-content: center;
   padding: 2rem 1rem;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
 }
 
 .home-content {
@@ -34,8 +39,11 @@ body::-webkit-scrollbar {
 }
 
 .chart-wrapper canvas {
-  max-width: 400px;
-  height: auto;
+  width: 400px;
+  height: 400px;
+  max-width: 100%;
+  display: block;
+  box-sizing: border-box;
 }
 
 /* Rechte Seite */
@@ -46,8 +54,9 @@ body::-webkit-scrollbar {
   align-items: flex-start;
   justify-content: center;
   padding: 1rem;
-  transform: translateY(-6rem);
-  margin-top: 5rem;
+  margin-top: -4rem;
+  margin-right: 3rem;
+  /*margin-top: -5rem;*/
 }
 
 /* Überschrift */

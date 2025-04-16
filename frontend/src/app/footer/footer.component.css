@@ -10,6 +10,7 @@
   text-align: left;
   width: 100%;
   color: #131212;
+  font-size: small;
 }
 
 
@@ -18,7 +19,6 @@
   flex-grow: 0;
   padding-left: 8px;
   text-align: left;
-  font-size: small;
   font-family: 'Poppins', sans-serif;
 }
 
