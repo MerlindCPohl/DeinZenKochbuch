@@ -12,7 +12,7 @@ body::-webkit-scrollbar {
 .container {
   max-width: 900px;
   background-color: #e9d0af;
-  border-radius: 35px;
+  border-radius: 50px;
   padding: 3rem 4rem 1.5rem 4rem;
   margin: 1.8rem auto 2.8rem auto;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
@@ -74,7 +74,7 @@ form {
 
 .btn-danger {
   padding: 8px 20px;
-  border-radius: 18px;
+  border-radius: 15px;
 }
 
 .abbrechen-button,

@@ -6,7 +6,7 @@
 .about-card {
   box-sizing: border-box !important;
   max-width: 850px;
-  background-color:  #e9d0af;
+  background-color:  #e5c7a0;
   border-radius: 50px;
   color: #333;
   font-size: 1rem;
@@ -25,7 +25,7 @@
 
 .linie {
   border: none;
-  border-top: 2px solid rgba(28, 28, 28, 0.79);
+  border-top: 2px solid rgb(27, 25, 25);
   margin: 2rem auto;
   width: 80%;
 }

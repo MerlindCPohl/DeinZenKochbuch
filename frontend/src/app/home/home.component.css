@@ -47,6 +47,7 @@ body::-webkit-scrollbar {
   justify-content: center;
   padding: 1rem;
   transform: translateY(-6rem);
+  margin-top: 5rem;
 }
 
 /* Überschrift */

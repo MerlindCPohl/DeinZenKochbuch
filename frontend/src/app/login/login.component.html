@@ -26,7 +26,7 @@
         <div class="col">
           <mat-form-field appearance="fill" class="full-width">
             <input matInput [type]="hide ? 'password' : 'text'" placeholder="Passwort" formControlName="passwort">
-            <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <button type="button" mat-icon-button matSuffix (click)="zeigePasswort($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
             @if(loginForm.controls['passwort'].hasError('required')) {

@@ -33,6 +33,7 @@ html, body,  app-root {
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   background-color: #deb887;
 }
 
@@ -62,11 +63,14 @@ router-outlet {
   border-color: #006D57;;
 }
 
-/* nicht scrollen in Chrome/Safari */
+/* nicht scrollen in Chrome/Safari*/
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-  display: none;
+  width: 0px;
+  background: transparent;
 }
+
+
 
 /* styling material felder*/
 mat-form-field.mat-form-field-appearance-fill .mat-form-field-flex {

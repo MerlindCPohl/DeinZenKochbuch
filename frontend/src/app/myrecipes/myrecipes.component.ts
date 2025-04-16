@@ -25,8 +25,12 @@ export class MyrecipesComponent implements OnInit {
     if (!userId) return;
 
     this.http.get<any[]>(`/api/rezepteuser/${userId}`).subscribe(daten => {
-      this.meineRezepte = daten;
+      this.meineRezepte = daten.map(rezept => ({
+        ...rezept,
+        name: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(rezept.name)
+      }));
     });
+
   }
 
   bestaetigeLoeschen(rezept: any) {
@@ -54,12 +58,15 @@ export class MyrecipesComponent implements OnInit {
     this.http.get<any>(`/api/rezeptdetail/${id}`).subscribe(data => {
       this.rezept = {
         ...data,
+        name: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(data.name),
+        anleitung: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(data.anleitung),
         zutaten: data.zutaten.map((z: any) => ({
           ...z,
           name: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(z.name),
-          mengeneinheit: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(z.mengeneinheit)
+          mengeneinheit: this.sonderzeichenservice.uebersetzeMengeneinheit(z.mengeneinheit)
         }))
-      };
+
+    };
       this.ausgewaehltFuerModal = id;
     });
   }

@@ -47,9 +47,10 @@ export class LoginComponent implements OnInit {
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
 
-  togglePasswordVisibility(event: Event) {
+  zeigePasswort(event: Event) {
     event.preventDefault();
     event.stopPropagation();
+    this.hide = !this.hide;
   }
 
   ngOnInit(): void {
@@ -82,10 +83,6 @@ export class LoginComponent implements OnInit {
     } else {
       this.alertService.zeigeAlert('Bitte fülle alle Felder korrekt aus.', 2000);
     }
-  }
-
-  zeigeLoginStatus(nachricht: string, erfolg: boolean = true) {
-    this.alertService.zeigeAlert(nachricht, erfolg ? 1500 : 1500);
   }
 
 

@@ -83,8 +83,9 @@ export class NewrecipeComponent implements OnInit {
       this.ausgewaehlteZutaten = data.zutaten.map((z: any) => ({
         id: z.id,
         menge: z.menge,
-        name: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(z.name),
-        mengeneinheit: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(z.mengeneinheit)
+        name: this.sonderzeichenservice.formatZutatName(z.name),
+        mengeneinheit: this.sonderzeichenservice.uebersetzeMengeneinheit(z.mengeneinheit)
+
       }));
       console.log('Zutaten aus der API:', data.zutaten);
     });
@@ -96,7 +97,7 @@ export class NewrecipeComponent implements OnInit {
     if (!bereitsHinzugefuegt) {
       this.ausgewaehlteZutaten.push({
         ...zutat,
-        name: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(zutat.name),
+        name: this.sonderzeichenservice.formatZutatName(zutat.name),
         menge: '',
         mengeneinheit: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(zutat.mengeneinheit)
       });
@@ -153,7 +154,7 @@ export class NewrecipeComponent implements OnInit {
       id: zutat.id,
       menge: Number(zutat.menge),
       name: this.sonderzeichenservice.ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(zutat.name),
-      mengeneinheit: this.sonderzeichenservice.ersetzeUmlauteUndSonderzeichenFuerSpeichernInDB(zutat.mengeneinheit)
+      mengeneinheit: this.sonderzeichenservice.uebersetzeMengeneinheit(zutat.mengeneinheit)
     }));
 
     const rezeptData = {
@@ -167,7 +168,7 @@ export class NewrecipeComponent implements OnInit {
     if (this.bearbeiteId) {
       this.http.put(`/api/updaterezepte/${this.bearbeiteId}`, rezeptData).subscribe(
         () => {
-          this.alertService.zeigeAlert('Rezept aktualisiert!');
+          this.alertService.zeigeAlert('Rezept aktualisiert! 🫐');
           setTimeout(() => {
             this.router.navigate(['/myrecipes']);
           }, 2000);
