@@ -16,6 +16,7 @@
   flex-wrap: wrap;
   height: auto;
   padding: 1rem 1rem;
+  font-family: 'Poppins', sans-serif
 }
 
 .nav-left, .nav-right {

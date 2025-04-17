@@ -166,7 +166,6 @@ input.form-control:-webkit-autofill {
   padding-right: 2.5rem; /* Platz für X-Button */
   border-radius: 50px;
   background-color: #f1f3f5;
-  color: #006D57;;
   font-size: 1rem;
   padding-top: 0.9rem;
   padding-bottom: 1rem;
@@ -285,7 +284,6 @@ input.form-control:-webkit-autofill {
   background-color: transparent;
   border: none;
   font-size: 1.5rem;
-  color: #006D57;;
   width: 30px;
   height: 30px;
   line-height: 1;
