@@ -59,6 +59,17 @@ body::-webkit-scrollbar {
   /*margin-top: -5rem;*/
 }
 
+.chart-wrapper canvas {
+  width: 400px !important;
+  height: 400px !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 400px !important;
+  min-height: 400px !important;
+  display: block;
+  box-sizing: border-box;
+}
+
 /* Überschrift */
 .welcome-title {
   font-size: 3.6rem;
@@ -129,6 +140,12 @@ body::-webkit-scrollbar {
 
   .right-part {
     align-items: center;
+    width: 100%;
+    max-width: 90vw;
+    margin: 0 auto !important;
+    flex-direction: column;
+    text-align: center;
+    transform: translateY(-2rem);
   }
 
   .welcome-title {
@@ -137,10 +154,12 @@ body::-webkit-scrollbar {
   }
 
   .choice-class {
-    margin-top: 1rem;
-    padding: 1.5rem;
     width: 100%;
     max-width: 90vw;
+    margin: 0 auto !important;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .button-row {
@@ -154,4 +173,12 @@ body::-webkit-scrollbar {
     max-width: 250px;
     width: 100%;
   }
+
+  .frage-class {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
 }

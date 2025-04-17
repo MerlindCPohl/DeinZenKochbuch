@@ -18,9 +18,9 @@ import { Chart } from 'chart.js';
 
 export class HomeComponent {
 
-
   constructor(private router: Router) {
   }
+
   public chartData: ChartData<'pie', number[], string> = {
     labels: [
       'Januar ❄️  ', 'Februar 🌱  ', 'März 🌿  ', 'April 🌷  ', 'Mai 🌳  ', 'Juni 🍓  ',
