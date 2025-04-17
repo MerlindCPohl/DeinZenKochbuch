@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loginForm.setValue({ name: 'Chandra.Curry.Lover', passwort: 'kochenUndSo' });
     document.body.style.overflow = 'hidden';
   }
 
@@ -84,6 +85,5 @@ export class LoginComponent implements OnInit {
       this.alertService.zeigeAlert('Bitte fülle alle Felder korrekt aus.', 2000);
     }
   }
-
 
 }

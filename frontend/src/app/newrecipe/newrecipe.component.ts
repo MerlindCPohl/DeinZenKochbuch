@@ -60,6 +60,7 @@ export class NewrecipeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    document.body.style.overflow = 'auto';
     const id = this.route.snapshot.queryParamMap.get('id');
     if (id) {
       this.bearbeiteId = +id;
