@@ -95,11 +95,12 @@ Rechts oben in der Kopfzeile findest du den Button für das Logout.
 Sollte mal eine Zutat nicht verfügbar im Dropdown, dann kann es sein, dass sie noch nicht in der Datenbank existiert.
 Damit du dein Rezept trotzdem einspeichern kannst, kannst du mir gerne eine Email schreiben:
 merlind.pohl@student.htw-berlin.de
+
 Dann füge ich die Zutat hinzu.
 
 
 Ich freue mich, wenn die App dir Freude bereitet und sie dir ein Gefühl für den Wechsel der Jahreszeiten bietet.
-
+Ich wünsche dir viel Spaß beim Kochen.
 Lass es dir schmecken.
 🍽 🤍
 
