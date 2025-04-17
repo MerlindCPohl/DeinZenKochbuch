@@ -1,11 +1,10 @@
-import { Component, inject } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
-
 
 
 @Component({
@@ -16,10 +15,9 @@ import { Chart } from 'chart.js';
   imports: [CommonModule, RouterModule, NgChartsModule]
 })
 
-export class HomeComponent {
+export class HomeComponent  {
+    constructor(private router: Router) {}
 
-  constructor(private router: Router) {
-  }
 
   public chartData: ChartData<'pie', number[], string> = {
     labels: [
