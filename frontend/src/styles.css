@@ -113,6 +113,7 @@ mat-form-field.mat-form-field-appearance-fill .mat-input-element {
   box-shadow: none;
   position: relative;
   text-align: center !important;
+  color: rgba(28, 28, 28, 0.91);
 }
 
 
@@ -377,6 +378,7 @@ ul.list-group li:hover {
 
 /*alle container*/
 .rezepte-container {
+  font-family: 'Poppins', sans-serif;
   background-color: #e5c7a0;
   padding: 2rem !important;
   border-radius: 50px;
@@ -386,6 +388,7 @@ ul.list-group li:hover {
 }
 
 .einstellungen-container {
+  font-family: 'Poppins', sans-serif;
   background-color: #e5c7a0;
   padding: 1.5rem 2rem !important;
   border-radius: 50px;

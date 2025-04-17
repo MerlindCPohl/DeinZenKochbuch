@@ -1,5 +1,4 @@
 import { Component} from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -95,9 +94,13 @@ export class AllrecipesComponent {
 
 
   vorschlagAuswaehlen(vorschlag: { begriff: string, typ: string }) {
-    const original = vorschlag.begriff;
+    let original = vorschlag.begriff;
     this.suchbegriff = original;
     this.vorschlaege = [];
+
+    if (original.toLowerCase() === 'apfel') {
+      original = 'Aepfel';
+    }
 
     if (vorschlag.typ === 'rezeptname') {
       const rezept = this.allRecipes.find(r =>

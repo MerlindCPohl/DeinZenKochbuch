@@ -106,16 +106,26 @@ export class MonthsComponent implements OnInit {
       this.vorschlaege = [];
       return;
     }
+
     this.http.get<any[]>(`/api/suchvorschlaege?query=${encodeURIComponent(this.suchbegriff)}`)
-    .subscribe(data => {
-      this.vorschlaege = data;
-    });
+      .subscribe(data => {
+        this.vorschlaege = data.map(v => ({
+          ...v,
+          begriff: this.sonderzeichenservice.uebersetzeUmlauteUndSonderzeichenAusDBFuerAnzeigeImFrontend(v.begriff)
+        }));
+      });
   }
 
+
   vorschlagAuswaehlen(v: any): void {
-    const original = v.begriff;
+    let original = v.begriff;
     this.suchbegriff = original;
     this.vorschlaege = [];
+
+    if (original.toLowerCase() === 'apfel') {
+      original = 'Aepfel';
+    }
+
 
     if (v.typ === 'rezeptname') {
       const rezept = this.rezepte.find(r =>
