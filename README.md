@@ -85,7 +85,7 @@ Es soll ja alles im Zen sein. 🧘
 
 
 Unter dem Tab Einstellungen kannst du dein Passwort ändern und du siehst deinen Usernamen.
-Den kannst du allerdings nicht ändern.
+Den kannst du allerdings nicht ändern. 🍋‍🟩
 
 ![Screenshot 2025-04-17 151055](https://github.com/user-attachments/assets/18e62c7b-4a60-417c-8c8e-1a8c123918a5)
 
@@ -101,7 +101,7 @@ Dann füge ich die Zutat hinzu.
 Ich freue mich, wenn die App dir Freude bereitet und sie dir ein Gefühl für den Wechsel der Jahreszeiten bietet.
 
 Lass es dir schmecken.
-🥣 💙
+🍽 🤍
 
 
 _____________________________
