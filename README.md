@@ -33,9 +33,12 @@ Dazu kannst du entweder das Terminal in deiner IDE nutzen und öffnest ein weite
 Ich habe einfach immer zwei Mal das Terminal meines Laptops geöffnet, das geht auch.
 Du navigierst in dem einen Terminal in den Ordner Frontend ( DeinZenKochbuch > frontend) und in dem anderen in das Backend (DeinZenkochbuch > backend).
 Das Frontend startest du dann mit dem Befehl: 
-ng serve --proxy-config proxy.config.json
+
+ng serve --proxy-config proxy.conf.json
+
 Das startet das Angular Framework und sorgt für eine saubere Kommunikation mit dem Server durch die Proxy-Verbindung.
 Das Backend startest du mit dem Befehl 
+
 node server.js.
 
 Nun kannst du auf den Link mit dem localhost im Terminal des Frontends klicken und wirst zur App geleitet.
