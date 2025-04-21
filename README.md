@@ -37,7 +37,7 @@ Das Frontend startest du dann mit dem Befehl:
 ng serve --proxy-config proxy.conf.json
 
 Das startet das Angular Framework und sorgt für eine saubere Kommunikation mit dem Server durch die Proxy-Verbindung.
-Das Backend startest du mit dem Befehl 
+Das Backend startest du mit dem Befehl:
 
 node server.js.
 
