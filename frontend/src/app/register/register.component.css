@@ -194,4 +194,28 @@ mat-form-field {
   .spacer {
     display: none !important;
   }
+
+  .modal-content.modal-rund {
+    width: 90%;
+    max-width: 320px;
+    padding: 1.5rem 1rem !important;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    border-radius: 20px !important;
+    text-align: center;
+  }
+
+  .modal-content .d-flex {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: center;
+  }
+
+  .modal-content button {
+    width: 100%;
+    max-width: 220px;
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
 }
