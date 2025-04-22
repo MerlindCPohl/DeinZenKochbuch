@@ -13,43 +13,6 @@ function ersetzeFuerSuche(text) {
         .replace(/Ü/g, 'Ue');
 }
 
-
-// Login-Endpunkt
-router.post('/login', async (req, res) => {
-    const { name, passwort } = req.body;
-    console.log("Loginversuch:", name, passwort); // Debug
-
-    try {
-        const userQuery = 'SELECT * FROM users WHERE name = $1';
-        const userResult = await client.query(userQuery, [name]);
-        console.log("Query-Ergebnis:", userResult.rows);
-
-        if (userResult.rows.length === 0) {
-            // user not found
-            return res.status(404).json({ message: 'User nicht gefunden' });
-        }
-
-        const user = userResult.rows[0];
-
-        if (user.passwort !== passwort) {
-            // Passwort stimmt nicht überein
-            return res.status(401).json({ message: 'Falsches Passwort' });
-        }
-
-        // Login erfolgreich
-        res.json({
-            message: 'Login erfolgreich!!!!!',
-            userId: user.id,
-            name: user.name,
-        });
-    } catch (err) {
-        console.error("Login-Fehler:", err.stack);
-        console.error(err);
-        res.status(500).json({ message: 'Fehler beim Login xxxxx' });
-    }
-});
-
-
 // POST User einloggen
 router.post('/users/login', async (req, res) => {
     const { name, passwort } = req.body;
