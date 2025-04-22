@@ -324,13 +324,6 @@ router.put('/updaterezepte/:id', async (req, res) => {
     }
 });
 
-
-//Test:
-router.post('/test', express.json(), (req, res) => {
-    console.log("Test-Route wurde aufgerufen!");
-    res.send("Route funktioniert!");
-});
-
 // UPDATE das Passwort eines Users
 router.put('/users/:id/passwort', async (req, res) => {
     const { id } = req.params;
