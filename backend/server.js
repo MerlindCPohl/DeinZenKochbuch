@@ -4,6 +4,7 @@ const cors = require('cors');
 const routes = require('./routes');
 const app = express();
 const PORT = 3000;
+const client = require('./db');
 
 app.use(cors({
     origin: 'http://localhost:4200',
@@ -27,5 +28,6 @@ app.use((req, res) => {
     res.status(404).json({ error: 'Not Found' });
 });
 
-app.use(express.json());
+
+
 

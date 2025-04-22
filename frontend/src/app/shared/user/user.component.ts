@@ -10,6 +10,7 @@ import { AuthService } from '../../shared/auth/auth.service';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
+
 export class UserComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);

@@ -17,9 +17,12 @@ function ersetzeFuerSuche(text) {
 // Login-Endpunkt
 router.post('/login', async (req, res) => {
     const { name, passwort } = req.body;
+    console.log("Loginversuch:", name, passwort); // Debug
+
     try {
         const userQuery = 'SELECT * FROM users WHERE name = $1';
         const userResult = await client.query(userQuery, [name]);
+        console.log("Query-Ergebnis:", userResult.rows);
 
         if (userResult.rows.length === 0) {
             // user not found
@@ -40,6 +43,7 @@ router.post('/login', async (req, res) => {
             name: user.name,
         });
     } catch (err) {
+        console.error("Login-Fehler:", err.stack);
         console.error(err);
         res.status(500).json({ message: 'Fehler beim Login xxxxx' });
     }
@@ -98,9 +102,12 @@ router.get('/users/:id', async (req, res) => {
 
 // GET alle Rezepte
 router.get('/rezepte', async(req, res) => {
+    console.log("GET /rezepte aufgerufen");
     try {
         const result = await client.query(`SELECT * FROM rezepte`);
+        console.log("Ergebnis (alle Rezepte):", result.rows.length);
         res.status(200).json(result.rows);
+
     } catch (err) {
         console.error('Fehler beim Laden aller Rezepte:', err);
         res.status(500).send('Fehler beim Abrufen der Rezepte');
@@ -268,8 +275,10 @@ router.post('/users/neu', async(req, res) => {
 // GET alle Rezepte eines users (meine rezepte)
 router.get('/rezepteuser/:userId', async (req, res) => {
     const { userId } = req.params;
+    console.log("⚡ GET /rezepteuser aufgerufen mit userId:", userId);
 
     if (!userId) {
+        console.log("❌ Keine User-ID angegeben");
         return res.status(400).json({ error: 'User-ID fehlt' });
     }
 
@@ -278,9 +287,11 @@ router.get('/rezepteuser/:userId', async (req, res) => {
             'SELECT id, name FROM rezepte WHERE erstelltvon = $1',
             [userId]
         );
+        console.log(`✅ Gefundene Rezepte für User ${userId}:`, result.rows.length);
         res.status(200).json(result.rows);
     } catch (err) {
-        console.error('Fehler beim Laden der Rezepte:', err);
+
+        console.error('Fehler beim Laden der Rezepte des Users:', err);
         res.status(500).json({ error: 'Fehler beim Abrufen der Rezepte' });
     }
 });
@@ -441,8 +452,10 @@ router.get('/suchvorschlaege', async (req, res) => {
 //get anfrage für monatsspezifische rezepte
 router.get('/rezepte-saison/:monat', async (req, res) => {
     const monat = parseInt(req.params.monat, 10);
+    console.log("GET /rezepte-saison aufgerufen mit Monat:", monat);
 
     if (isNaN(monat) || monat < 0 || monat > 11) {
+        console.log("❌ Ungültiger Monatswert:", monat);
         return res.status(400).send('Ungültiger Monat');
     }
 

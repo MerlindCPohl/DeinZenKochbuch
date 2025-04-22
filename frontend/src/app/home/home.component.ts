@@ -16,6 +16,7 @@ import { Chart } from 'chart.js';
 })
 
 export class HomeComponent  {
+
     constructor(private router: Router) {}
 
 

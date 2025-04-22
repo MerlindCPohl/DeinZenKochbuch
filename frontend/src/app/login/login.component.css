@@ -71,11 +71,12 @@ p {
   justify-content: space-between;
   gap: 70px;
   padding: 20px;
+  width: 100%
 }
 
 .mat-card-title {
   font-weight: bold;
-  font-size: 40px;        /* etwa 32px */
+  font-size: 40px;
   color: #333333;
   margin-bottom: 1rem;
 }
@@ -170,4 +171,17 @@ mat-form-field .mat-input-element {
 
 .col:last-child {
   margin-right: 0;
+}
+
+@media (max-width: 400px) {
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rund-button {
+    flex: 0 1 auto; /* Buttons schrumpfen nicht mehr unnötig */
+    width: 100%;
+    max-width: 220px;
+  }
 }
